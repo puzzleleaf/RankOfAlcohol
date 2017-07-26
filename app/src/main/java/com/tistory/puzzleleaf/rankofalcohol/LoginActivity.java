@@ -1,12 +1,13 @@
 package com.tistory.puzzleleaf.rankofalcohol;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -20,9 +21,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.tistory.puzzleleaf.rankofalcohol.animation.LoginAnimation;
 import com.tistory.puzzleleaf.rankofalcohol.auth.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.progress.LoadingDialog;
 
@@ -40,8 +41,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private GoogleApiClient mGoogleApiClient;
 
-
-    @BindView(R.id.nick_name) TextView nickNameTextView;
     @BindView(R.id.sign_in_button) SignInButton signInButton;
 
     @Override
@@ -50,9 +49,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.login_image, new LoginAnimation());
+        fragmentTransaction.commit();
+
         loginInit();
 
     }
+
 
     @OnClick(R.id.sign_in_button)
     public void signIn(){
@@ -82,32 +88,22 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d("qwe", "firebaseAuthWithGoogle:" + acct.getId());
-        // [START_EXCLUDE silent]
-        LoadingDialog.loadingShow();
-        // [END_EXCLUDE]
-
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         FbAuth.mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("qwe", "signInWithCredential:success");
                             FirebaseUser user = FbAuth.mAuth.getCurrentUser();
-                            nickNameTextView.setText(user.getDisplayName());
+                            //테스트용 토스트
+                            Toast.makeText(getApplicationContext(), user.getDisplayName().toString() +" 님 환영합니다.", Toast.LENGTH_SHORT).show();
+                            finish();
 
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("qwe", "signInWithCredential:failure", task.getException());
                             Toast.makeText(getApplicationContext(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
-                        // [START_EXCLUDE]
-                        LoadingDialog.loadingDismiss();
-                        // [END_EXCLUDE]
                     }
                 });
     }

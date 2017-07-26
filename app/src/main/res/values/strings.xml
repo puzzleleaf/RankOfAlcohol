@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">RankOfAlcohol</string>
+    <string name="app_name">달과 별 그리고 술</string>
+
+    <string name="LoginText1">하늘에 달이 밝게 떠 있고\n별이 반짝이고 있습니다.</string>
+    <string name="LoginText2">이런 날 술 한잔 어때요?</string>
+    <string name="LoginText3">당신의 주량은?</string>
+    <string name="LoginText4">당신의 성별은?</string>
 </resources>
