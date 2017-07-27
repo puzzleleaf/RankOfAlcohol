@@ -3,27 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <FrameLayout
+        android:id="@+id/login_animation"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/colorNon"
-        android:id="@+id/login_image"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-    <LinearLayout
-        android:id="@+id/login_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="100dp"
-        android:background="@color/colorNon"
-        android:orientation="vertical"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/login_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorNon"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.580">
 
         <TextView
             android:id="@+id/nick_name"
@@ -48,7 +50,6 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:layout_marginBottom="100dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/corner"
             android:orientation="vertical">
@@ -57,27 +58,60 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorNon"
                 android:textColor="#ffffff"
+                android:textStyle="bold"
                 android:text="@string/LoginText3" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorNon"
+                android:textColor="@color/colorWhite"
+                android:text="나의 주량은 n병 입니다."/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
                 android:background="@color/colorNon"
                 android:textColor="#ffffff"
                 android:text="@string/LoginText4" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorNon"
+                android:textColor="@color/colorWhite"
+                android:text="나의 성별은 남성/여성 입니다."/>
         </LinearLayout>
     </LinearLayout>
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
+    <Button
+        android:id="@+id/sign_check_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorNon"
+        android:background="@drawable/corner"
+        android:padding="10dp"
         android:visibility="visible"
+        android:textColor="@color/colorWhite"
+        android:text="구글 계정으로 로그인"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintVertical_bias="0.97" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorNon"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintVertical_bias="0.97" />
+
+
 
 </android.support.constraint.ConstraintLayout>

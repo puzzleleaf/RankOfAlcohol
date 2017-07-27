@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -15,7 +16,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,7 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.tistory.puzzleleaf.rankofalcohol.animation.LoginAnimation;
 import com.tistory.puzzleleaf.rankofalcohol.auth.FbAuth;
-import com.tistory.puzzleleaf.rankofalcohol.progress.LoadingDialog;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +41,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private GoogleApiClient mGoogleApiClient;
 
-    @BindView(R.id.sign_in_button) SignInButton signInButton;
+    @BindView(R.id.sign_check_button) Button signInButton;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,18 +50,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.login_image, new LoginAnimation());
+        fragmentTransaction.replace(R.id.login_animation, new LoginAnimation());
         fragmentTransaction.commit();
 
         loginInit();
-
     }
 
 
-    @OnClick(R.id.sign_in_button)
+    @OnClick(R.id.sign_check_button)
     public void signIn(){
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -70,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.d("qwe",String.valueOf(requestCode));
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -95,19 +94,22 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = FbAuth.mAuth.getCurrentUser();
-                            //테스트용 토스트
                             Toast.makeText(getApplicationContext(), user.getDisplayName().toString() +" 님 환영합니다.", Toast.LENGTH_SHORT).show();
-                            finish();
+                            loginResult();
 
                         } else {
-                            Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "네트워크 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                            finish();
                         }
 
                     }
                 });
     }
 
+    private void loginResult(){
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
 
 
     private void loginInit(){
@@ -121,12 +123,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-
-        signInButton.setSize(SignInButton.SIZE_STANDARD);
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(this,"네트워크가 불안정 합니다.",Toast.LENGTH_SHORT).show();
     }
+
 }

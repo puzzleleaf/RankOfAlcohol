@@ -1,22 +1,17 @@
 package com.tistory.puzzleleaf.rankofalcohol.animation;
 
-import android.graphics.drawable.Drawable;
-import android.transition.Transition;
-import android.util.Log;
-import android.view.SurfaceHolder;
-
-import com.tistory.puzzleleaf.rankofalcohol.LoginActivity;
-
 import processing.core.PApplet;
 import processing.core.PVector;
+import processing.event.MouseEvent;
 
 /**
  * Created by cmtyx on 2017-04-08.
  */
 
-public class LoginAnimation extends PApplet {
+public class MainAnimation extends PApplet {
 
-    int starLimit = 200;
+    int maxStar = 500;
+    int starLimit = 100;
     int moonSize;
     int moonAlphSize;
     int moonShadowSize;
@@ -26,7 +21,6 @@ public class LoginAnimation extends PApplet {
     float moveSpeed;
     float startShadow;
     float endShadow;
-
 
     Star myStar[];
 
@@ -38,9 +32,9 @@ public class LoginAnimation extends PApplet {
 
     public void setup()
     {
-        myStar = new Star[starLimit];
+        myStar = new Star[maxStar];
 
-        for(int i=0;i<starLimit;i++){
+        for(int i=0;i<maxStar;i++){
             myStar[i] = new Star();
         }
 
@@ -73,6 +67,17 @@ public class LoginAnimation extends PApplet {
 
     }
 
+    @Override
+    public void mousePressed() {
+        super.mousePressed();
+        if(mouseY<height/2) {
+            moveSpeed += 1;
+        }else{
+            if(starLimit<maxStar-1) {
+                starLimit += 50;
+            }
+        }
+    }
 
     void drawMoon(){
         for(int i=1; i<50; i++) {

@@ -1,13 +1,15 @@
 package com.tistory.puzzleleaf.rankofalcohol;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
-import android.widget.Button;
 
-import com.google.firebase.auth.FirebaseAuth;
+
+import com.tistory.puzzleleaf.rankofalcohol.animation.MainAnimation;
 import com.tistory.puzzleleaf.rankofalcohol.auth.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.progress.Loading;
 import com.tistory.puzzleleaf.rankofalcohol.progress.LoadingDialog;
@@ -19,7 +21,6 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.testbtn) Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,20 +29,28 @@ public class MainActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ButterKnife.bind(this);
 
-        FbAuth.mAuth = FirebaseAuth.getInstance();
+
         LoadingDialog.loading = new Loading(this);
 
+        checkLogin();
+
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.main_animation, new MainAnimation());
+        fragmentTransaction.commit();
+
+        Log.d("qwe",FbAuth.mAuth.getCurrentUser().getEmail());
     }
+
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        checkLogin();
-    }
+    public void onBackPressed() {
+        //홈으로 보낸다.
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
 
-    @OnClick(R.id.testbtn)
-    public void test(){
-        LoadingDialog.loadingShow();
     }
 
     private void checkLogin(){
@@ -52,8 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeSignInActivity(){
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,RESULT_OK);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RESULT_OK){
 
+        }
+    }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -31,8 +32,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
 
+        FbAuth.mAuth = FirebaseAuth.getInstance();
         imageLoading();
-
         handler.sendEmptyMessageDelayed(0,SPLASH_DELAY_TIME);
     }
 
@@ -50,15 +51,23 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void changeActivity(){
-        changeMainActivity();
-        finish();
+        if(FbAuth.mAuth.getCurrentUser()==null){
+            changeSignInActivity();
+        }else {
+            changeMainActivity();
+        }
     }
 
     private void changeMainActivity(){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
-
+    private void changeSignInActivity(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 }
