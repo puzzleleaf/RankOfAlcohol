@@ -9,9 +9,10 @@ import android.view.WindowManager;
 
 
 import com.tistory.puzzleleaf.rankofalcohol.animation.MainAnimation;
-import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
+import com.tistory.puzzleleaf.rankofalcohol.rank.RankActivity;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,10 +25,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ButterKnife.bind(this);
 
-        checkLogin();
-
         playAnimation();
-
     }
 
     private void playAnimation(){
@@ -37,19 +35,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-
-    private void checkLogin(){
-        if(FbAuth.mAuth.getCurrentUser()==null){
-            changeSignInActivity();
-        }
-    }
-
-    private void changeSignInActivity(){
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(intent);
-    }
-
-
     @Override
     public void onBackPressed() {
         //홈으로 보낸다.
@@ -58,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         intent.addCategory(Intent.CATEGORY_HOME);
         startActivity(intent);
 
+    }
+    @OnClick(R.id.main_rank)
+    public void rankMenu(){
+        Intent intent = new Intent(this, RankActivity.class);
+        startActivity(intent);
     }
 
 }
