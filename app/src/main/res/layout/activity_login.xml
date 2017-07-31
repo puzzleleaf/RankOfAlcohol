@@ -2,87 +2,31 @@
 <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <FrameLayout
         android:id="@+id/login_animation"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorNon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/login_layout"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorNon"
-        android:orientation="vertical"
-        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:visibility="gone"
+        android:id="@+id/login_loading"
+        android:text="Loading......."
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.580">
-
-        <TextView
-            android:id="@+id/nick_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@color/colorNon"
-            android:text="@string/LoginText1"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"
-            android:layout_marginTop="20dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:background="@color/colorNon"
-            android:text="@string/LoginText2"/>
-        <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/corner"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorNon"
-                android:textColor="#ffffff"
-                android:textStyle="bold"
-                android:text="@string/LoginText3" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorNon"
-                android:textColor="@color/colorWhite"
-                android:text="나의 주량은 n병 입니다."/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textStyle="bold"
-                android:background="@color/colorNon"
-                android:textColor="#ffffff"
-                android:text="@string/LoginText4" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorNon"
-                android:textColor="@color/colorWhite"
-                android:text="나의 성별은 남성/여성 입니다."/>
-        </LinearLayout>
-    </LinearLayout>
-
+        app:layout_constraintVertical_bias="0.828"
+        app:layout_constraintHorizontal_bias="0.498" />
     <Button
         android:id="@+id/sign_check_button"
         android:layout_width="wrap_content"
@@ -99,19 +43,134 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintVertical_bias="0.97" />
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
+    <LinearLayout
+        android:id="@+id/login_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorNon"
-        android:visibility="gone"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintVertical_bias="0.97" />
+        app:layout_constraintVertical_bias="0.58">
 
+        <TextView
+            android:id="@+id/nick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/LoginText1"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/LoginText2"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/corner"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/LoginText3"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="나의 주량은 약 "
+                    android:textColor="@color/colorWhite" />
+
+                <EditText
+                    android:id="@+id/login_input_how_many"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="0.5"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:imeOptions="actionDone"
+                    android:padding="5dp"
+                    android:shadowColor="@color/colorNon"
+                    android:textColorHint="@color/colorHint"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 병 입니다."
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/LoginText4"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="나의 성별은 "
+                    android:textColor="@color/colorWhite" />
+
+                <TextView
+                    android:id="@+id/login_gender_m"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="남성"
+                    android:textColor="@color/colorHint" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" / "
+                    android:textColor="@color/colorWhite" />
+
+                <TextView
+                    android:id="@+id/login_gender_w"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="여성"
+                    android:textColor="@color/colorHint" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" 입니다."
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

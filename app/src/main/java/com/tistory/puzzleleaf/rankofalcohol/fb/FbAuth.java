@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.auth;
+package com.tistory.puzzleleaf.rankofalcohol.fb;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -7,5 +7,5 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 
 public class FbAuth {
-    public static FirebaseAuth mAuth;
+    public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 }

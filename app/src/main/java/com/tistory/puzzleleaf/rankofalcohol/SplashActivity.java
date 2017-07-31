@@ -5,14 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-import com.tistory.puzzleleaf.rankofalcohol.auth.FbAuth;
-import com.tistory.puzzleleaf.rankofalcohol.progress.Loading;
-import com.tistory.puzzleleaf.rankofalcohol.progress.LoadingDialog;
+import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +29,6 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
 
-        FbAuth.mAuth = FirebaseAuth.getInstance();
         imageLoading();
         handler.sendEmptyMessageDelayed(0,SPLASH_DELAY_TIME);
     }

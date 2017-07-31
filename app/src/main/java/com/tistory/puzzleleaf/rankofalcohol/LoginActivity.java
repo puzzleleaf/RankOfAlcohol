@@ -6,9 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -21,10 +27,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.tistory.puzzleleaf.rankofalcohol.animation.LoginAnimation;
-import com.tistory.puzzleleaf.rankofalcohol.auth.FbAuth;
+import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
+import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
+import com.tistory.puzzleleaf.rankofalcohol.fbobject.FbUser;
 
 
 import butterknife.BindView;
@@ -37,51 +44,47 @@ import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    private static final int RC_SIGN_IN = 9001;
 
+    private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
 
     @BindView(R.id.sign_check_button) Button signInButton;
+    @BindView(R.id.login_loading) TextView loginLoading;
+    @BindView(R.id.login_input_how_many) EditText inputHowMany;
+    @BindView(R.id.login_gender_m) TextView genderM;
+    @BindView(R.id.login_gender_w) TextView genderW;
 
+    private String gender = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         ButterKnife.bind(this);
 
+        showAnimation();
+        loginInit();
+
+    }
+
+    private void showAnimation(){
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.login_animation, new LoginAnimation());
         fragmentTransaction.commit();
-
-        loginInit();
     }
-
-
-    @OnClick(R.id.sign_check_button)
-    public void signIn(){
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("qwe",String.valueOf(requestCode));
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
-                // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
-                // Google Sign In failed, update UI appropriately
-                // [START_EXCLUDE]
-
-                // [END_EXCLUDE]
+                FbAuth.mAuth = null;
             }
         }
     }
@@ -93,12 +96,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = FbAuth.mAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(), user.getDisplayName().toString() +" 님 환영합니다.", Toast.LENGTH_SHORT).show();
+                            userRegister();
                             loginResult();
 
                         } else {
-                            Toast.makeText(getApplicationContext(), "네트워크 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.NetworkError), Toast.LENGTH_SHORT).show();
                             finish();
                         }
 
@@ -106,9 +108,28 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 });
     }
 
+
+    private void userRegister(){
+        FbDataBase.database.getReference()
+                .child(getString(R.string.FireBaseUserKey))
+                .child(FbAuth.mAuth.getCurrentUser().getUid())
+                .child(getString(R.string.FireBaseUserInfo))
+                .setValue(new FbUser(Float.parseFloat(inputHowMany.getText().toString()),gender));
+
+        Toast.makeText(getApplicationContext(), FbAuth.mAuth.getCurrentUser().getDisplayName().toString() +" 님 환영합니다.", Toast.LENGTH_SHORT).show();
+    }
+
     private void loginResult(){
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
+    }
+
+    private boolean checkData(){
+        if(gender!=null && inputHowMany.length()>0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
@@ -125,9 +146,35 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     }
 
+    @OnClick(R.id.sign_check_button)
+    public void signIn(){
+        if(checkData()) {
+            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+            loginLoading.setVisibility(View.VISIBLE);
+        }else{
+            Toast.makeText(this,"데이터를 입력해 주세요",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @OnClick(R.id.login_gender_m)
+    public void genderMSelect(){
+        genderW.setTextColor(ContextCompat.getColor(this,R.color.colorHint));
+        genderM.setTextColor(ContextCompat.getColor(this,R.color.colorWhite));
+        gender = getString(R.string.genderM);
+
+
+    }
+    @OnClick(R.id.login_gender_w)
+    public void genderWSelect(){
+        genderM.setTextColor(ContextCompat.getColor(this,R.color.colorHint));
+        genderW.setTextColor(ContextCompat.getColor(this,R.color.colorWhite));
+        gender = getString(R.string.genderW);
+    }
+
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this,"네트워크가 불안정 합니다.",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,getString(R.string.NetworkError),Toast.LENGTH_SHORT).show();
     }
 
 }

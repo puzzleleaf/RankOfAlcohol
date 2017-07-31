@@ -1,8 +1,21 @@
 <resources>
     <string name="app_name">달과 별 그리고 술</string>
-
+    <string name="NetworkError">네트워크 오류가 발생했습니다.</string>
     <string name="LoginText1">하늘에 달이 밝게 떠 있고\n별이 반짝이고 있습니다.</string>
     <string name="LoginText2">이런 날 술 한잔 어때요?</string>
     <string name="LoginText3">당신의 주량은?</string>
     <string name="LoginText4">당신의 성별은?</string>
+
+    <string name="genderM">남성</string>
+    <string name="genderW">여성</string>
+
+    <!-- FireBase User 영역 -->
+    <string name="FireBaseUserKey">User</string>
+    <string name="FireBaseUserInfo">info</string>
+
+    <!-- main -->
+    <string name="main_rank">랭킹</string>
+    <string name="main_analysis">분석</string>
+    <string name="main_gallery">갤러리</string>
+
 </resources>
