@@ -47,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.main_rank)
     public void rankMenu(){
         Intent intent = new Intent(this, RankActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
+
     }
 
 }

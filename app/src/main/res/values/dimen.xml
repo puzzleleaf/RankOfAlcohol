@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="menu_size">56dp</dimen>
+    <dimen name="star_size">16dp</dimen>
+    <dimen name="default_height">50dp</dimen>
+
+    <dimen name="basic_margin">8dp</dimen>
 </resources>

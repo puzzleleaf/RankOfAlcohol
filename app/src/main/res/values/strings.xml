@@ -18,4 +18,19 @@
     <string name="main_analysis">분석</string>
     <string name="main_gallery">갤러리</string>
 
+    <!--rank-->
+    <string name="rank_more">더보기</string>
+    <string name="rank_default_filter">소주</string>
+    <string name="rank_name">랭킹</string>
+
+
+    <string-array name="option">
+        <item>소주</item>
+        <item>맥주</item>
+        <item>막걸리</item>
+        <item>안주</item>
+        <item>남성</item>
+        <item>여성</item>
+    </string-array>
+
 </resources>

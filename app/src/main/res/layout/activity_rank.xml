@@ -1,40 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorWhite"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/default_height"
+        android:gravity="center_vertical"
         android:background="@color/mainBlack">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_name"
+            android:layout_marginLeft="@dimen/basic_margin"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
     <android.support.v4.view.ViewPager
+        android:id="@+id/rank_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/rank_viewpager">
+        android:layout_weight="1">
     </android.support.v4.view.ViewPager>
-
     <android.support.design.widget.TabLayout
+        android:id="@+id/rank_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabBackground="@drawable/tab_selector"
         app:tabGravity="center"
-        app:tabIndicatorHeight="0dp"
-        android:id="@+id/rank_tab_layout" />
-
+        app:tabIndicatorHeight="0dp" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="260dp"
         android:orientation="vertical">
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/mainBlack">
-
-        </LinearLayout>
+            android:layout_height="@dimen/default_height">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:gravity="center|left"
+                android:id="@+id/rank_spinner_click"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.02">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rank_default_filter"
+                    android:id="@+id/rank_spinner_text"
+                    android:textColor="@color/colorWhite" />
+                <android.support.v7.widget.AppCompatSpinner
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:gravity="center"
+                    android:id="@+id/rank_spinner"
+                    android:layout_marginLeft="3dp"
+                    android:background="@drawable/ic_down"
+                    android:backgroundTint="@color/colorWhite">
+                </android.support.v7.widget.AppCompatSpinner>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center|end"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.99">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rank_more"
+                    android:textColor="@color/colorWhite" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_next"
+                    android:tint="@color/colorWhite" />
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rank_recycler_view"
+            android:layout_width="match_parent"
+            android:background="@color/mainBlack"
+            android:layout_height="210dp">
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
-
 </LinearLayout>

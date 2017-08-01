@@ -10,4 +10,5 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorMenuWhite">#ffffff</color>
     <color name="colorHint">#b5b5b5</color>
+    <color name="colorStar">#ffbc3c</color>
 </resources>

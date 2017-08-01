@@ -11,7 +11,7 @@ import processing.event.MouseEvent;
 public class MainAnimation extends PApplet {
 
     int maxStar = 500;
-    int starLimit = 100;
+    int starLimit = 300;
     int moonSize;
     int moonAlphSize;
     int moonShadowSize;
@@ -52,9 +52,9 @@ public class MainAnimation extends PApplet {
     public void draw()
     {
         background(7,20,29,100);
-        drawMoon();
-        drawShadow(location,height/4);
-        location-=moveSpeed;
+       // drawMoon();
+       // drawShadow(location,height/4);
+       // location-=moveSpeed;
 
         if(location<endShadow){
             location = startShadow;

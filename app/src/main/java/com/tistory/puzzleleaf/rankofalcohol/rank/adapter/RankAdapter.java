@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.rank;
+package com.tistory.puzzleleaf.rankofalcohol.rank.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -21,7 +21,7 @@ public class RankAdapter extends PagerAdapter {
     Context context;
     List<Integer> res;
 
-    RankAdapter(Context context, List<Integer> res){
+    public RankAdapter(Context context, List<Integer> res){
         this.context = context;
         this.res = res;
     }
