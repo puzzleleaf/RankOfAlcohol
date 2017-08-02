@@ -1,6 +1,9 @@
 package com.tistory.puzzleleaf.rankofalcohol.rank;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +16,20 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.tistory.puzzleleaf.rankofalcohol.R;
+import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
+import com.tistory.puzzleleaf.rankofalcohol.model.AlcoholObject;
+import com.tistory.puzzleleaf.rankofalcohol.progress.Loading;
 import com.tistory.puzzleleaf.rankofalcohol.rank.adapter.RankAdapter;
 import com.tistory.puzzleleaf.rankofalcohol.rank.adapter.RankRecyclerAdapter;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,7 +46,6 @@ public class RankActivity extends AppCompatActivity {
 
     //viewpager
     RankAdapter rankAdapter;
-    List<Integer> imageRes;
     @BindView(R.id.rank_viewpager) ViewPager rankViewPager;
     @BindView(R.id.rank_tab_layout) TabLayout rankTabLayout;
 
@@ -44,6 +55,12 @@ public class RankActivity extends AppCompatActivity {
     @BindView(R.id.rank_spinner_click) LinearLayout rankSpinnerClick;
     private ArrayAdapter<CharSequence> option;
 
+    private Loading loading;
+
+    //DBObject
+    List<AlcoholObject> alcoholObjectList;
+    List<AlcoholObject> rankObject;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,30 +68,62 @@ public class RankActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         init();
-        imageDataLoad();
-        //@TODO 하단에 각 종류별로 메뉴 목록을 만들어야 한다.
-        //@TODO RecyclerView 를 이용해서 하단에 술 랭킹 항목을 추가해야 한다.
-
+        dataLoad();
+        //@TODO 나중에 로딩 중 보여줄 더미데이터 추가하기(첫 로딩에만 필요)(주류 변경시 필요 x)
+       //dataUploadSample();
     }
 
-    private void imageDataLoad(){
+    private void dataLoad(){
         //@TODO FireBase를 통해서 가져온 정보를 통해 상위 3개에 대해서 이미지가 나타나도록 한다.
-        imageRes.add(R.drawable.sam1);
-        imageRes.add(R.drawable.sam2);
-        imageRes.add(R.drawable.sam3);
+
+        loading.show(); //Dialog Show
+        FbDataBase.database.getReference("Soju").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
+                while (iterator.hasNext()){
+                    AlcoholObject alcoholObject = iterator.next().getValue(AlcoholObject.class);
+                    alcoholObjectList.add(alcoholObject);
+                }
+                rankData();
+                refresh();
+                loading.dismiss();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //@TODO 데이터 갱신 예외처리 할 것
+            }
+        });
+    }
+
+    private void refresh(){
         rankAdapter.notifyDataSetChanged();
+        rankRecyclerAdapter.notifyDataSetChanged();
+    }
+
+    //@TODO 상위 3개 데이터를 정렬해서 저장한다.
+    private void rankData(){
+        for(int i=0;i<3;i++){
+            rankObject.add(alcoholObjectList.get(i));
+        }
     }
 
     private void init(){
-        imageRes= new ArrayList<>();
-        //ViewPager
-        rankAdapter = new RankAdapter(this,imageRes);
+        alcoholObjectList = new ArrayList<>();
+        rankObject = new ArrayList<>();
 
+        loading = new Loading(this);
+
+        //ViewPager
+        rankAdapter = new RankAdapter(this,rankObject);
+
+        rankViewPager.setOffscreenPageLimit(3);
         rankViewPager.setAdapter(rankAdapter);
         rankTabLayout.setupWithViewPager(rankViewPager,true);
 
         //Recycler
-        rankRecyclerAdapter = new RankRecyclerAdapter(this);
+        rankRecyclerAdapter = new RankRecyclerAdapter(this,rankObject);
         linearLayoutManager = new LinearLayoutManager(this);
         rankRecyclerView.setLayoutManager(linearLayoutManager);
         rankRecyclerView.setAdapter(rankRecyclerAdapter);
@@ -86,7 +135,7 @@ public class RankActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 rankSpinnerText.setText(option.getItem(position));
-                //@TODO 선택한 필터에 따라서 내용들이 갱신되도록 바꾸기
+                //@TODO 선택한 필터에 따라서 내용들이 갱신되도록 바꾸기 , 다른 콘텐츠가 준비 된 이후에 추가
             }
 
             @Override
@@ -101,6 +150,23 @@ public class RankActivity extends AppCompatActivity {
     @OnClick(R.id.rank_spinner_click)
     public void spinnerClick(){
         rankSpinner.performClick();
+    }
+
+    @OnClick(R.id.rank_more_btn)
+    public void moreBtnClick(){
+        Intent intent = new Intent(this,RankDetailActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putParcelableArrayListExtra("data", (ArrayList<? extends Parcelable>) alcoholObjectList);
+        startActivity(intent);
+
+    }
+
+    //@TODO 데이터 등록용 이므로 이후에 제거할 영역
+    private void dataUploadSample(){
+        String objKey = FbDataBase.database.getReference().child("Soju").push().getKey();
+        AlcoholObject alcoholObject = new AlcoholObject("처음처럼(진한)", 21,"","soju_05.png",objKey);
+
+        FbDataBase.database.getReference().child("Soju").child(objKey).setValue(alcoholObject);
     }
 
 }

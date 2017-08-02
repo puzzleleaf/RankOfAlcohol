@@ -10,29 +10,39 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:adjustViewBounds="true"
-        android:src="@drawable/sam1" />
+        android:adjustViewBounds="true"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
-
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="참이슬(Classic)"
+            android:id="@+id/rank_brand_name"
             android:textStyle="bold"
             android:textColor="@color/colorWhite"
             android:textSize="24sp" />
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="20.1도"
-            android:textColor="@color/colorWhite"
-            android:textSize="16sp" />
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rank_alcohol_degree"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorHint"
+                android:text=" 도"
+                android:textSize="12sp" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

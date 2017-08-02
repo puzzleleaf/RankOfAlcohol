@@ -4,27 +4,41 @@
     android:layout_height="64dp"
     android:gravity="center"
     android:layout_margin="3dp"
+    android:id="@+id/rank_recycler_item"
     android:background="@drawable/corner"
     android:orientation="horizontal">
-    <ImageView
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginLeft="@dimen/basic_margin"
-        android:tint="@color/colorStar"
-        android:src="@drawable/rank_num"/>
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="45dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/colorWhite"
         android:layout_margin="2dp"
-        android:textSize="15sp"
-        android:text="1위"/>
+        android:gravity="right|center"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:id="@+id/rank_recycler_tropy"
+            android:tint="@color/colorStar"
+            android:src="@drawable/rank_num"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:layout_marginLeft="2dp"
+            android:textSize="15sp"
+            android:id="@+id/rank_recycler_num"
+            android:text="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            android:text="위"/>
+    </LinearLayout>
+
     <ImageView
         android:layout_width="40dp"
         android:layout_height="60dp"
         android:adjustViewBounds="true"
-        android:src="@drawable/sam1"
         android:id="@+id/rank_recycler_image"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,17 +53,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorWhite"
-                android:text="이름"/>
-            <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/rank_recycler_brand_name" />
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:text=" 설명설명"/>
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorHint"
+                    android:id="@+id/rank_recycler_degree" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="도"
+                    android:textColor="@color/colorHint" />
+            </LinearLayout>
+
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
+            android:id="@+id/rank_recycler_rank"
             android:text="평점 ★★★★★"/>
     </LinearLayout>
 </LinearLayout>

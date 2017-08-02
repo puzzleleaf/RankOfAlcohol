@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.fbobject;
+package com.tistory.puzzleleaf.rankofalcohol.model;
 
 /**
  * Created by cmtyx on 2017-07-27.
