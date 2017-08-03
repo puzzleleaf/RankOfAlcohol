@@ -2,64 +2,134 @@ package com.tistory.puzzleleaf.rankofalcohol.rank;
 
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.tistory.puzzleleaf.rankofalcohol.R;
-import com.tistory.puzzleleaf.rankofalcohol.model.AlcoholObject;
-import com.tistory.puzzleleaf.rankofalcohol.rank.adapter.RankRecyclerAdapter;
+import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
+import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
+import com.tistory.puzzleleaf.rankofalcohol.model.ReviewObject;
+import com.tistory.puzzleleaf.rankofalcohol.progress.Loading;
+import com.tistory.puzzleleaf.rankofalcohol.rank.adapter.RankReviewAdapter;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class RankReviewActivity extends AppCompatActivity {
 
-
-    AlcoholObject alcoholObject;
     @BindView(R.id.rank_review_image) ImageView rankReviewImage;
     @BindView(R.id.rank_review_brand_name) TextView rankReviewBrandName;
     @BindView(R.id.rank_review_degree) TextView rankReviewDegree;
+    @BindView(R.id.rank_review_rating) TextView rankReviewRating;
+    @BindView(R.id.rank_review_num) TextView rankReviewNum;
+    @BindView(R.id.rank_review_rating_bar) RatingBar rankReviewRatingBar;
+    @BindView(R.id.rank_review_register_btn) Button rankReviewRegisterBtn;
 
+    private RankObject rankObject;
+    private List<ReviewObject> reviewObjectList;
+
+    private Loading loading;
     //recycler
     @BindView(R.id.rank_review_recycler_view) RecyclerView rankReviewRecyclerView;
     private LinearLayoutManager linearLayoutManager;
-    private RankRecyclerAdapter rankRecyclerAdapter;
+    private RankReviewAdapter rankReviewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank_review);
         ButterKnife.bind(this);
-        Intent intent = getIntent();
-        alcoholObject = intent.getParcelableExtra("data");
 
-        rankReviewBrandName.setText(alcoholObject.getBrandName());
-        rankReviewDegree.setText(String.valueOf(alcoholObject.getAlcoholDegree()));
-        Glide.with(this).load(alcoholObject.getImgKey()).into(rankReviewImage);
+        loading = new Loading(this,"rank");
 
-        //임시
-        List<AlcoholObject> alcoholObjectsList = new ArrayList<>();
-        alcoholObjectsList.add(alcoholObject);
-        rankRecyclerAdapter = new RankRecyclerAdapter(this, alcoholObjectsList);
-        linearLayoutManager = new LinearLayoutManager(this);
-        rankReviewRecyclerView.setLayoutManager(linearLayoutManager);
-        rankReviewRecyclerView.setAdapter(rankRecyclerAdapter);
-
-
-
-
-
+        dataInit();
+        recyclerInit();
+        rankReviewRatingBarInit();
+        rankReviewRatingBar.setRating(Float.parseFloat(String.valueOf(rankObject.getScore())));
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dataLoad();
+    }
+
+    private void dataLoad(){
+        loading.show();
+        reviewObjectList.clear();
+
+        FbDataBase.database.getReference("Review").child(rankObject.getObjectKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
+                while (iterator.hasNext()){
+                    ReviewObject rankObject = iterator.next().getValue(ReviewObject.class);
+                    reviewObjectList.add(0,rankObject);
+                }
+                loading.dismiss();
+                rankReviewAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //@TODO 데이터 갱신 예외처리 할 것
+            }
+        });
+    }
+
+    //리뷰 데이터 표기
+    private void recyclerInit(){
+        reviewObjectList = new ArrayList<>();
+        rankReviewAdapter = new RankReviewAdapter(this,reviewObjectList);
+        linearLayoutManager = new LinearLayoutManager(this);
+        rankReviewRecyclerView.setLayoutManager(linearLayoutManager);
+        rankReviewRecyclerView.setAdapter(rankReviewAdapter);
+    }
+
+    //술 데이터 표기
+    private void dataInit(){
+        Intent intent = getIntent();
+        rankObject = intent.getParcelableExtra("data");
+
+        rankReviewBrandName.setText(rankObject.getBrandName());
+        rankReviewDegree.setText(String.valueOf(rankObject.getAlcoholDegree()));
+        rankReviewRating.setText(String.format("%.2f",rankObject.getScore()));
+        rankReviewNum.setText(String.valueOf(rankObject.getTotal()));
+        Glide.with(this).load(rankObject.getImgKey()).into(rankReviewImage);
+    }
+
+    @OnClick(R.id.rank_review_register_btn)
+    public void rankReviewRegisterClick(){
+        Intent intent = new Intent(this,RankReviewRegisterActivity.class);
+        intent.putExtra("data", rankObject);
+        startActivity(intent);
+    }
+
+    private void rankReviewRatingBarInit(){
+        LayerDrawable stars = (LayerDrawable)rankReviewRatingBar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(this,R.color.colorStar), PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(1).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(0).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
+    }
+
 }

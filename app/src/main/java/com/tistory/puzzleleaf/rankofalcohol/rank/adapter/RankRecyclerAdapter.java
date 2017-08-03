@@ -12,14 +12,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tistory.puzzleleaf.rankofalcohol.R;
-import com.tistory.puzzleleaf.rankofalcohol.model.AlcoholObject;
+import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
 import com.tistory.puzzleleaf.rankofalcohol.rank.RankReviewActivity;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by cmtyx on 2017-07-31.
@@ -28,9 +27,9 @@ import butterknife.OnClick;
 public class RankRecyclerAdapter extends RecyclerView.Adapter<RankRecyclerAdapter.ViewHolder> {
 
     private LayoutInflater mInflater;
-    private List<AlcoholObject> res;
+    private List<RankObject> res;
 
-    public RankRecyclerAdapter(Context context, List<AlcoholObject> res){
+    public RankRecyclerAdapter(Context context, List<RankObject> res){
         this.mInflater = LayoutInflater.from(context);
         this.res = res;
     }

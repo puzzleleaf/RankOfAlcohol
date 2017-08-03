@@ -48,52 +48,44 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/star_size"
-                android:adjustViewBounds="true"
-                android:src="@drawable/starfull" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/star_size"
-                android:adjustViewBounds="true"
-                android:src="@drawable/starfull" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/star_size"
-                android:adjustViewBounds="true"
-                android:src="@drawable/starhalf" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/star_size"
-                android:adjustViewBounds="true"
-                android:src="@drawable/starempty" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/star_size"
-                android:adjustViewBounds="true"
-                android:src="@drawable/starempty" />
-
-            <TextView
+            <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:text="3.50"
-                android:textColor="#ffbc3c"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
+                android:id="@+id/rank_rating_bar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:isIndicator="true" />
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="(n명)"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/rank_rating"
+                    android:textColor="@color/colorStar"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="("
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rank_num"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="명)"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

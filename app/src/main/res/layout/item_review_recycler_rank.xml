@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:gravity="center"
+    android:layout_margin="3dp"
+    android:padding="3dp"
+    android:id="@+id/rank_recycler_item"
+    android:background="@drawable/corner_square_white"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                android:text="친절한 알콜러"
+                android:id="@+id/rank_review_recycler_nick_name" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:layout_marginLeft="3dp"
+                android:background="@drawable/corner_temp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:id="@+id/rank_review_recycler_many_num"
+                    android:textColor="@color/colorWhite"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    android:text="병"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:textStyle="bold"
+                android:padding="3dp"
+                android:textSize="10sp"
+                android:background="@drawable/corner_yellow"
+                android:textColor="@color/colorWhite"
+                android:id="@+id/rank_review_recycler_many"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rank_review_recycler_rating_bar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:isIndicator="true" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:ellipsize="end"
+                android:id="@+id/rank_review_recycler_description"
+                android:textColor="@color/colorWhite"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

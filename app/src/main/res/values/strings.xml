@@ -23,7 +23,6 @@
     <string name="rank_default_filter">소주</string>
     <string name="rank_name">랭킹</string>
 
-
     <string-array name="option">
         <item>소주</item>
         <item>맥주</item>
@@ -33,4 +32,8 @@
         <item>여성</item>
     </string-array>
 
+    <string name="rank_radio1">아주 조금</string>
+    <string name="rank_radio2">조금</string>
+    <string name="rank_radio3">적당히</string>
+    <string name="rank_radio4">많이</string>
 </resources>

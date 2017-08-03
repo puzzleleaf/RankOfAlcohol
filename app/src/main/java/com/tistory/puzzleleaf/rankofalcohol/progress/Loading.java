@@ -11,11 +11,15 @@ import com.tistory.puzzleleaf.rankofalcohol.R;
 
 public class Loading extends Dialog {
 
-    public Loading(Context context)
+    public Loading(Context context,String select)
     {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_loading);
+        if(select.equals("rank")) {
+            setContentView(R.layout.loading_rank);
+        }else{
+            setContentView(R.layout.loading_write);
+        }
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 }

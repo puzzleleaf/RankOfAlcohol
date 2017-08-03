@@ -1,0 +1,142 @@
+package com.tistory.puzzleleaf.rankofalcohol.rank;
+
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
+import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.RatingBar;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
+import com.tistory.puzzleleaf.rankofalcohol.R;
+import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
+import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
+import com.tistory.puzzleleaf.rankofalcohol.model.FbUser;
+import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
+import com.tistory.puzzleleaf.rankofalcohol.model.RatingObject;
+import com.tistory.puzzleleaf.rankofalcohol.model.ReviewObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+
+public class RankReviewRegisterActivity extends AppCompatActivity {
+
+    @BindView(R.id.rank_review_register_ratingbar) RatingBar rankReviewRegisterRatingBar;
+    @BindView(R.id.rank_review_register_nick_name) EditText rankReviewRegisterNickName;
+    @BindView(R.id.rank_review_register_radio) RadioGroup rankReviewRegisterRadioGroup;
+    @BindView(R.id.rank_review_register_contents_first) EditText rankReviewRegisterContentsFirst;
+    @BindView(R.id.rank_review_register_contents_second) EditText rankReviewRegisterContentsSecond;
+    //DB
+    private RankObject rankObject;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_rank_review_register);
+        ButterKnife.bind(this);
+        rankObject = getIntent().getParcelableExtra("data");
+
+        ratingBarInit();
+        dateInit();
+    }
+
+    private void ratingBarInit(){
+        LayerDrawable stars = (LayerDrawable)rankReviewRegisterRatingBar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(this,R.color.colorStar), PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(1).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(0).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
+    }
+
+    private String getRankRadioBtnValue(int id){
+        switch (id){
+            case R.id.rank_radio_btn1 :
+                return getString(R.string.rank_radio1);
+            case R.id.rank_radio_btn2 :
+                return getString(R.string.rank_radio2);
+            case R.id.rank_radio_btn3 :
+                return getString(R.string.rank_radio3);
+            case R.id.rank_radio_btn4 :
+                return getString(R.string.rank_radio4);
+        }
+        return "Error";
+    }
+
+    //등록 시간 구하기
+    private String dateInit(){
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat simpleDate = new SimpleDateFormat("MM월 dd일");
+        return simpleDate.format(date);
+    }
+
+    private void reviewRegister(){
+        String reviewKey = FbDataBase.database.getReference().child("Review").child(rankObject.getObjectKey()).push().getKey();
+        ReviewObject reviewObj = new ReviewObject(rankReviewRegisterNickName.getText().toString(),
+                (int) rankReviewRegisterRatingBar.getRating(),
+                getRankRadioBtnValue(rankReviewRegisterRadioGroup.getCheckedRadioButtonId()),
+                rankReviewRegisterContentsFirst.getText().toString(),
+                rankReviewRegisterContentsSecond.getText().toString(),
+                dateInit(),
+                FbAuth.mUser.gethMany(),
+                reviewKey,
+                FbAuth.mAuth.getCurrentUser().getUid());
+
+        FbDataBase.database.getReference().child("Review").child(rankObject.getObjectKey()).child(reviewKey).setValue(reviewObj);
+
+        FbDataBase.database.getReference().child("User").child(FbAuth.mAuth.getCurrentUser().getUid())
+                .child("review")
+                .push()
+                .setValue(rankObject.getObjectKey());
+
+        ratingRegister((int) rankReviewRegisterRatingBar.getRating());
+
+
+    }
+
+
+    //전체 평점 실시간 등록 - FireBase Transaction
+    private void ratingRegister(final int rating){
+        FbDataBase.database.getReference().child("Rating").child(rankObject.getObjectKey()).runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                RatingObject ratingObject = mutableData.getValue(RatingObject.class);
+                if(ratingObject == null){
+                    ratingObject = new RatingObject(rating,1);
+                }else{
+                    int total = ratingObject.getTotal();
+                    int num = ratingObject.getNum();
+                    ratingObject.setTotal(total+rating);
+                    ratingObject.setNum(++num);
+                }
+                mutableData.setValue(ratingObject);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                Toast.makeText(getApplicationContext(),"데이터 등록 완료",Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
+    }
+
+    @OnClick(R.id.rank_review_register_submit)
+    public void reviewSubmit(){
+        //@TODO 제약조건 달기
+        reviewRegister();
+    }
+}

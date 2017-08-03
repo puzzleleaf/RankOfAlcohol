@@ -21,6 +21,9 @@
         <activity android:name=".rank.RankActivity" android:theme="@style/Theme.AppCompat.Translucent" android:screenOrientation="portrait"/>
         <activity android:name=".rank.RankDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".rank.RankReviewActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".rank.RankReviewRegisterActivity" android:screenOrientation="portrait"/>
+
+        <service android:name=".service.UserService"/>
     </application>
 
 </manifest>

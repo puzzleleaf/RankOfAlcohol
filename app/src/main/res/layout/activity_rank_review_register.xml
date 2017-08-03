@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainBlack"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:tint="@color/colorWhite"
+            android:src="@drawable/ic_prev"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="리뷰쓰기"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/rank_review_register_submit"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="등록"
+            android:textColor="@color/colorWhite"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorWhite" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="60dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/soju_01" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/rank_recycler_brand_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="처음처럼"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10도"
+                        android:textColor="@color/colorHint" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorWhite" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="닉네임"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rank_review_register_nick_name"
+                        android:layout_marginLeft="8dp"
+                        android:padding="5dp"
+                        android:hint="닉네임을 입력해주세요.(~12자)"
+                        android:maxLength="12"
+                        android:lines="1"
+                        android:textColor="@color/colorWhite"
+                        android:textColorHint="@color/colorHint" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="평점"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <RatingBar
+                        android:id="@+id/rank_review_register_ratingbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="-10dp"
+                        android:numStars="5"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"
+                        android:stepSize="1" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="얼마나 많이 마셔봤나요?"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/rank_review_register_radio"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:id="@+id/rank_radio_btn1"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_button_selector"
+                            android:button="@android:color/transparent"
+                            android:gravity="center"
+                            android:text="@string/rank_radio1"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:id="@+id/rank_radio_btn2"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_button_selector"
+                            android:button="@android:color/transparent"
+                            android:gravity="center"
+                            android:text="@string/rank_radio2"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:id="@+id/rank_radio_btn3"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_button_selector"
+                            android:button="@android:color/transparent"
+                            android:gravity="center"
+                            android:text="@string/rank_radio3"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:id="@+id/rank_radio_btn4"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_button_selector"
+                            android:button="@android:color/transparent"
+                            android:gravity="center"
+                            android:text="@string/rank_radio4"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="다음날 아침에 어떠셨어요?"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/rank_review_register_contents_first"
+                    android:background="@drawable/radio_button"
+                    android:gravity="top"
+                    android:hint="아침에 숙취가 심하다. / 다음날 깔끔하다"
+                    android:minHeight="200dp"
+                    android:padding="5dp"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorHint" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="맛에 대해서 평가해주세요"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/rank_review_register_contents_second"
+                    android:background="@drawable/radio_button"
+                    android:gravity="top"
+                    android:hint="뒷맛이 깔끔하다 / 목넘김이 좋다"
+                    android:minHeight="200dp"
+                    android:padding="5dp"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorHint" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

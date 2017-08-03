@@ -8,10 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.tistory.puzzleleaf.rankofalcohol.R;
-import com.tistory.puzzleleaf.rankofalcohol.model.AlcoholObject;
+import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
 import com.tistory.puzzleleaf.rankofalcohol.rank.adapter.RankRecyclerAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,7 +23,7 @@ public class RankDetailActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private RankRecyclerAdapter rankRecyclerAdapter;
     @BindView(R.id.rank_detail_recycler_view) RecyclerView rankDetailRecyclerView;
-    List<AlcoholObject> alcoholObjectList;
+    List<RankObject> rankObjectList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +32,9 @@ public class RankDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        alcoholObjectList = intent.getParcelableArrayListExtra("data");
+        rankObjectList = intent.getParcelableArrayListExtra("data");
         //Recycler
-        rankRecyclerAdapter = new RankRecyclerAdapter(this, alcoholObjectList);
+        rankRecyclerAdapter = new RankRecyclerAdapter(this, rankObjectList);
         linearLayoutManager = new LinearLayoutManager(this);
         rankDetailRecyclerView.setLayoutManager(linearLayoutManager);
         rankDetailRecyclerView.setAdapter(rankRecyclerAdapter);

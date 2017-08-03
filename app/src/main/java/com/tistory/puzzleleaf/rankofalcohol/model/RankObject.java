@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by cmtyx on 2017-08-02.
  */
 
-public class AlcoholObject implements Parcelable {
+public class RankObject implements Parcelable {
 
     private String brandName ="";
     private double alcoholDegree =0.0;
@@ -18,15 +18,13 @@ public class AlcoholObject implements Parcelable {
 
     //전체 리뷰 작성 수
     private int total = 0;
-    private String sojuScoreKey = "";
-    private String manScoreKey= "";
-    private String womanScoreKey = "";
+    private double score = 0;
 
-    public AlcoholObject() {
+    public RankObject() {
 
     }
 
-    public AlcoholObject(String brandName, double alcoholDegree, String description, String imgKey, String objectKey) {
+    public RankObject(String brandName, double alcoholDegree, String description, String imgKey, String objectKey) {
         this.brandName = brandName;
         this.alcoholDegree = alcoholDegree;
         this.description = description;
@@ -74,28 +72,12 @@ public class AlcoholObject implements Parcelable {
         this.total = total;
     }
 
-    public String getSojuScoreKey() {
-        return sojuScoreKey;
+    public double getScore() {
+        return score;
     }
 
-    public void setSojuScoreKey(String sojuScoreKey) {
-        this.sojuScoreKey = sojuScoreKey;
-    }
-
-    public String getManScoreKey() {
-        return manScoreKey;
-    }
-
-    public void setManScoreKey(String manScoreKey) {
-        this.manScoreKey = manScoreKey;
-    }
-
-    public String getWomanScoreKey() {
-        return womanScoreKey;
-    }
-
-    public void setWomanScoreKey(String womanScoreKey) {
-        this.womanScoreKey = womanScoreKey;
+    public void setScore(double Score) {
+        this.score = Score;
     }
 
     public String getObjectKey() {
@@ -106,16 +88,14 @@ public class AlcoholObject implements Parcelable {
         this.objectKey = objectKey;
     }
 
-    public AlcoholObject(String brandName, double alcoholDegree, String description, String imgKey, String objectKey, int total, String sojuScoreKey, String manScoreKey, String womanScoreKey) {
+    public RankObject(String brandName, double alcoholDegree, String description, String imgKey, String objectKey, int total, double score) {
         this.brandName = brandName;
         this.alcoholDegree = alcoholDegree;
         this.description = description;
         this.imgKey = imgKey;
         this.objectKey = objectKey;
         this.total = total;
-        this.sojuScoreKey = sojuScoreKey;
-        this.manScoreKey = manScoreKey;
-        this.womanScoreKey = womanScoreKey;
+        this.score = score;
     }
 
     @Override
@@ -131,34 +111,30 @@ public class AlcoholObject implements Parcelable {
         dest.writeString(imgKey);
         dest.writeString(objectKey);
         dest.writeInt(total);
-        dest.writeString(sojuScoreKey);
-        dest.writeString(manScoreKey);
-        dest.writeString(womanScoreKey);
+        dest.writeDouble(score);
     }
 
-    private AlcoholObject(Parcel in) {
+    private RankObject(Parcel in) {
         brandName = in.readString();
         alcoholDegree = in.readDouble();
         description = in.readString();
         imgKey = in.readString();
         objectKey = in.readString();
         total = in.readInt();
-        sojuScoreKey = in.readString();
-        manScoreKey = in.readString();
-        womanScoreKey = in.readString();
+        score = in.readDouble();
     }
 
 
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator<AlcoholObject>(){
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator<RankObject>(){
 
         @Override
-        public AlcoholObject createFromParcel(Parcel source) {
-            return new AlcoholObject(source);
+        public RankObject createFromParcel(Parcel source) {
+            return new RankObject(source);
         }
 
         @Override
-        public AlcoholObject[] newArray(int size) {
-            return new AlcoholObject[size];
+        public RankObject[] newArray(int size) {
+            return new RankObject[size];
         }
     };
 }

@@ -9,7 +9,9 @@ import android.view.WindowManager;
 
 
 import com.tistory.puzzleleaf.rankofalcohol.animation.MainAnimation;
+import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.rank.RankActivity;
+import com.tistory.puzzleleaf.rankofalcohol.service.UserService;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ButterKnife.bind(this);
 
+        userInit();
         playAnimation();
     }
 
@@ -33,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.main_animation, new MainAnimation());
         fragmentTransaction.commit();
+    }
+
+    private void userInit(){
+        Intent intent = new Intent(this, UserService.class);
+        startService(intent);
     }
 
     @Override

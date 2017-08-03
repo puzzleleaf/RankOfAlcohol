@@ -2,7 +2,9 @@
 <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
+    android:background="@color/mainBlack"
     android:layout_width="match_parent">
+
     <android.support.design.widget.AppBarLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
@@ -55,51 +57,44 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:orientation="horizontal">
-                    <ImageView
-                        android:adjustViewBounds="true"
-                        android:layout_height="@dimen/star_size"
+                    <RatingBar
                         android:layout_width="wrap_content"
-                        android:src="@drawable/starfull" />
-
-                    <ImageView
-                        android:adjustViewBounds="true"
-                        android:layout_height="@dimen/star_size"
-                        android:layout_width="wrap_content"
-                        android:src="@drawable/starfull" />
-
-                    <ImageView
-                        android:adjustViewBounds="true"
-                        android:layout_height="@dimen/star_size"
-                        android:layout_width="wrap_content"
-                        android:src="@drawable/starhalf" />
-
-                    <ImageView
-                        android:adjustViewBounds="true"
-                        android:layout_height="@dimen/star_size"
-                        android:layout_width="wrap_content"
-                        android:src="@drawable/starempty" />
-
-                    <ImageView
-                        android:adjustViewBounds="true"
-                        android:layout_height="@dimen/star_size"
-                        android:layout_width="wrap_content"
-                        android:src="@drawable/starempty" />
-
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rank_review_rating_bar"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:isIndicator="true" />
                     <TextView
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:layout_width="wrap_content"
-                        android:text="3.50"
+                        android:id="@+id/rank_review_rating"
                         android:textColor="#ffbc3c"
                         android:textSize="20sp"
                         android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_height="wrap_content"
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:text="(n명)"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="15sp" />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="("
+                            android:textColor="@color/colorWhite"
+                            android:textSize="15sp" />
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/rank_review_num"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="15sp" />
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="명)"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <TextView
@@ -115,15 +110,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:background="@color/mainBlack"
+        android:layout_marginTop="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"
-            android:text="리뷰는 내일 써보도록 하자"/>
+            android:gravity="right">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:id="@+id/rank_review_register_btn"
+                android:layout_margin="5dp"
+                android:background="@drawable/corner"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                android:text="등록하기"/>
+        </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
