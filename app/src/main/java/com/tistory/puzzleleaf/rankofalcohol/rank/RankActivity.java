@@ -117,7 +117,6 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
                     }
                 }
                 rankData();
-                refresh();
                 loading.dismiss();
             }
 
@@ -130,7 +129,6 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
 
     private void clearData(){
         rankObjectList.clear();
-        rankObject.clear();
     }
 
     private void refresh(){
@@ -140,9 +138,11 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
 
     //@TODO 데이터 정렬해서 3개만 넣기
     private void rankData(){
+        rankObject.clear();
         for(int i=0;i<3;i++){
             rankObject.add(rankObjectList.get(i));
         }
+        refresh();
     }
 
     private void init(){
