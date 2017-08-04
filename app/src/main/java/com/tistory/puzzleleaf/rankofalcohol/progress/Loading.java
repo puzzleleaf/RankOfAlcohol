@@ -15,6 +15,7 @@ public class Loading extends Dialog {
     {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.setCanceledOnTouchOutside(false);
         if(select.equals("rank")) {
             setContentView(R.layout.loading_rank);
         }else{

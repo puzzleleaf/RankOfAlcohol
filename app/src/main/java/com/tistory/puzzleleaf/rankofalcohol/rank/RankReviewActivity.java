@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -22,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tistory.puzzleleaf.rankofalcohol.R;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
 import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
+import com.tistory.puzzleleaf.rankofalcohol.model.RatingObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.ReviewObject;
 import com.tistory.puzzleleaf.rankofalcohol.progress.Loading;
 import com.tistory.puzzleleaf.rankofalcohol.rank.adapter.RankReviewAdapter;
@@ -45,14 +47,22 @@ public class RankReviewActivity extends AppCompatActivity {
     @BindView(R.id.rank_review_rating_bar) RatingBar rankReviewRatingBar;
     @BindView(R.id.rank_review_register_btn) Button rankReviewRegisterBtn;
 
+    private final int DATA_REFRERSH_CODE = 700;
+    //Data
     private RankObject rankObject;
     private List<ReviewObject> reviewObjectList;
-
+    //loading
     private Loading loading;
+
     //recycler
     @BindView(R.id.rank_review_recycler_view) RecyclerView rankReviewRecyclerView;
     private LinearLayoutManager linearLayoutManager;
     private RankReviewAdapter rankReviewAdapter;
+
+    //reload
+    private boolean isReLoad = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,22 +70,42 @@ public class RankReviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rank_review);
         ButterKnife.bind(this);
 
-        loading = new Loading(this,"rank");
-
         dataInit();
         recyclerInit();
         rankReviewRatingBarInit();
-        rankReviewRatingBar.setRating(Float.parseFloat(String.valueOf(rankObject.getScore())));
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        dataLoad();
+        reviewDataLoad();
+        rankObjectReLoad();
     }
 
-    private void dataLoad(){
+    //평점 데이터 실시간 반영
+    private void rankObjectReLoad(){
+        if(isReLoad) {
+            FbDataBase.database.getReference("Rating").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    RatingObject ratingObject = dataSnapshot.child(rankObject.getObjectKey()).getValue(RatingObject.class);
+                    if(ratingObject!=null) {
+                        double result = (double) ratingObject.getTotal() / ratingObject.getNum();
+                        rankObject.setTotal(ratingObject.getNum());
+                        rankObject.setScore(result);
+                        rankObjectRatingReLoad();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    private void reviewDataLoad(){
         loading.show();
         reviewObjectList.clear();
 
@@ -87,6 +117,7 @@ public class RankReviewActivity extends AppCompatActivity {
                     ReviewObject rankObject = iterator.next().getValue(ReviewObject.class);
                     reviewObjectList.add(0,rankObject);
                 }
+                resultDataUpdate();
                 loading.dismiss();
                 rankReviewAdapter.notifyDataSetChanged();
             }
@@ -111,11 +142,25 @@ public class RankReviewActivity extends AppCompatActivity {
         Intent intent = getIntent();
         rankObject = intent.getParcelableExtra("data");
 
+        loading = new Loading(this,"rank");
+
         rankReviewBrandName.setText(rankObject.getBrandName());
-        rankReviewDegree.setText(String.valueOf(rankObject.getAlcoholDegree()));
-        rankReviewRating.setText(String.format("%.2f",rankObject.getScore()));
         rankReviewNum.setText(String.valueOf(rankObject.getTotal()));
         Glide.with(this).load(rankObject.getImgKey()).into(rankReviewImage);
+        rankReviewRating.setText(String.format("%.2f",rankObject.getScore()));
+        rankReviewDegree.setText(String.valueOf(rankObject.getAlcoholDegree()));
+        rankReviewRatingBar.setRating(Float.parseFloat(String.valueOf(rankObject.getScore())));
+    }
+
+    private void rankObjectRatingReLoad(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                rankReviewRating.setText(String.format("%.2f",rankObject.getScore()));
+                rankReviewNum.setText(String.valueOf(rankObject.getTotal()));
+                rankReviewRatingBar.setRating(Float.parseFloat(String.valueOf(rankObject.getScore())));
+            }
+        });
     }
 
     @OnClick(R.id.rank_review_register_btn)
@@ -132,4 +177,23 @@ public class RankReviewActivity extends AppCompatActivity {
         stars.getDrawable(0).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
     }
 
+    private void resultDataUpdate(){
+        Intent intent = new Intent();
+        intent.putExtra("data",rankObject);
+        setResult(DATA_REFRERSH_CODE,intent);
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(!isReLoad){
+            isReLoad = !isReLoad;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

@@ -2,6 +2,7 @@ package com.tistory.puzzleleaf.rankofalcohol.rank.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
@@ -23,7 +24,9 @@ import com.tistory.puzzleleaf.rankofalcohol.model.ReviewObject;
 import com.tistory.puzzleleaf.rankofalcohol.rank.RankReviewActivity;
 
 import java.util.List;
+import java.util.Random;
 
+import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -57,14 +60,21 @@ public class RankReviewAdapter extends RecyclerView.Adapter<RankReviewAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         ratingBarInit(holder);
+        profileRandomInit(holder);
         holder.rankReviewNickName.setText(res.get(position).getNickName());
         holder.rankReviewRatingBar.setRating(Float.valueOf(String.valueOf(res.get(position).getRating())));
         holder.rankReviewMany.setText(res.get(position).getHowMany());
         holder.rankReviewNum.setText(String.valueOf(FbAuth.mUser.gethMany()));
         holder.rankReviewDescription.setText(res.get(position).getContents1());
-
     }
 
+    private void profileRandomInit(ViewHolder holder){
+        Random randomProfile = new Random();
+        Glide.with(mInflater.getContext())
+                .load(holder.profileImage.getResourceId(randomProfile.nextInt(6),-1))
+                .into(holder.rankReviewProfile);
+
+    }
 
     private void ratingBarInit(ViewHolder holder){
         LayerDrawable stars = (LayerDrawable)holder.rankReviewRatingBar.getProgressDrawable();
@@ -80,6 +90,8 @@ public class RankReviewAdapter extends RecyclerView.Adapter<RankReviewAdapter.Vi
         @BindView(R.id.rank_review_recycler_many) TextView rankReviewMany;
         @BindView(R.id.rank_review_recycler_many_num) TextView rankReviewNum;
         @BindView(R.id.rank_review_recycler_description) TextView rankReviewDescription;
+        @BindView(R.id.rank_review_recycler_profile) ImageView rankReviewProfile;
+        @BindArray(R.array.profile_img) TypedArray profileImage;
         private ViewHolder(View view){
             super(view);
             ButterKnife.bind(this,view);

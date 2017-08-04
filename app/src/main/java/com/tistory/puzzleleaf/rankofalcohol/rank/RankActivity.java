@@ -37,7 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class RankActivity extends AppCompatActivity {
+public class RankActivity extends AppCompatActivity implements RankRecyclerAdapter.OnRankItemClickListener{
 
     //recycler
     RankRecyclerAdapter rankRecyclerAdapter;
@@ -68,15 +68,21 @@ public class RankActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         init();
-        dataLoad();
+
         //@TODO 나중에 로딩 중 보여줄 더미데이터 추가하기(첫 로딩에만 필요)(주류 변경시 필요 x)
        //dataUploadSample();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dataLoad();
+    }
+
     private void dataLoad(){
         //@TODO FireBase를 통해서 가져온 정보를 통해 상위 3개에 대해서 이미지가 나타나도록 한다.
-
         loading.show(); //Dialog Show
+        clearData();
         FbDataBase.database.getReference("Soju").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -86,9 +92,7 @@ public class RankActivity extends AppCompatActivity {
                     rankObjectList.add(rankObject);
                 }
                 ratingDataLoad();
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //@TODO 데이터 갱신 예외처리 할 것
@@ -124,12 +128,17 @@ public class RankActivity extends AppCompatActivity {
         });
     }
 
+    private void clearData(){
+        rankObjectList.clear();
+        rankObject.clear();
+    }
+
     private void refresh(){
         rankAdapter.notifyDataSetChanged();
         rankRecyclerAdapter.notifyDataSetChanged();
     }
 
-    //@TODO 상위 3개 데이터를 정렬해서 저장한다.
+    //@TODO 데이터 정렬해서 3개만 넣기
     private void rankData(){
         for(int i=0;i<3;i++){
             rankObject.add(rankObjectList.get(i));
@@ -151,6 +160,7 @@ public class RankActivity extends AppCompatActivity {
 
         //Recycler
         rankRecyclerAdapter = new RankRecyclerAdapter(this,rankObject);
+        rankRecyclerAdapter.setRankItemCallback(this);
         linearLayoutManager = new LinearLayoutManager(this);
         rankRecyclerView.setLayoutManager(linearLayoutManager);
         rankRecyclerView.setAdapter(rankRecyclerAdapter);
@@ -186,6 +196,13 @@ public class RankActivity extends AppCompatActivity {
         intent.putParcelableArrayListExtra("data", (ArrayList<? extends Parcelable>) rankObjectList);
         startActivity(intent);
 
+    }
+
+    @Override
+    public void onRankItemSelected(int position) {
+        Intent intent = new Intent(this, RankReviewActivity.class);
+        intent.putExtra("data",rankObjectList.get(position));
+        startActivity(intent);
     }
 
     //@TODO 데이터 등록용 이므로 이후에 제거할 영역

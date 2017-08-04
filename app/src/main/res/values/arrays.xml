@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="profile_img">
+        <item>@drawable/profile_alcohol</item>
+        <item>@drawable/profile_alcohol_txt</item>
+        <item>@drawable/profile_moon</item>
+        <item>@drawable/profile_moon_txt</item>
+        <item>@drawable/profile_star</item>
+        <item>@drawable/profile_star_txt</item>
+    </array>
+
+
+</resources>

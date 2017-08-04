@@ -1,13 +1,21 @@
 package com.tistory.puzzleleaf.rankofalcohol.rank.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,6 +34,13 @@ import butterknife.ButterKnife;
 
 public class RankRecyclerAdapter extends RecyclerView.Adapter<RankRecyclerAdapter.ViewHolder> {
 
+
+
+    public interface OnRankItemClickListener{
+        public void onRankItemSelected(int position);
+    }
+
+    private OnRankItemClickListener rankItemCallback;
     private LayoutInflater mInflater;
     private List<RankObject> res;
 
@@ -41,33 +56,53 @@ public class RankRecyclerAdapter extends RecyclerView.Adapter<RankRecyclerAdapte
         return viewHolder;
     }
 
+    public void setRankItemCallback(OnRankItemClickListener rankItemCallback){
+        this.rankItemCallback = rankItemCallback;
+    }
+
     @Override
     public int getItemCount() {
         return res.size();
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         //@DONE Firebase를 통해서 술 평가 순위를 얻어옴
         //@TODO 가지고 온 평가 순위를 통해서 저장된 데이터의 술 이름과 술 설명, 평점 정보를 업데이트
+        rankRatingBarInit(holder);
+        rankTropyInit(holder,position);
+        rankItemClick(holder,position);
         Glide.with(mInflater.getContext()).load(res.get(position).getImgKey()).into(holder.rankRecyclerImage);
-        if(position>2){
-            holder.rankRecyclerTropy.setVisibility(View.INVISIBLE);
-        }
         holder.rankRecyclerNum.setText(String.valueOf(position+1));
         holder.rankRecyclerBrandName.setText(res.get(position).getBrandName());
         holder.rankRecyclerDegree.setText(String.valueOf(res.get(position).getAlcoholDegree()));
+        holder.rankRecyclerRatingBar.setRating(Float.parseFloat(String.valueOf(res.get(position).getScore())));
+        holder.rankRecyclerRating.setText(String.format("%.2f",res.get(position).getScore()));
 
+
+    }
+
+    private void rankItemClick(ViewHolder holder, final int position){
         holder.rankRecyclerItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mInflater.getContext(), RankReviewActivity.class);
-                intent.putExtra("data",res.get(position));
-                mInflater.getContext().startActivity(intent);
+                rankItemCallback.onRankItemSelected(position);
             }
         });
     }
 
+    private void rankTropyInit(ViewHolder holder, int position){
+        if(position>2){
+            holder.rankRecyclerTropy.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void rankRatingBarInit(ViewHolder holder){
+        LayerDrawable stars = (LayerDrawable)holder.rankRecyclerRatingBar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(mInflater.getContext(),R.color.colorStar), PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(1).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(0).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
+    }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -77,6 +112,8 @@ public class RankRecyclerAdapter extends RecyclerView.Adapter<RankRecyclerAdapte
         @BindView(R.id.rank_recycler_degree) TextView rankRecyclerDegree;
         @BindView(R.id.rank_recycler_tropy) ImageView rankRecyclerTropy;
         @BindView(R.id.rank_recycler_item) LinearLayout rankRecyclerItem;
+        @BindView(R.id.rank_recycler_rating_bar) RatingBar rankRecyclerRatingBar;
+        @BindView(R.id.rank_recycler_rating) TextView rankRecyclerRating;
         private ViewHolder(View view){
             super(view);
             ButterKnife.bind(this,view);

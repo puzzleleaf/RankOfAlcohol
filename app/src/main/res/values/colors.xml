@@ -11,4 +11,6 @@
     <color name="colorMenuWhite">#ffffff</color>
     <color name="colorHint">#b5b5b5</color>
     <color name="colorStar">#ffbc3c</color>
+    <color name="colorGray">#55f5f5f5</color>
+    <color name="colorReviewGray">#acacac</color>
 </resources>

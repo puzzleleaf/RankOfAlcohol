@@ -15,7 +15,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
-import com.google.firebase.database.ValueEventListener;
 import com.tistory.puzzleleaf.rankofalcohol.R;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
@@ -23,6 +22,7 @@ import com.tistory.puzzleleaf.rankofalcohol.model.FbUser;
 import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.RatingObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.ReviewObject;
+import com.tistory.puzzleleaf.rankofalcohol.progress.Loading;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,12 +42,16 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
     //DB
     private RankObject rankObject;
 
+    private Loading loading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank_review_register);
         ButterKnife.bind(this);
         rankObject = getIntent().getParcelableExtra("data");
+
+        loading = new Loading(this,"write");
 
         ratingBarInit();
         dateInit();
@@ -83,6 +87,7 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
     }
 
     private void reviewRegister(){
+        loading.show();
         String reviewKey = FbDataBase.database.getReference().child("Review").child(rankObject.getObjectKey()).push().getKey();
         ReviewObject reviewObj = new ReviewObject(rankReviewRegisterNickName.getText().toString(),
                 (int) rankReviewRegisterRatingBar.getRating(),
@@ -102,10 +107,7 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
                 .setValue(rankObject.getObjectKey());
 
         ratingRegister((int) rankReviewRegisterRatingBar.getRating());
-
-
     }
-
 
     //전체 평점 실시간 등록 - FireBase Transaction
     private void ratingRegister(final int rating){
@@ -128,10 +130,10 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
                 Toast.makeText(getApplicationContext(),"데이터 등록 완료",Toast.LENGTH_SHORT).show();
+                loading.dismiss();
                 finish();
             }
         });
-
     }
 
     @OnClick(R.id.rank_review_register_submit)
