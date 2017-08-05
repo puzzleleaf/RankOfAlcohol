@@ -39,7 +39,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorHint"
-                android:text=" 도"
+                android:text="@string/rank_degree"
+                android:layout_marginLeft="3dp"
                 android:textSize="12sp" />
         </LinearLayout>
 

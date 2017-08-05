@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.MutableData;
@@ -39,6 +42,9 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
     @BindView(R.id.rank_review_register_radio) RadioGroup rankReviewRegisterRadioGroup;
     @BindView(R.id.rank_review_register_contents_first) EditText rankReviewRegisterContentsFirst;
     @BindView(R.id.rank_review_register_contents_second) EditText rankReviewRegisterContentsSecond;
+    @BindView(R.id.rank_review_register_image) ImageView rankReviewRegisterImageView;
+    @BindView(R.id.rank_review_register_brand_name) TextView rankReviewRegisterBrandName;
+    @BindView(R.id.rank_review_register_degree) TextView rankReviewRegisterDegree;
     //DB
     private RankObject rankObject;
 
@@ -49,12 +55,20 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank_review_register);
         ButterKnife.bind(this);
-        rankObject = getIntent().getParcelableExtra("data");
 
-        loading = new Loading(this,"write");
 
+
+        dataInit();
         ratingBarInit();
         dateInit();
+    }
+
+    private void dataInit(){
+        rankObject = getIntent().getParcelableExtra("data");
+        loading = new Loading(this,"write");
+        Glide.with(this).load(rankObject.getImgKey()).into(rankReviewRegisterImageView);
+        rankReviewRegisterBrandName.setText(rankObject.getBrandName());
+        rankReviewRegisterDegree.setText(String.valueOf(rankObject.getAlcoholDegree()));
     }
 
     private void ratingBarInit(){
@@ -140,5 +154,10 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
     public void reviewSubmit(){
         //@TODO 제약조건 달기
         reviewRegister();
+    }
+
+    @OnClick(R.id.rank_register_back)
+    public void rankRegisterBackClick(){
+        onBackPressed();
     }
 }

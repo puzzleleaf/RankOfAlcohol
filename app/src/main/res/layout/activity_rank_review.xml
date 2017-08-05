@@ -21,6 +21,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:tint="@color/colorWhite"
+                    android:id="@+id/rank_review_back"
                     android:src="@drawable/ic_prev"/>
             </LinearLayout>
             <LinearLayout
@@ -57,7 +58,8 @@
                     <TextView
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:text=" 도"
+                        android:text="@string/rank_degree"
+                        android:layout_marginLeft="3dp"
                         android:textColor="@color/colorHint"
                         android:textSize="12sp" />
                 </LinearLayout>

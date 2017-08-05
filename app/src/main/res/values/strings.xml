@@ -36,4 +36,6 @@
     <string name="rank_radio2">조금</string>
     <string name="rank_radio3">적당히</string>
     <string name="rank_radio4">많이</string>
+
+    <string name="rank_degree"> 도</string>
 </resources>

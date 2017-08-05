@@ -192,8 +192,8 @@ public class RankReviewActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    @OnClick(R.id.rank_review_back)
+    public void rankReviewBackClick(){
+        onBackPressed();
     }
 }

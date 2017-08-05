@@ -197,6 +197,10 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
         startActivity(intent);
 
     }
+    @OnClick(R.id.rank_back)
+    public void rankBackClick(){
+        onBackPressed();
+    }
 
     @Override
     public void onRankItemSelected(int position) {

@@ -16,6 +16,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class RankDetailActivity extends AppCompatActivity implements RankRecyclerAdapter.OnRankItemClickListener {
@@ -66,5 +67,10 @@ public class RankDetailActivity extends AppCompatActivity implements RankRecycle
         Intent intent = new Intent(this, RankReviewActivity.class);
         intent.putExtra("data",rankObjectList.get(position));
         startActivityForResult(intent,position);
+    }
+
+    @OnClick(R.id.rank_detail_back)
+    public void rankDetailBackClick(){
+        onBackPressed();
     }
 }
