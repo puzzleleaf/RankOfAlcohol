@@ -32,6 +32,7 @@ public class RankObject implements Parcelable {
         this.objectKey = objectKey;
     }
 
+
     public String getBrandName() {
         return brandName;
     }
@@ -114,7 +115,8 @@ public class RankObject implements Parcelable {
         dest.writeDouble(score);
     }
 
-    private RankObject(Parcel in) {
+
+    protected RankObject(Parcel in) {
         brandName = in.readString();
         alcoholDegree = in.readDouble();
         description = in.readString();
@@ -124,12 +126,10 @@ public class RankObject implements Parcelable {
         score = in.readDouble();
     }
 
-
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator<RankObject>(){
-
+    public static final Creator<RankObject> CREATOR = new Creator<RankObject>() {
         @Override
-        public RankObject createFromParcel(Parcel source) {
-            return new RankObject(source);
+        public RankObject createFromParcel(Parcel in) {
+            return new RankObject(in);
         }
 
         @Override
@@ -137,4 +137,8 @@ public class RankObject implements Parcelable {
             return new RankObject[size];
         }
     };
+
+
+
+
 }

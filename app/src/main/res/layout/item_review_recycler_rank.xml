@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rank_recycler_item"
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:layout_margin="3dp"
@@ -11,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:id="@+id/rank_review_item"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="35dp"

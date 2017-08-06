@@ -36,14 +36,24 @@ import butterknife.ButterKnife;
 
 public class RankReviewAdapter extends RecyclerView.Adapter<RankReviewAdapter.ViewHolder> {
 
+
+    public interface OnRankReviewClickListener{
+        public void onRankReviewItemSelected(int position);
+    }
+
     private LayoutInflater mInflater;
     private List<ReviewObject> res;
+    private OnRankReviewClickListener rankReviewCallback;
+
 
     public RankReviewAdapter(Context context, List<ReviewObject> res){
         this.mInflater = LayoutInflater.from(context);
         this.res = res;
     }
 
+    public void setRankReviewCallback(OnRankReviewClickListener onRankReviewClickListener){
+        this.rankReviewCallback = onRankReviewClickListener;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -58,14 +68,24 @@ public class RankReviewAdapter extends RecyclerView.Adapter<RankReviewAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         ratingBarInit(holder);
         profileRandomInit(holder);
+        rankReviewItemClick(holder,position);
         holder.rankReviewNickName.setText(res.get(position).getNickName());
         holder.rankReviewRatingBar.setRating(Float.valueOf(String.valueOf(res.get(position).getRating())));
         holder.rankReviewMany.setText(res.get(position).getHowMany());
         holder.rankReviewNum.setText(String.valueOf(FbAuth.mUser.gethMany()));
         holder.rankReviewDescription.setText(res.get(position).getContents1());
+    }
+
+    private void rankReviewItemClick(ViewHolder holder, final int position){
+       holder.rankReviewItem.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               rankReviewCallback.onRankReviewItemSelected(position);
+           }
+       });
     }
 
     private void profileRandomInit(ViewHolder holder){
@@ -91,6 +111,7 @@ public class RankReviewAdapter extends RecyclerView.Adapter<RankReviewAdapter.Vi
         @BindView(R.id.rank_review_recycler_many_num) TextView rankReviewNum;
         @BindView(R.id.rank_review_recycler_description) TextView rankReviewDescription;
         @BindView(R.id.rank_review_recycler_profile) ImageView rankReviewProfile;
+        @BindView(R.id.rank_review_item) LinearLayout rankReviewItem;
         @BindArray(R.array.profile_img) TypedArray profileImage;
         private ViewHolder(View view){
             super(view);

@@ -37,7 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class RankReviewActivity extends AppCompatActivity {
+public class RankReviewActivity extends AppCompatActivity implements RankReviewAdapter.OnRankReviewClickListener {
 
     @BindView(R.id.rank_review_image) ImageView rankReviewImage;
     @BindView(R.id.rank_review_brand_name) TextView rankReviewBrandName;
@@ -132,6 +132,7 @@ public class RankReviewActivity extends AppCompatActivity {
     private void recyclerInit(){
         reviewObjectList = new ArrayList<>();
         rankReviewAdapter = new RankReviewAdapter(this,reviewObjectList);
+        rankReviewAdapter.setRankReviewCallback(this);
         linearLayoutManager = new LinearLayoutManager(this);
         rankReviewRecyclerView.setLayoutManager(linearLayoutManager);
         rankReviewRecyclerView.setAdapter(rankReviewAdapter);
@@ -195,5 +196,12 @@ public class RankReviewActivity extends AppCompatActivity {
     @OnClick(R.id.rank_review_back)
     public void rankReviewBackClick(){
         onBackPressed();
+    }
+
+    @Override
+    public void onRankReviewItemSelected(int position) {
+        Intent intent = new Intent(this,RankReviewDetailActivity.class);
+        intent.putExtra("data",reviewObjectList.get(position));
+        startActivity(intent);
     }
 }

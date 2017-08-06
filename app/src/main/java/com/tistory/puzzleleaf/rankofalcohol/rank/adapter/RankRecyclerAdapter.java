@@ -34,8 +34,6 @@ import butterknife.ButterKnife;
 
 public class RankRecyclerAdapter extends RecyclerView.Adapter<RankRecyclerAdapter.ViewHolder> {
 
-
-
     public interface OnRankItemClickListener{
         public void onRankItemSelected(int position);
     }

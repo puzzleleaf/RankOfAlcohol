@@ -1,10 +1,13 @@
 package com.tistory.puzzleleaf.rankofalcohol.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by cmtyx on 2017-08-03.
  */
 
-public class ReviewObject {
+public class ReviewObject implements Parcelable {
     private String nickName;
     private int rating;
     private String howMany;
@@ -106,4 +109,47 @@ public class ReviewObject {
         this.reviewKey = reviewKey;
         this.userKey = userKey;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nickName);
+        dest.writeInt(rating);
+        dest.writeString(howMany);
+        dest.writeString(contents1);
+        dest.writeString(contents2);
+        dest.writeString(date);
+        dest.writeDouble(userHowMany);
+        dest.writeString(reviewKey);
+        dest.writeString(userKey);
+    }
+
+    public static final Creator<ReviewObject> CREATOR = new Creator<ReviewObject>() {
+        @Override
+        public ReviewObject createFromParcel(Parcel in) {
+            return new ReviewObject(in);
+        }
+
+        @Override
+        public ReviewObject[] newArray(int size) {
+            return new ReviewObject[size];
+        }
+    };
+
+    protected ReviewObject(Parcel in) {
+        nickName = in.readString();
+        rating = in.readInt();
+        howMany = in.readString();
+        contents1 = in.readString();
+        contents2 = in.readString();
+        date = in.readString();
+        userHowMany = in.readDouble();
+        reviewKey = in.readString();
+        userKey = in.readString();
+    }
+
 }

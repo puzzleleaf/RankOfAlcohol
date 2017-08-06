@@ -34,17 +34,18 @@ public class RankDetailActivity extends AppCompatActivity implements RankRecycle
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank_detail);
         ButterKnife.bind(this);
+        recyclerInit();
+    }
 
-        Intent intent = getIntent();
-        rankObjectList = intent.getParcelableArrayListExtra("data");
-        //Recycler
+    private void recyclerInit(){
+        rankObjectList = getIntent().getParcelableArrayListExtra("data");
         rankRecyclerAdapter = new RankRecyclerAdapter(this, rankObjectList);
         rankRecyclerAdapter.setRankItemCallback(this);
         linearLayoutManager = new LinearLayoutManager(this);
         rankDetailRecyclerView.setLayoutManager(linearLayoutManager);
         rankDetailRecyclerView.setAdapter(rankRecyclerAdapter);
-
     }
+
     private void dataReLoad(){
         rankRecyclerAdapter.notifyDataSetChanged();
     }
