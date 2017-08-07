@@ -2,14 +2,15 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="#000000"
     android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/main_animation"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -39,8 +40,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.200"
-        app:layout_constraintVertical_bias="0.980">
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintVertical_bias="0.98">
         <ImageView
             android:layout_width="@dimen/menu_size"
             android:layout_height="@dimen/menu_size"
@@ -64,8 +65,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
-        app:layout_constraintVertical_bias="0.980">
+        app:layout_constraintVertical_bias="0.98">
         <ImageView
             android:layout_width="@dimen/menu_size"
             android:layout_height="@dimen/menu_size"
@@ -88,8 +88,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.800"
-        app:layout_constraintVertical_bias="0.980">
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintVertical_bias="0.98">
         <ImageView
             android:layout_width="@dimen/menu_size"
             android:layout_height="@dimen/menu_size"
@@ -101,6 +101,29 @@
             android:textColor="@color/colorWhite"
             android:textStyle="bold"
             android:text="@string/main_gallery"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.025">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="adasdasd"
+            android:id="@+id/star_edit"
+            android:textColor="@color/colorWhite"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="등록"
+            android:id="@+id/star_click"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/corner"/>
     </LinearLayout>
 
 

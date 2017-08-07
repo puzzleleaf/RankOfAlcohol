@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.tistory.puzzleleaf.rankofalcohol.R;
+import com.tistory.puzzleleaf.rankofalcohol.animation.MainAnimation;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
 import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.RatingObject;
@@ -62,6 +64,7 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
     private List<RankObject> rankObject;
     private String dataLoadStr ;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +74,7 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
         init();
 
         //@TODO 나중에 로딩 중 보여줄 더미데이터 추가하기(첫 로딩에만 필요)(주류 변경시 필요 x)
-       //dataUploadSample();
+      // dataUploadSample();
     }
 
     @Override
@@ -91,7 +94,6 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
                 while (iterator.hasNext()){
                     RankObject rankObject = iterator.next().getValue(RankObject.class);
                     rankObjectList.add(rankObject);
-                    Log.d("qwe","추가!" + dataLoadStr);
                 }
                 ratingDataLoad();
             }
@@ -238,9 +240,9 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
 //        RankObject rankObject = new RankObject("처음처럼(진한)", 21,"","soju_05.png",objKey);
 //        FbDataBase.database.getReference().child("Soju").child(objKey).setValue(rankObject);
 
-        String objKey = FbDataBase.database.getReference().child("Beer").push().getKey();
-        RankObject rankObject = new RankObject("하이트", 4.5,"","beer_01.png",objKey);
-        FbDataBase.database.getReference().child("Beer").child(objKey).setValue(rankObject);
+        String objKey2 = FbDataBase.database.getReference().child("Beer").push().getKey();
+        RankObject rankObject2 = new RankObject("하이트", 4.5,"","beer_01.png",objKey2);
+        FbDataBase.database.getReference().child("Beer").child(objKey2).setValue(rankObject2);
     }
 
 }
