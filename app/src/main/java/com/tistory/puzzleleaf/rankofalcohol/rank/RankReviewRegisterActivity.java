@@ -100,6 +100,7 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
         return simpleDate.format(date);
     }
 
+    //@TODO 데이터 등록 연산을 서비스단에서 처리하도록 변경하기
     private void reviewRegister(){
         loading.show();
         String reviewKey = FbDataBase.database.getReference().child("Review").child(rankObject.getObjectKey()).push().getKey();
@@ -126,6 +127,40 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
     //전체 평점 실시간 등록 - FireBase Transaction
     private void ratingRegister(final int rating){
         FbDataBase.database.getReference().child("Rating").child(rankObject.getObjectKey()).runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                RatingObject ratingObject = mutableData.getValue(RatingObject.class);
+                if(ratingObject == null){
+                    ratingObject = new RatingObject(rating,1);
+                }else{
+                    int total = ratingObject.getTotal();
+                    int num = ratingObject.getNum();
+                    ratingObject.setTotal(total+rating);
+                    ratingObject.setNum(++num);
+                }
+                mutableData.setValue(ratingObject);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                Toast.makeText(getApplicationContext(),"데이터 등록 완료",Toast.LENGTH_SHORT).show();
+                loading.dismiss();
+                finish();
+            }
+        });
+    }
+
+    // 성별별 리뷰 데이터 저장 로직
+    private void ratingGenderRegister(final int rating){
+        String fbGenderRating = "";
+        if(FbAuth.mUser.getGender().equals("남성")){
+            fbGenderRating = "ManRating";
+        }else{
+            fbGenderRating = "WomanRating";
+        }
+
+        FbDataBase.database.getReference().child(fbGenderRating).child(rankObject.getObjectKey()).runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
                 RatingObject ratingObject = mutableData.getValue(RatingObject.class);

@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.tistory.puzzleleaf.rankofalcohol.R;
 import com.tistory.puzzleleaf.rankofalcohol.model.ReviewObject;
-import com.tistory.puzzleleaf.rankofalcohol.rank.adapter.RankReviewAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

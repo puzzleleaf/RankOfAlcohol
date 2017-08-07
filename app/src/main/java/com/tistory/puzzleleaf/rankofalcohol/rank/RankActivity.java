@@ -58,8 +58,9 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
     private Loading loading;
 
     //DBObject
-    List<RankObject> rankObjectList;
-    List<RankObject> rankObject;
+    private List<RankObject> rankObjectList;
+    private List<RankObject> rankObject;
+    private String dataLoadStr ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,14 +83,15 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
     private void dataLoad(){
         //@TODO FireBase를 통해서 가져온 정보를 통해 상위 3개에 대해서 이미지가 나타나도록 한다.
         loading.show(); //Dialog Show
-        clearData();
-        FbDataBase.database.getReference("Soju").addListenerForSingleValueEvent(new ValueEventListener() {
+        FbDataBase.database.getReference(dataLoadStr).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                clearData();
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
                 while (iterator.hasNext()){
                     RankObject rankObject = iterator.next().getValue(RankObject.class);
                     rankObjectList.add(rankObject);
+                    Log.d("qwe","추가!" + dataLoadStr);
                 }
                 ratingDataLoad();
             }
@@ -117,7 +119,6 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
                     }
                 }
                 rankData();
-                loading.dismiss();
             }
 
             @Override
@@ -134,15 +135,34 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
     private void refresh(){
         rankAdapter.notifyDataSetChanged();
         rankRecyclerAdapter.notifyDataSetChanged();
+        loading.dismiss();
     }
 
     //@TODO 데이터 정렬해서 3개만 넣기
     private void rankData(){
         rankObject.clear();
-        for(int i=0;i<3;i++){
-            rankObject.add(rankObjectList.get(i));
+        if(rankObjectList.size()<3){
+            for(int i=0;i<rankObjectList.size();i++){
+                rankObject.add(rankObjectList.get(i));
+            }
+        }else {
+            for (int i = 0; i < 3; i++) {
+                rankObject.add(rankObjectList.get(i));
+            }
         }
         refresh();
+    }
+
+    private void setDataLoadStr(int position){
+        switch (position){
+            case 0:
+                dataLoadStr = getString(R.string.rank_data_load_zero);
+                break;
+            case 1:
+                dataLoadStr = getString(R.string.rank_data_load_fir);
+                break;
+        }
+        dataLoad();
     }
 
     private void init(){
@@ -150,6 +170,8 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
         rankObject = new ArrayList<>();
 
         loading = new Loading(this,"rank");
+
+        dataLoadStr = getString(R.string.rank_data_load_zero);
 
         //ViewPager
         rankAdapter = new RankAdapter(this,rankObject);
@@ -172,6 +194,7 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 rankSpinnerText.setText(option.getItem(position));
+                setDataLoadStr(position);
                 //@TODO 선택한 필터에 따라서 내용들이 갱신되도록 바꾸기 , 다른 콘텐츠가 준비 된 이후에 추가
             }
 
@@ -211,11 +234,13 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
 
     //@TODO 데이터 등록용 이므로 이후에 제거할 영역
     private void dataUploadSample(){
-        String objKey = FbDataBase.database.getReference().child("Soju").push().getKey();
-        RankObject rankObject = new RankObject("처음처럼(진한)", 21,"","soju_05.png",objKey);
-        FbDataBase.database.getReference().child("Soju").child(objKey).setValue(rankObject);
+//        String objKey = FbDataBase.database.getReference().child("Soju").push().getKey();
+//        RankObject rankObject = new RankObject("처음처럼(진한)", 21,"","soju_05.png",objKey);
+//        FbDataBase.database.getReference().child("Soju").child(objKey).setValue(rankObject);
 
-        rankObject = new RankObject("처음처럼(진한)", 21,"","soju_05.png",objKey);
+        String objKey = FbDataBase.database.getReference().child("Beer").push().getKey();
+        RankObject rankObject = new RankObject("하이트", 4.5,"","beer_01.png",objKey);
+        FbDataBase.database.getReference().child("Beer").child(objKey).setValue(rankObject);
     }
 
 }

@@ -22,6 +22,8 @@
     <string name="rank_more">더보기</string>
     <string name="rank_default_filter">소주</string>
     <string name="rank_name">랭킹</string>
+    <string name="rank_data_load_zero">Soju</string>
+    <string name="rank_data_load_fir">Beer</string>
 
     <string-array name="option">
         <item>소주</item>

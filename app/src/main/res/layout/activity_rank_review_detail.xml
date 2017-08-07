@@ -24,7 +24,7 @@
             android:layout_marginRight="40dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="리뷰"
+            android:text="리뷰보기"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
             android:textStyle="bold" />
