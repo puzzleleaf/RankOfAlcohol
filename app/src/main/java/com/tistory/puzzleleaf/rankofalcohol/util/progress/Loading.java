@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.progress;
+package com.tistory.puzzleleaf.rankofalcohol.util.progress;
 
 import android.app.Dialog;
 import android.content.Context;

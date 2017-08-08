@@ -19,15 +19,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.tistory.puzzleleaf.rankofalcohol.R;
-import com.tistory.puzzleleaf.rankofalcohol.animation.MainAnimation;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
 import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.RatingObject;
-import com.tistory.puzzleleaf.rankofalcohol.progress.Loading;
+import com.tistory.puzzleleaf.rankofalcohol.util.progress.Loading;
 import com.tistory.puzzleleaf.rankofalcohol.rank.adapter.RankAdapter;
 import com.tistory.puzzleleaf.rankofalcohol.rank.adapter.RankRecyclerAdapter;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

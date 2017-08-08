@@ -10,7 +10,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -25,7 +24,7 @@ import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
 import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.RatingObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.ReviewObject;
-import com.tistory.puzzleleaf.rankofalcohol.progress.Loading;
+import com.tistory.puzzleleaf.rankofalcohol.util.progress.Loading;
 import com.tistory.puzzleleaf.rankofalcohol.rank.adapter.RankReviewAdapter;
 
 import java.util.ArrayList;

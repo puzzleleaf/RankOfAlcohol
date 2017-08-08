@@ -1,11 +1,15 @@
 package com.tistory.puzzleleaf.rankofalcohol.animation;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
 
 import java.util.ArrayList;
 
@@ -36,28 +40,33 @@ public class MainAnimation extends PApplet {
     PFont font;
 
     Star myStar[];
-    String [] test ={"달과 별 그리고 술","MOOOON","Hello"};
-    int my = 0;
-
     ArrayList<Point> myArr;
 
-
-    private BroadcastReceiver broadcastReceiver;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        broadcastReceiver = new BroadCastReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("Star");
-        getActivity().registerReceiver(broadcastReceiver,filter);
+        dataLoad();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        getActivity().unregisterReceiver(broadcastReceiver);
+    private void dataLoad(){
+        FbDataBase.database.getReference().child("Channel").child("user-key").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                if (value!=null) {
+                    Log.d("qwe", value);
+                    setText(value);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
+
 
     @Override
     public void settings() {
@@ -126,8 +135,6 @@ public class MainAnimation extends PApplet {
                 starLimit += 50;
             }
         }
-        myArr.clear();
-        setText(test[my++%3]);
     }
 
     void drawMoon(){
@@ -147,6 +154,9 @@ public class MainAnimation extends PApplet {
 
     void setText(String txt)
     {
+        if(myArr!=null) {
+            myArr.clear();
+        }
         PGraphics pg = createGraphics(width, height);
         pg.beginDraw();
         pg.fill(0);
@@ -269,20 +279,6 @@ public class MainAnimation extends PApplet {
                 return false;
         }
     }
-
-
-    private class BroadCastReceiver extends BroadcastReceiver{
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if(intent.getAction().equals("Star")){
-                myArr.clear();
-                String text = intent.getStringExtra("star");
-                setText(text);
-            }
-        }
-    }
-
 
 
 }

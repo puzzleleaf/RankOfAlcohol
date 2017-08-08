@@ -21,11 +21,10 @@ import com.google.firebase.database.Transaction;
 import com.tistory.puzzleleaf.rankofalcohol.R;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
-import com.tistory.puzzleleaf.rankofalcohol.model.FbUser;
 import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.RatingObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.ReviewObject;
-import com.tistory.puzzleleaf.rankofalcohol.progress.Loading;
+import com.tistory.puzzleleaf.rankofalcohol.util.progress.Loading;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
