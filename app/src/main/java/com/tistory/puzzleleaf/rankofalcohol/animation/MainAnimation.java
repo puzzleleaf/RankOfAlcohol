@@ -152,11 +152,11 @@ public class MainAnimation extends PApplet {
         pg.fill(0);
         pg.textAlign(CENTER);
         pg.textFont(font,width/8);
-        pg.text(txt,width/2,height/2);
+        pg.text(txt,width/2,height/4);
         pg.endDraw();
         pg.loadPixels();
 
-        int val = 8;
+        int val = width/150;
 
         for(int h=0;h<height;h+=val) {
             for (int w = 0; w < width; w += val) {
@@ -171,8 +171,7 @@ public class MainAnimation extends PApplet {
 
 
     //별 객체
-    class Star
-    {
+    class Star {
         PVector location;
         float brightness;
         float starSize;
@@ -180,8 +179,7 @@ public class MainAnimation extends PApplet {
         float starMinSize = 2;
         float starMaxSize = 5;
 
-        Star()
-        {
+        Star() {
             noStroke();
             location = new PVector(random(width),random(height));
             starSize = random(starMinSize,starMaxSize);
@@ -189,25 +187,20 @@ public class MainAnimation extends PApplet {
             brightness =30;
         }
 
-        void display()
-        {
-            for(int i=0;i<starSize;i++)
-            {
+        void display() {
+            for(int i=0;i<starSize;i++) {
                 fill(255,brightness-i*5);
                 ellipse(location.x,location.y,i,i);
             }
         }
 
         //빛나는 효과
-        void shine()
-        {
+        void shine() {
             if(brightness>255){
                 brightness =255;
                 light = random(-3,-10);
-
             }
-            if(brightness<0)
-            {
+            if(brightness<0) {
                 location = new PVector(random(width),random(height));
                 light = random(3,10);
                 starSize = random(starMinSize,starMaxSize);
@@ -226,31 +219,26 @@ public class MainAnimation extends PApplet {
         PVector vel;
         PVector acc;
 
-        float limit = 1;
         int speed = (int)random(8,16);
         float size = random(3,7);
 
-        Point(float x, float y)
-        {
+        Point(float x, float y) {
             pos = new PVector(random(0,width),random(0,height));
             des = new PVector(x,y);
             vel = new PVector(0,0);
             acc = new PVector(0,0);
         }
 
-        void display()
-        {
+        void display() {
             fill(255);
             ellipse(pos.x,pos.y,size,size);
         }
 
-        void update()
-        {
+        void update() {
             float distance = dist(pos.x,pos.y,des.x,des.y);
             float proximityMult = (float) 1.0;
 
-            if(distance<50)
-            {
+            if(distance<50) {
                 proximityMult = distance/50;
             }
 

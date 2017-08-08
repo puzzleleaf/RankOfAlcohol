@@ -123,7 +123,10 @@
                 <TextView
                     android:gravity="center"
                     android:layout_height="wrap_content"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/rank_review_description"
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold" />
             </LinearLayout>

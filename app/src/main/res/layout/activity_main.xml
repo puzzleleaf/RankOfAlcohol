@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="#000000"
     android:layout_height="match_parent">
@@ -21,6 +20,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:tint="#ffffff"
+        android:id="@+id/main_setting"
         android:src="@drawable/ic_settings"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -103,28 +103,17 @@
             android:text="@string/main_gallery"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:tint="@color/colorWhite"
+        android:id="@+id/main_chat_mode"
+        android:src="@drawable/ic_keyboard"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.025">
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="adasdasd"
-            android:id="@+id/star_edit"
-            android:textColor="@color/colorWhite"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="등록"
-            android:id="@+id/star_click"
-            android:textColor="@color/colorWhite"
-            android:background="@drawable/corner"/>
-    </LinearLayout>
-
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintVertical_bias="0.839" />
 
 </android.support.constraint.ConstraintLayout>

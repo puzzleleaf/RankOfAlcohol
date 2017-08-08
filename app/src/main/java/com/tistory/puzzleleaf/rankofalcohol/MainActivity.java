@@ -13,6 +13,7 @@ import com.tistory.puzzleleaf.rankofalcohol.animation.MainAnimation;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.rank.RankActivity;
 import com.tistory.puzzleleaf.rankofalcohol.service.UserService;
+import com.tistory.puzzleleaf.rankofalcohol.setting.SettingActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,8 +23,6 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.star_edit)
-    EditText starEdit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,12 +62,21 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
-    @OnClick(R.id.star_click)
-    public void rankTemp(){
-        Intent intent = new Intent("Star");
-        intent.putExtra("star",starEdit.getText().toString());
-        sendBroadcast(intent);
+    @OnClick(R.id.main_setting)
+    public void settingMenu(){
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
     }
+
+    @OnClick(R.id.main_chat_mode)
+    public void chatMode(){
+    }
+
+//    @OnClick(R.id.star_click)
+//    public void rankTemp(){
+//        Intent intent = new Intent("Star");
+//        intent.putExtra("star",starEdit.getText().toString());
+//        sendBroadcast(intent);
+//    }
 
 }

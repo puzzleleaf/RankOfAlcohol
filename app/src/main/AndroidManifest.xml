@@ -23,6 +23,7 @@
         <activity android:name=".rank.RankReviewActivity" android:screenOrientation="portrait"/>
         <activity android:name=".rank.RankReviewRegisterActivity" android:screenOrientation="portrait"/>
         <activity android:name=".rank.RankReviewDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".setting.SettingActivity" android:screenOrientation="portrait"/>
 
         <service android:name=".service.UserService"/>
     </application>

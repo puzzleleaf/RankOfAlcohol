@@ -46,6 +46,7 @@ public class RankReviewActivity extends AppCompatActivity implements RankReviewA
     @BindView(R.id.rank_review_num) TextView rankReviewNum;
     @BindView(R.id.rank_review_rating_bar) RatingBar rankReviewRatingBar;
     @BindView(R.id.rank_review_register_btn) Button rankReviewRegisterBtn;
+    @BindView(R.id.rank_review_description) TextView rankReviewDescription;
 
     private final int DATA_REFRERSH_CODE = 700;
     //Data
@@ -151,6 +152,7 @@ public class RankReviewActivity extends AppCompatActivity implements RankReviewA
         rankReviewRating.setText(String.format("%.2f",rankObject.getScore()));
         rankReviewDegree.setText(String.valueOf(rankObject.getAlcoholDegree()));
         rankReviewRatingBar.setRating(Float.parseFloat(String.valueOf(rankObject.getScore())));
+        rankReviewDescription.setText(rankObject.getDescription());
     }
 
     private void rankObjectRatingReLoad(){
