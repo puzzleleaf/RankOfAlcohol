@@ -19,6 +19,7 @@ public class ModePreference {
     //기본모드 - 1
     //메시지모드 - 2
     //미니게임 모드 - 3
+    //전광판 모드 - 4
 
     public int getModePreferences(){
         SharedPreferences pref = context.getSharedPreferences("mode", MODE_PRIVATE);
@@ -31,5 +32,31 @@ public class ModePreference {
         editor.putInt("mode", modeNum);
         editor.commit();
     }
+
+    public void saveDisplayModeColorPreference(String color){
+        SharedPreferences pref = context.getSharedPreferences("display", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("display", color);
+        editor.commit();
+    }
+
+    public String getDisplayModeColorPreference(){
+        SharedPreferences pref = context.getSharedPreferences("display",MODE_PRIVATE);
+        return pref.getString("display","ffffff");
+    }
+
+    public void saveDisplayModeTextPreference(String text){
+        SharedPreferences pref = context.getSharedPreferences("displayText", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("displayText", text);
+        editor.commit();
+    }
+
+    public String getDisplayModeTextPreference(){
+        SharedPreferences pref = context.getSharedPreferences("displayText",MODE_PRIVATE);
+        return pref.getString("displayText","달과 별 그리고 술");
+    }
+
+
 
 }

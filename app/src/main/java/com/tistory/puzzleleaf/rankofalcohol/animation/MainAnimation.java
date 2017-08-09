@@ -1,7 +1,9 @@
 package com.tistory.puzzleleaf.rankofalcohol.animation;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -10,6 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
+import com.tistory.puzzleleaf.rankofalcohol.util.mode.ModePreference;
 
 import java.util.ArrayList;
 
@@ -23,7 +26,7 @@ import processing.event.MouseEvent;
  * Created by cmtyx on 2017-04-08.
  */
 
-public class MainAnimation extends PApplet {
+public class MainAnimation extends PApplet implements ChatMode.OnChatMessageListener {
 
     int maxStar = 500;
     int starLimit = 300;
@@ -42,46 +45,41 @@ public class MainAnimation extends PApplet {
     Star myStar[];
     ArrayList<Point> myArr;
 
+    private static final String MODE = "MODE";
+    private int modeCheck = 1;
+
+    //Mode
+    private ModeBroadCastReceiver modeBroadCastReceiver;
+    private ChatMode chatMode;
+    private DisplayMode displayMode;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataLoad();
+        chatModeInit();
+        displayModeInit();
+        broadCastInit();
     }
 
-    private void dataLoad(){
-        FbDataBase.database.getReference().child("Channel").child("user-key").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                if (value!=null) {
-                    Log.d("qwe", value);
-                    setText(value);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(modeBroadCastReceiver);
     }
-
 
     @Override
     public void settings() {
         super.settings();
         fullScreen();
-
-
     }
 
-    public void setup()
-    {
+    public void setup() {
         myArr = new ArrayList(); // 글자
         myStar = new Star[maxStar];
 
-        font = loadFont("NanumBarunpen-Bold-50.vlw");
+        textAlign(CENTER);
+        font = loadFont("휴먼가는샘체-70.vlw");
+
         for(int i=0;i<maxStar;i++){
             myStar[i] = new Star();
         }
@@ -95,34 +93,64 @@ public class MainAnimation extends PApplet {
         location = startShadow;
         moveSpeed = width/800;
 
+
     }
 
     public void draw()
     {
         background(7,20,29,100);
-       // drawMoon();
-       // drawShadow(location,height/4);
-       // location-=moveSpeed;
+        starAnimation();
+        chatMessageAnimation();
+        displayModeAnimation();
+
+    }
+
+    private void displayModeAnimation(){
+        if(modeCheck!=4) {
+            return;
+        }
+        pushMatrix();
+        translate(width / 2, height / 2);
+        rotate(HALF_PI);
+        fill(displayMode.getrColor(),displayMode.getgColor(),displayMode.getbColor(),random(0,255));
+        textSize(height / 8);
+        text(displayMode.getText(), 0, 0);
+        popMatrix();
+    }
+
+
+    //달 애니메이션
+    private void moonAnimation(){
+        drawMoon();
+        drawShadow(location,height/4);
+        location-=moveSpeed;
 
         if(location<endShadow){
             location = startShadow;
         }
+    }
 
+    // 별 반짝임 (기본 애니메이션)
+    private void starAnimation(){
         for(int i=0;i<starLimit;i++){
             myStar[i].shine();
             myStar[i].display();
         }
-        if(myArr.size()>0) {
-            for (int i = 0; i < myArr.size(); i++) {
-                try {
-                    myArr.get(i).update();
-                    myArr.get(i).display();
-                }catch (Exception e){
+    }
 
-                }
+    //채팅 메시지
+    private void chatMessageAnimation(){
+        if(modeCheck!=2){
+            return;
+        }
+        for (int i = 0; i < myArr.size(); i++) {
+            try {
+                myArr.get(i).update();
+                myArr.get(i).display();
+            }catch (Exception e){
+
             }
         }
-
     }
 
     @Override
@@ -161,7 +189,7 @@ public class MainAnimation extends PApplet {
         pg.beginDraw();
         pg.fill(0);
         pg.textAlign(CENTER);
-        pg.textFont(font,width/8);
+        pg.textFont(font,width/6);
         pg.text(txt,width/2,height/4);
         pg.endDraw();
         pg.loadPixels();
@@ -177,8 +205,9 @@ public class MainAnimation extends PApplet {
             }
         }
         pg.bitmap.recycle();
-    }
+        pg.dispose();
 
+    }
 
     //별 객체
     class Star {
@@ -269,16 +298,62 @@ public class MainAnimation extends PApplet {
 
             acc.mult(0);
         }
-
-        boolean isEnd()
-        {
-            float distance = dist(pos.x,pos.y,des.x,des.y);
-            if(distance <5)
-                return true;
-            else
-                return false;
-        }
     }
 
 
+    private void chatModeInit(){
+        chatMode = new ChatMode(this);
+        chatMode.chatModeListenerInit();
+    }
+    private void displayModeInit(){
+        displayMode = new DisplayMode(getActivity().getApplicationContext());
+    }
+
+    //ChatMode 실시간 리스너
+    @Override
+    public void onChatValueListener(String value) {
+        setText(value);
+    }
+
+    private void broadCastInit(){
+        modeBroadCastReceiver = new ModeBroadCastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(MODE);
+        getActivity().registerReceiver(modeBroadCastReceiver,filter);
+    }
+
+
+    private class ModeBroadCastReceiver extends BroadcastReceiver{
+
+        private static final int MODE_BASIC = 1;
+        private static final int MODE_CHAT = 2;
+        private static final int MODE_GAME = 3;
+        private static final int MODE_DISPLAY = 4;
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().equals(MODE)){
+                modeCheck = intent.getIntExtra("mode",MODE_BASIC);
+                switch (modeCheck){
+                    case MODE_BASIC:
+                        chatMode.dataLoadRemove();
+                        if(font!=null) {
+                            setText("");
+                        }
+                        break;
+                    case MODE_CHAT:
+                        chatMode.dataLoadInit();
+                        break;
+                    case MODE_GAME:
+                        break;
+                    case MODE_DISPLAY:
+                        displayMode.displayDataLoad();
+                        Log.d("qwe", String.valueOf(modeCheck));
+                        break;
+                }
+
+            }
+
+        }
+    }
 }

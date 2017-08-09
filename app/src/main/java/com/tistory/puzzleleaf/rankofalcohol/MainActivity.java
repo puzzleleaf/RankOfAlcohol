@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,10 +30,17 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int MODE_BASIC = 1;
     private static final int MODE_CHAT = 2;
+    private static final int MODE_GAME = 3;
+    private static final int MODE_DISPLAY = 4;
+    private static final String MODE = "MODE";
 
+    @BindView(R.id.main_chat_mode) ImageView mainChatMode;
     @BindView(R.id.main_chat_layout) LinearLayout mainChatLayout;
     @BindView(R.id.main_chat_edit) ChatEditText mainChatEdit;
     @BindView(R.id.main_setting) ImageView mainSetting;
+    @BindView(R.id.main_rank) LinearLayout mainRank;
+    @BindView(R.id.main_analysis) LinearLayout mainAnalysis;
+    @BindView(R.id.main_gallery) LinearLayout mainGallery;
 
     private InputMethodManager imm;
     private ModePreference modePreference;
@@ -42,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         init();
         userInit();
@@ -86,9 +95,35 @@ public class MainActivity extends AppCompatActivity {
     private void modeCheck(int mode){
         switch (mode){
             case MODE_BASIC:
+                mainChatMode.setVisibility(View.GONE);
+                showMenu();
+                break;
             case MODE_CHAT:
+                mainChatMode.setVisibility(View.VISIBLE);
+                showMenu();
+                break;
+            case MODE_GAME:
+                mainChatMode.setVisibility(View.GONE);
+                showMenu();
+                break;
+            case MODE_DISPLAY:
+                mainChatMode.setVisibility(View.GONE);
+                hideMenu();
                 break;
         }
+        sendBroadcast(new Intent(MODE).putExtra("mode",mode));
+    }
+
+    private void hideMenu(){
+        mainRank.setVisibility(View.GONE);
+        mainAnalysis.setVisibility(View.GONE);
+        mainGallery.setVisibility(View.GONE);
+    }
+
+    private void showMenu(){
+        mainRank.setVisibility(View.VISIBLE);
+        mainAnalysis.setVisibility(View.VISIBLE);
+        mainGallery.setVisibility(View.VISIBLE);
     }
 
 
@@ -128,11 +163,11 @@ public class MainActivity extends AppCompatActivity {
     public void chatSend(){
         sendMessage();
         hideChat();
-        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 
     private void hideChat(){
         mainChatLayout.setVisibility(View.GONE);
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 
     private void sendMessage(){
