@@ -81,7 +81,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
-                FbAuth.mAuth = null;
+                Toast.makeText(getApplicationContext(), getString(R.string.NetworkError), Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
     }

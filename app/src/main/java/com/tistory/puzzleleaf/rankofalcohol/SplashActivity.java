@@ -47,7 +47,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void changeActivity(){
-        if(FbAuth.mAuth ==null){
+        if(FbAuth.mAuth.getCurrentUser() == null){
             changeSignInActivity();
         }else {
             changeMainActivity();

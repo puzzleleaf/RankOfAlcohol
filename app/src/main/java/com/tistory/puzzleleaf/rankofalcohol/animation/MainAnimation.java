@@ -7,24 +7,15 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
-import com.tistory.puzzleleaf.rankofalcohol.util.mode.ModePreference;
+
 
 import java.util.ArrayList;
-
 import processing.core.PApplet;
-import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.core.PVector;
-import processing.event.KeyEvent;
-import processing.event.MouseEvent;
+
 
 /**
  * Created by cmtyx on 2017-04-08.
@@ -33,7 +24,7 @@ import processing.event.MouseEvent;
 public class MainAnimation extends PApplet implements ChatMode.OnChatMessageListener {
 
     int maxStar = 500;
-    int starLimit = 100;
+    int starLimit = 250;
     int moonSize;
     int moonAlphSize;
     int moonShadowSize;
@@ -44,7 +35,6 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
     float startShadow;
     float endShadow;
 
-    PFont font;
 
     Star myStar[];
     ArrayList<Point> myArr;
@@ -85,7 +75,7 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
 
     public void setup() {
         textAlign(CENTER);
-        font = loadFont("휴먼가는샘체-70.vlw");
+
         gameMode = new GameMode();
         starInit();
        // moonInit();
@@ -181,9 +171,15 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
         if(modeCheck!=2){
             return;
         }
-        for (int i = 0; i < myArr.size(); i++) {
-            myArr.get(i).update();
-            myArr.get(i).display();
+        try {
+            for (int i = 0; i < myArr.size(); i++) {
+
+                myArr.get(i).update();
+                myArr.get(i).display();
+
+            }
+        }catch (Exception e){
+
         }
     }
 
@@ -205,14 +201,14 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
 
     void setText(String txt)
     {
-        if(myArr!=null) {
-            myArr.clear();
-        }
+        modeCheck = -1;
+        myArr.clear();
+
         PGraphics pg = createGraphics(width, height);
         pg.beginDraw();
         pg.fill(0);
         pg.textAlign(CENTER);
-        pg.textFont(font,width/6);
+        pg.textSize(width/6);
         pg.text(txt,width/2,height/4);
         pg.endDraw();
         pg.loadPixels();
@@ -229,6 +225,7 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
         }
         pg.bitmap.recycle();
         pg.dispose();
+        modeCheck = 2;
 
     }
 
@@ -434,9 +431,7 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
                 switch (modeCheck){
                     case MODE_BASIC:
                         chatMode.dataLoadRemove();
-                        if(font!=null) {
-                            setText("");
-                        }
+                        setText("");
                         break;
                     case MODE_CHAT:
                         chatMode.dataLoadInit();
