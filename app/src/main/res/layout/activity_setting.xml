@@ -278,6 +278,7 @@
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:id="@+id/setting_logout"
         android:paddingRight="10dp"
         android:paddingLeft="30dp">
 

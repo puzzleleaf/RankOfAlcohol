@@ -202,7 +202,9 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
     void setText(String txt)
     {
         modeCheck = -1;
-        myArr.clear();
+        if(myArr!=null) {
+            myArr.clear();
+        }
 
         PGraphics pg = createGraphics(width, height);
         pg.beginDraw();
@@ -372,7 +374,7 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
         }
 
         void setSpin(float angle){
-            spin = -(angle/10);
+            spin = (angle/10);
             spin *= random(3);
             //공정한 게임을 위한 랜덤
             if (spin > 0) {

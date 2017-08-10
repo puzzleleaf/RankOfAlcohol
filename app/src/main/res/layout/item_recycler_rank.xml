@@ -5,7 +5,6 @@
     android:gravity="center"
     android:layout_margin="3dp"
     android:id="@+id/rank_recycler_item"
-    android:background="@color/mainBlack"
     android:orientation="horizontal">
     <LinearLayout
         android:layout_width="45dp"
@@ -42,57 +41,74 @@
         android:id="@+id/rank_recycler_image"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:id="@+id/rank_recycler_brand_name" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorHint"
-                    android:id="@+id/rank_recycler_degree" />
+                    android:textColor="@color/colorWhite"
+                    android:id="@+id/rank_recycler_brand_name" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorHint"
+                        android:id="@+id/rank_recycler_degree" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="도"
+                        android:textColor="@color/colorHint" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:id="@+id/rank_recycler_rating_bar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:isIndicator="true"/>
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="도"
-                    android:textColor="@color/colorHint" />
+                    android:textColor="@color/colorStar"
+                    android:layout_marginLeft="2dp"
+                    android:id="@+id/rank_recycler_rating"
+                    android:textStyle="bold"
+                    android:text="4.5"/>
             </LinearLayout>
 
         </LinearLayout>
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <RatingBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                android:id="@+id/rank_recycler_rating_bar"
-                style="?android:attr/ratingBarStyleSmall"
-                android:isIndicator="true"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorStar"
-                android:layout_marginLeft="2dp"
-                android:id="@+id/rank_recycler_rating"
-                android:textStyle="bold"
-                android:text="4.5"/>
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:tint="@color/colorGray"
+                android:src="@drawable/ic_next"/>
         </LinearLayout>
-
     </LinearLayout>
+
 </LinearLayout>

@@ -120,6 +120,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private void loginResult(){
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private boolean checkData(){
@@ -160,9 +161,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         genderW.setTextColor(ContextCompat.getColor(this,R.color.colorHint));
         genderM.setTextColor(ContextCompat.getColor(this,R.color.colorWhite));
         gender = getString(R.string.genderM);
-
-
     }
+
     @OnClick(R.id.login_gender_w)
     public void genderWSelect(){
         genderM.setTextColor(ContextCompat.getColor(this,R.color.colorHint));

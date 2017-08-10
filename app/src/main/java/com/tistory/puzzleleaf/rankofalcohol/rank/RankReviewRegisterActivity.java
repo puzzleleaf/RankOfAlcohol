@@ -55,8 +55,6 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rank_review_register);
         ButterKnife.bind(this);
 
-
-
         dataInit();
         ratingBarInit();
         dateInit();
@@ -99,7 +97,6 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
         return simpleDate.format(date);
     }
 
-    //@TODO 데이터 등록 연산을 서비스단에서 처리하도록 변경하기
     private void reviewRegister(){
         loading.show();
         String reviewKey = FbDataBase.database.getReference().child("Review").child(rankObject.getObjectKey()).push().getKey();
@@ -143,9 +140,7 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
 
             @Override
             public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                Toast.makeText(getApplicationContext(),"데이터 등록 완료",Toast.LENGTH_SHORT).show();
-                loading.dismiss();
-                finish();
+                ratingGenderRegister(rating);
             }
         });
     }

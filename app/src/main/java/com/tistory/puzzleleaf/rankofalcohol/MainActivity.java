@@ -13,9 +13,11 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 import com.tistory.puzzleleaf.rankofalcohol.animation.MainAnimation;
+import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
 import com.tistory.puzzleleaf.rankofalcohol.rank.RankActivity;
 import com.tistory.puzzleleaf.rankofalcohol.service.UserService;
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        checkLogin();
         modeCheck(modePreference.getModePreferences());
     }
 
@@ -116,6 +119,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         sendBroadcast(new Intent(MODE).putExtra("mode",mode));
+    }
+
+    private void checkLogin(){
+        if(FbAuth.mAuth.getCurrentUser() ==null){
+            Toast.makeText(this,"로그아웃 되었습니다.",Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     private void hideMenu(){

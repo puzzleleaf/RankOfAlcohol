@@ -16,16 +16,31 @@
             android:tint="@color/colorWhite"
             android:id="@+id/rank_detail_back"
             android:src="@drawable/ic_prev"/>
-        <TextView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center"
-            android:layout_marginRight="40dp"
-            android:text="전체랭킹"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/rank_detail_title"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=" 랭킹"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

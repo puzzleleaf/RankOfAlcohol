@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tistory.puzzleleaf.rankofalcohol.R;
+import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.util.mode.ModePreference;
 
 import butterknife.BindView;
@@ -114,5 +115,10 @@ public class SettingActivity extends AppCompatActivity {
         modePreference.saveModePreferences(MODE_BASIC);
     }
 
+    @OnClick(R.id.setting_logout)
+    public void settingLogout(){
+        FbAuth.mAuth.signOut();
+        finish();
+    }
 
 }

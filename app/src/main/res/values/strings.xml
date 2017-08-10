@@ -24,20 +24,22 @@
     <string name="rank_name">랭킹</string>
     <string name="rank_data_load_zero">Soju</string>
     <string name="rank_data_load_fir">Beer</string>
+    <string name="rank_data_rating">Rating</string>
+    <string name="rank_data_rating_man">ManRating</string>
+    <string name="rank_data_rating_woman">WomanRating</string>
 
     <string-array name="option">
+        <item>전체</item>
         <item>소주</item>
         <item>맥주</item>
         <item>막걸리</item>
-        <item>안주</item>
-        <item>남성</item>
-        <item>여성</item>
+        <item>남성 선호도</item>
+        <item>여성 선호도</item>
     </string-array>
 
     <string name="rank_radio1">아주 조금</string>
     <string name="rank_radio2">조금</string>
     <string name="rank_radio3">적당히</string>
     <string name="rank_radio4">많이</string>
-
     <string name="rank_degree"> 도</string>
 </resources>

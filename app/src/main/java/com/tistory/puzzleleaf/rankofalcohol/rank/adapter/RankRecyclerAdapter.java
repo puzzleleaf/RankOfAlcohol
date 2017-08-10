@@ -64,6 +64,11 @@ public class RankRecyclerAdapter extends RecyclerView.Adapter<RankRecyclerAdapte
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         //@DONE Firebase를 통해서 술 평가 순위를 얻어옴
         //@TODO 가지고 온 평가 순위를 통해서 저장된 데이터의 술 이름과 술 설명, 평점 정보를 업데이트

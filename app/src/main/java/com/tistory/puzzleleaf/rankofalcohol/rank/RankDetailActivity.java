@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.tistory.puzzleleaf.rankofalcohol.R;
 import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
@@ -27,6 +28,7 @@ public class RankDetailActivity extends AppCompatActivity implements RankRecycle
     private LinearLayoutManager linearLayoutManager;
     private RankRecyclerAdapter rankRecyclerAdapter;
     @BindView(R.id.rank_detail_recycler_view) RecyclerView rankDetailRecyclerView;
+    @BindView(R.id.rank_detail_title) TextView rankDetailTitle;
     List<RankObject> rankObjectList;
 
     @Override
@@ -39,6 +41,7 @@ public class RankDetailActivity extends AppCompatActivity implements RankRecycle
 
     private void recyclerInit(){
         rankObjectList = getIntent().getParcelableArrayListExtra("data");
+        rankDetailTitle.setText(getIntent().getStringExtra("title"));
         rankRecyclerAdapter = new RankRecyclerAdapter(this, rankObjectList);
         rankRecyclerAdapter.setRankItemCallback(this);
         linearLayoutManager = new LinearLayoutManager(this);

@@ -27,9 +27,12 @@ import com.tistory.puzzleleaf.rankofalcohol.rank.adapter.RankAdapter;
 import com.tistory.puzzleleaf.rankofalcohol.rank.adapter.RankRecyclerAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -55,10 +58,15 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
 
     private Loading loading;
 
+    @BindArray(R.array.option) String []rankMenuTitle;
+
     //DBObject
     private List<RankObject> rankObjectList;
     private List<RankObject> rankObject;
     private String dataLoadStr ;
+    private String dataRatingLoadStr;
+    private DescendingRating descendingRating;
+
 
 
     @Override
@@ -80,8 +88,41 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
     }
 
     private void dataLoad(){
-        //@TODO FireBase를 통해서 가져온 정보를 통해 상위 3개에 대해서 이미지가 나타나도록 한다.
         loading.show(); //Dialog Show
+        if(dataLoadStr.equals("")){
+            dataLoadTotal();
+        }else{
+            dataLoadPartial();
+        }
+    }
+
+    private void dataLoadTotal(){
+        FbDataBase.database.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                clearData();
+                Iterator<DataSnapshot> iterator = dataSnapshot.child(getString(R.string.rank_data_load_zero)).getChildren().iterator();
+                while (iterator.hasNext()){
+                    RankObject rankObject = iterator.next().getValue(RankObject.class);
+                    rankObjectList.add(rankObject);
+                }
+
+                iterator = dataSnapshot.child(getString(R.string.rank_data_load_fir)).getChildren().iterator();
+                while (iterator.hasNext()){
+                    RankObject rankObject = iterator.next().getValue(RankObject.class);
+                    rankObjectList.add(rankObject);
+                }
+
+                ratingDataLoad();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //@TODO 데이터 갱신 예외처리 할 것
+            }
+        });
+    }
+
+    private void dataLoadPartial(){
         FbDataBase.database.getReference(dataLoadStr).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -101,7 +142,7 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
     }
 
     private void ratingDataLoad(){
-        FbDataBase.database.getReference("Rating").addListenerForSingleValueEvent(new ValueEventListener() {
+        FbDataBase.database.getReference(dataRatingLoadStr).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(int i=0;i<rankObjectList.size();i++){
@@ -116,12 +157,13 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
                         rankObjectList.get(i).setTotal(0);
                     }
                 }
+
                 rankData();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                //@TODO 데이터 갱신 예외처리 할 것
             }
         });
     }
@@ -136,9 +178,10 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
         loading.dismiss();
     }
 
-    //@TODO 데이터 정렬해서 3개만 넣기
     private void rankData(){
+        Collections.sort(rankObjectList,descendingRating);
         rankObject.clear();
+        //@TODO 이후에 수정할 데이터 로딩 로직
         if(rankObjectList.size()<3){
             for(int i=0;i<rankObjectList.size();i++){
                 rankObject.add(rankObjectList.get(i));
@@ -151,25 +194,45 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
         refresh();
     }
 
+    //필터에 따라서 데이터 로딩
     private void setDataLoadStr(int position){
         switch (position){
             case 0:
-                dataLoadStr = getString(R.string.rank_data_load_zero);
+                dataLoadStr = "";
+                dataRatingLoadStr = getString(R.string.rank_data_rating);
                 break;
             case 1:
-                dataLoadStr = getString(R.string.rank_data_load_fir);
+                dataLoadStr = getString(R.string.rank_data_load_zero);
+                dataRatingLoadStr = getString(R.string.rank_data_rating);
                 break;
+            case 2:
+                dataLoadStr = getString(R.string.rank_data_load_fir);
+                dataRatingLoadStr = getString(R.string.rank_data_rating);
+                break;
+            case 4:
+                dataLoadStr = "";
+                dataRatingLoadStr = getString(R.string.rank_data_rating_man);
+                break;
+            case 5:
+                dataLoadStr = "";
+                dataRatingLoadStr = getString(R.string.rank_data_rating_woman);
+                break;
+
+
+
         }
         dataLoad();
     }
 
     private void init(){
+        descendingRating = new DescendingRating();
         rankObjectList = new ArrayList<>();
         rankObject = new ArrayList<>();
 
         loading = new Loading(this,"rank");
 
-        dataLoadStr = getString(R.string.rank_data_load_zero);
+        dataLoadStr = "";
+        dataRatingLoadStr = getString(R.string.rank_data_rating);
 
         //ViewPager
         rankAdapter = new RankAdapter(this,rankObject);
@@ -193,7 +256,6 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 rankSpinnerText.setText(option.getItem(position));
                 setDataLoadStr(position);
-                //@TODO 선택한 필터에 따라서 내용들이 갱신되도록 바꾸기 , 다른 콘텐츠가 준비 된 이후에 추가
             }
 
             @Override
@@ -214,6 +276,7 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
     public void moreBtnClick(){
         Intent intent = new Intent(this,RankDetailActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra("title",rankMenuTitle[rankSpinner.getSelectedItemPosition()]);
         intent.putParcelableArrayListExtra("data", (ArrayList<? extends Parcelable>) rankObjectList);
         startActivity(intent);
 
@@ -240,5 +303,14 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
         RankObject rankObject2 = new RankObject("하이트", 4.5,"","beer_01.png",objKey2);
         FbDataBase.database.getReference().child("Beer").child(objKey2).setValue(rankObject2);
     }
+
+    //별점순 정렬
+    class DescendingRating implements Comparator<RankObject> {
+        @Override
+        public int compare(RankObject o1, RankObject o2) {
+            return o1.getScore() < o2.getScore() ? 1 : o1.getScore() == o2.getScore() ? 0 : -1;
+        }
+    }
+
 
 }

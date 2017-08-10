@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +36,8 @@ public class UserService extends Service {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(),"네트워크 연결상태가 좋지 않습니다.",Toast.LENGTH_SHORT).show();
+                stopService();
             }
         });
     }
