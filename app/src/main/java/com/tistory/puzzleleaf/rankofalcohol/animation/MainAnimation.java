@@ -335,7 +335,7 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
             object.resize((height/8),height/2);
             angle = 0;
             oldAngle = angle;
-            flag = 0;
+            flag = -1;
             acc = 0;
             spin =0;
         }
@@ -368,9 +368,18 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
             }
         }
         private void isEnd(){
-            acc =0;
-            flag = -1;
-            oldAngle = angle;
+            if(acc<-0.01){
+                angle+=acc;
+                acc+=0.005;
+            }else if(acc>0.01){
+                angle+=acc;
+                acc-=0.005;
+            }
+            else {
+                acc = 0;
+                flag = -1;
+                oldAngle = angle;
+            }
         }
 
         void setSpin(float angle){

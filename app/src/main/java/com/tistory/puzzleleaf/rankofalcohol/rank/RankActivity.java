@@ -40,6 +40,8 @@ import butterknife.OnClick;
 
 public class RankActivity extends AppCompatActivity implements RankRecyclerAdapter.OnRankItemClickListener{
 
+    //@TODO 로딩 이미지 추가하기
+
     //recycler
     RankRecyclerAdapter rankRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;

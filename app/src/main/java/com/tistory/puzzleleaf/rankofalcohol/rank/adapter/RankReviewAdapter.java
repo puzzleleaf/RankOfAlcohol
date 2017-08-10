@@ -38,7 +38,7 @@ public class RankReviewAdapter extends RecyclerView.Adapter<RankReviewAdapter.Vi
 
 
     public interface OnRankReviewClickListener{
-        public void onRankReviewItemSelected(int position);
+        void onRankReviewItemSelected(int position);
     }
 
     private LayoutInflater mInflater;

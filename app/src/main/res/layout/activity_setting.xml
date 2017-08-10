@@ -228,7 +228,7 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_down"
+                    android:src="@drawable/ic_next"
                     android:tint="@color/colorWhite" />
             </LinearLayout>
 
@@ -256,7 +256,7 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_down"
+                    android:src="@drawable/ic_next"
                     android:tint="@color/colorWhite" />
             </LinearLayout>
 

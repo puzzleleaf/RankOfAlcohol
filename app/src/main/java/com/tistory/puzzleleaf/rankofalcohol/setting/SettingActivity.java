@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity{
 
     private static final int MODE_BASIC = 1;
     private static final int MODE_CHAT = 2;
@@ -36,14 +36,21 @@ public class SettingActivity extends AppCompatActivity {
     @BindView(R.id.setting_mode_game) Switch settingModeGame;
     @BindView(R.id.setting_mode_display) Switch settingModeDisplay;
 
+    private SettingMessageDialog settingMessageDialog;
     private ModePreference modePreference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
+        dialogInit();
         preferenceInit();
         switchInit();
+    }
+
+    private void dialogInit(){
+        settingMessageDialog = new SettingMessageDialog(this);
+
     }
 
     private void preferenceInit(){
@@ -98,6 +105,7 @@ public class SettingActivity extends AppCompatActivity {
             sw.setChecked(true);
             if(sw == settingModeMessage){
                 modePreference.saveModePreferences(MODE_CHAT);
+                settingMessageDialog.show();
             }else if(sw == settingModeGame){
                 modePreference.saveModePreferences(MODE_GAME);
             }else{
