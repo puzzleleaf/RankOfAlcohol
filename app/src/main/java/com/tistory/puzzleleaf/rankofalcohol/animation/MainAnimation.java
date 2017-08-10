@@ -7,6 +7,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,7 +21,9 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PGraphics;
+import processing.core.PImage;
 import processing.core.PVector;
+import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
 /**
@@ -29,7 +33,7 @@ import processing.event.MouseEvent;
 public class MainAnimation extends PApplet implements ChatMode.OnChatMessageListener {
 
     int maxStar = 500;
-    int starLimit = 300;
+    int starLimit = 100;
     int moonSize;
     int moonAlphSize;
     int moonShadowSize;
@@ -48,10 +52,16 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
     private static final String MODE = "MODE";
     private int modeCheck = 1;
 
+
     //Mode
     private ModeBroadCastReceiver modeBroadCastReceiver;
     private ChatMode chatMode;
     private DisplayMode displayMode;
+
+    //Game
+    private GameMode gameMode;
+    private float gameStartY;
+    private float gameEndY;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,16 +84,23 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
     }
 
     public void setup() {
-        myArr = new ArrayList(); // 글자
-        myStar = new Star[maxStar];
-
         textAlign(CENTER);
         font = loadFont("휴먼가는샘체-70.vlw");
+        gameMode = new GameMode();
+        starInit();
+       // moonInit();
 
+    }
+
+    private void starInit(){
+        myArr = new ArrayList(); // 글자
+        myStar = new Star[maxStar];
         for(int i=0;i<maxStar;i++){
             myStar[i] = new Star();
         }
+    }
 
+    private void moonInit(){
         moonSize = width/4;
         moonAlphSize = moonSize+30;
         moonShadowSize = moonSize+100;
@@ -92,17 +109,38 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
         endShadow = width/2-moonSize-100;
         location = startShadow;
         moveSpeed = width/800;
-
-
     }
 
     public void draw()
     {
         background(7,20,29,100);
         starAnimation();
+        gameModeAnimation();
         chatMessageAnimation();
         displayModeAnimation();
+    }
 
+    private void gameModeAnimation(){
+        if(modeCheck!=3){
+            return;
+        }
+
+        gameMode.playGame();
+    }
+
+    private void gamePressed(){
+        if(modeCheck!=3) {
+            return;
+        }
+        gameStartY = mouseY;
+    }
+
+    private void gameReleased(){
+        if(modeCheck!=3) {
+            return;
+        }
+        gameEndY = mouseY;
+        gameMode.setSpin(gameStartY-gameEndY);
     }
 
     private void displayModeAnimation(){
@@ -144,26 +182,11 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
             return;
         }
         for (int i = 0; i < myArr.size(); i++) {
-            try {
-                myArr.get(i).update();
-                myArr.get(i).display();
-            }catch (Exception e){
-
-            }
+            myArr.get(i).update();
+            myArr.get(i).display();
         }
     }
 
-    @Override
-    public void mousePressed() {
-        super.mousePressed();
-        if(mouseY<height/2) {
-            moveSpeed += 1;
-        }else{
-            if(starLimit<maxStar-1) {
-                starLimit += 50;
-            }
-        }
-    }
 
     void drawMoon(){
         for(int i=1; i<50; i++) {
@@ -300,6 +323,80 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
         }
     }
 
+    class GameMode{
+        private PImage object;
+        private float angle;
+        private float oldAngle;
+        private float spin;
+        private int flag;
+        private float acc;
+
+        GameMode(){
+            object = loadImage("game.png");
+            object.resize((height/8),height/2);
+            angle = 0;
+            oldAngle = angle;
+            flag = 0;
+            acc = 0;
+            spin =0;
+        }
+
+        void playGame(){
+            imageMode(CENTER);
+            translate(width/2,height/2);
+            rotate(angle);
+            rotateAnimation();
+            image(object,0,0);
+        }
+
+        private void rotateAnimation(){
+            switch (flag){
+                case 0:
+                    if((angle+spin)>oldAngle){
+                        angle+=acc;
+                        acc-=0.005;
+                    }else{
+                        isEnd();
+                    }
+                    break;
+                case 1:
+                    if(angle<(oldAngle-spin)){
+                        angle+=acc;
+                        acc+=0.005;
+                    }else {
+                        isEnd();
+                    }
+            }
+        }
+        private void isEnd(){
+            acc =0;
+            flag = -1;
+            oldAngle = angle;
+        }
+
+        void setSpin(float angle){
+            spin = -(angle/10);
+            spin *= random(3);
+            //공정한 게임을 위한 랜덤
+            if (spin > 0) {
+                flag = 0;
+            }else{
+                flag = 1;
+            }
+        }
+    }
+
+    @Override
+    public void mousePressed() {
+        super.mousePressed();
+        gamePressed();
+    }
+
+    @Override
+    public void mouseReleased() {
+        super.mouseReleased();
+        gameReleased();
+    }
 
     private void chatModeInit(){
         chatMode = new ChatMode(this);

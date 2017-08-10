@@ -5,7 +5,9 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         chatModeKeyEventInit();
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -90,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init(){
         modePreference = new ModePreference(this);
+
     }
 
     private void modeCheck(int mode){
@@ -104,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case MODE_GAME:
                 mainChatMode.setVisibility(View.GONE);
-                showMenu();
+                hideMenu();
                 break;
             case MODE_DISPLAY:
                 mainChatMode.setVisibility(View.GONE);
@@ -176,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    @OnClick(R.id.star_click)
+    //    @OnClick(R.id.star_click)
 //    public void rankTemp(){
 //        Intent intent = new Intent("Star");
 //        intent.putExtra("star",starEdit.getText().toString());
