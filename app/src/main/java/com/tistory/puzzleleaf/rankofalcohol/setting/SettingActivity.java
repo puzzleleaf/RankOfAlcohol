@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.tistory.puzzleleaf.rankofalcohol.R;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
+import com.tistory.puzzleleaf.rankofalcohol.service.ScreenLockService;
 import com.tistory.puzzleleaf.rankofalcohol.util.mode.ModePreference;
 
 import butterknife.BindView;
@@ -28,6 +29,7 @@ public class SettingActivity extends AppCompatActivity{
     private static final int MODE_CHAT = 2;
     private static final int MODE_GAME = 3;
     private static final int MODE_DISPLAY = 4;
+    private static final int MODE_SCREEN_LOCK = 5;
 
 
     @BindView(R.id.setting_mode_menu) LinearLayout settingModeMenu;
@@ -35,6 +37,7 @@ public class SettingActivity extends AppCompatActivity{
     @BindView(R.id.setting_mode_message) Switch settingModeMessage;
     @BindView(R.id.setting_mode_game) Switch settingModeGame;
     @BindView(R.id.setting_mode_display) Switch settingModeDisplay;
+    @BindView(R.id.setting_mode_screen_lock) Switch settingModeScreenLock;
 
     private SettingMessageDialog settingMessageDialog;
     private ModePreference modePreference;
@@ -69,6 +72,9 @@ public class SettingActivity extends AppCompatActivity{
             case MODE_DISPLAY:
                 settingModeDisplay.setChecked(true);
                 break;
+            case MODE_SCREEN_LOCK:
+                settingModeScreenLock.setChecked(true);
+                break;
         }
     }
 
@@ -100,6 +106,7 @@ public class SettingActivity extends AppCompatActivity{
         Switch sw = (Switch) v;
         if(!sw.isChecked()){
             modePreference.saveModePreferences(MODE_BASIC);
+            clearScreenLock(sw);
         }else{
             switchReset();
             sw.setChecked(true);
@@ -108,11 +115,23 @@ public class SettingActivity extends AppCompatActivity{
                 settingMessageDialog.show();
             }else if(sw == settingModeGame){
                 modePreference.saveModePreferences(MODE_GAME);
-            }else{
+            }else if(sw == settingModeDisplay){
                 modePreference.saveModePreferences(MODE_DISPLAY);
                 Intent intent = new Intent(this,SettingModeDisplay.class);
                 startActivity(intent);
+            }else{
+                modePreference.saveModePreferences(MODE_SCREEN_LOCK);
+                setScreenLock();
             }
+        }
+    }
+
+    private void setScreenLock(){
+        startService(new Intent(this, ScreenLockService.class));
+    }
+    private void clearScreenLock(Switch sw){
+        if(sw==settingModeScreenLock) {
+            stopService(new Intent(this, ScreenLockService.class));
         }
     }
 

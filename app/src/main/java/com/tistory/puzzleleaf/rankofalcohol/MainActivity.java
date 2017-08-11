@@ -2,7 +2,9 @@ package com.tistory.puzzleleaf.rankofalcohol;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.KeyguardManager;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,10 +22,12 @@ import com.tistory.puzzleleaf.rankofalcohol.animation.MainAnimation;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
 import com.tistory.puzzleleaf.rankofalcohol.rank.RankActivity;
+import com.tistory.puzzleleaf.rankofalcohol.service.ScreenLockService;
 import com.tistory.puzzleleaf.rankofalcohol.service.UserService;
 import com.tistory.puzzleleaf.rankofalcohol.setting.SettingActivity;
 import com.tistory.puzzleleaf.rankofalcohol.util.edit.ChatEditText;
 import com.tistory.puzzleleaf.rankofalcohol.util.mode.ModePreference;
+import com.tistory.puzzleleaf.rankofalcohol.util.screenlock.HomeKeyLocker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int MODE_GAME = 3;
     private static final int MODE_DISPLAY = 4;
     private static final String MODE = "MODE";
+
+
 
     @BindView(R.id.main_chat_mode) ImageView mainChatMode;
     @BindView(R.id.main_chat_layout) LinearLayout mainChatLayout;
@@ -61,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         playAnimation();
         chatModeKeyEventInit();
     }
+
 
 
     @Override

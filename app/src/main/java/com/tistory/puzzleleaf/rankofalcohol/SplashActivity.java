@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +24,7 @@ public class SplashActivity extends AppCompatActivity {
     @BindView(R.id.splash) ImageView splash;
     @BindView(R.id.splash_logo) ImageView splashLogo;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,7 @@ public class SplashActivity extends AppCompatActivity {
 
         imageLoading();
         handler.sendEmptyMessageDelayed(0,SPLASH_DELAY_TIME);
+
     }
 
     final Handler handler = new Handler(){

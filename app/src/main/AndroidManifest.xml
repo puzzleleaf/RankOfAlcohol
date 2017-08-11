@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tistory.puzzleleaf.rankofalcohol">
+
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,7 +29,10 @@
         <activity android:name=".rank.RankReviewDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".setting.SettingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".setting.SettingModeDisplay" android:screenOrientation="portrait"/>
+        <activity android:name=".ScreenLockActivity" android:screenOrientation="portrait" android:launchMode="singleTop" />
         <service android:name=".service.UserService"/>
+        <service android:name=".service.ScreenLockService"/>
+        <receiver android:name=".service.ScreenReceiver"/>
     </application>
 
 </manifest>
