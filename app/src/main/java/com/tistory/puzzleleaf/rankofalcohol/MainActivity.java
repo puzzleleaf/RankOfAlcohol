@@ -191,11 +191,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //    @OnClick(R.id.star_click)
-//    public void rankTemp(){
-//        Intent intent = new Intent("Star");
-//        intent.putExtra("star",starEdit.getText().toString());
-//        sendBroadcast(intent);
-//    }
-
 }

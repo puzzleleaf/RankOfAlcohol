@@ -46,8 +46,7 @@
                     android:adjustViewBounds="true"
                     android:id="@+id/rank_review_image"
                     android:layout_height="wrap_content"
-                    android:layout_width="80dp"
-                    android:src="@drawable/soju_01" />
+                    android:layout_width="80dp" />
                 <TextView
                     android:id="@+id/rank_review_brand_name"
                     android:layout_height="wrap_content"

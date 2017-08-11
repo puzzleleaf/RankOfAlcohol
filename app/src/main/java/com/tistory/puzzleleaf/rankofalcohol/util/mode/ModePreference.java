@@ -22,6 +22,19 @@ public class ModePreference {
     //전광판 모드 - 4
     //잠금화면 모드 - 5
 
+    public boolean getScreenLockPreferences(){
+        SharedPreferences pref = context.getSharedPreferences("lock", MODE_PRIVATE);
+        return pref.getBoolean("lock", false);
+    }
+
+    public void saveScreenLockPreferences(boolean flag){
+        SharedPreferences pref = context.getSharedPreferences("lock", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("lock", flag);
+        editor.apply();
+    }
+
+
     public int getModePreferences(){
         SharedPreferences pref = context.getSharedPreferences("mode", MODE_PRIVATE);
         return pref.getInt("mode", 1);
@@ -31,14 +44,14 @@ public class ModePreference {
         SharedPreferences pref = context.getSharedPreferences("mode", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("mode", modeNum);
-        editor.commit();
+        editor.apply();
     }
 
     public void saveDisplayModeColorPreference(String color){
         SharedPreferences pref = context.getSharedPreferences("display", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("display", color);
-        editor.commit();
+        editor.apply();
     }
 
     public String getDisplayModeColorPreference(){
@@ -50,7 +63,7 @@ public class ModePreference {
         SharedPreferences pref = context.getSharedPreferences("displayText", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("displayText", text);
-        editor.commit();
+        editor.apply();
     }
 
     public String getDisplayModeTextPreference(){

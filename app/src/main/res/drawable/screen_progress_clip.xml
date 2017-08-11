@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:drawable="@drawable/soju_gray"/>
+    <item android:drawable="@drawable/screen_lock_clip"/>
+</layer-list>

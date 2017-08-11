@@ -5,12 +5,16 @@
     android:gravity="center"
     android:background="@color/mainBlack"
     android:orientation="vertical">
+    <View
+        android:layout_width="100dp"
+        android:layout_height="400dp"
+        android:background="@drawable/screen_progress_clip"
+        android:id="@+id/progress"/>
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:id="@+id/temp"
-        android:gravity="center"
-        android:text="잠겨있다.\n클릭하면 해제"
+        android:text="해제"
         android:textColor="@color/colorWhite"/>
 
 </LinearLayout>

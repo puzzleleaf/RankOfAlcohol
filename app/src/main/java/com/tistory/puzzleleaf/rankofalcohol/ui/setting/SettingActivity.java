@@ -119,7 +119,7 @@ public class SettingActivity extends AppCompatActivity{
                 Intent intent = new Intent(this,SettingModeDisplay.class);
                 startActivity(intent);
             }else{
-                modePreference.saveModePreferences(MODE_SCREEN_LOCK);
+                modePreference.saveScreenLockPreferences(true);
                 setScreenLock();
             }
         }
@@ -128,8 +128,10 @@ public class SettingActivity extends AppCompatActivity{
     private void setScreenLock(){
         startService(new Intent(this, ScreenLockService.class));
     }
+
     private void clearScreenLock(Switch sw){
         if(sw==settingModeScreenLock) {
+            modePreference.saveScreenLockPreferences(false);
             stopService(new Intent(this, ScreenLockService.class));
         }
     }
