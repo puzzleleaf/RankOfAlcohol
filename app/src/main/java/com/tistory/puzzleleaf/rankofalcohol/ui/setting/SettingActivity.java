@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.setting;
+package com.tistory.puzzleleaf.rankofalcohol.ui.setting;
 
 
 import android.content.ClipData;
@@ -6,7 +6,6 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Switch;

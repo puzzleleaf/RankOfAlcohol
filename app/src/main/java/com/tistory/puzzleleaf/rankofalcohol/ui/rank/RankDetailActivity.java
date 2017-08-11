@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.rank;
+package com.tistory.puzzleleaf.rankofalcohol.ui.rank;
 
 
 import android.content.Intent;
@@ -6,12 +6,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.tistory.puzzleleaf.rankofalcohol.R;
 import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
-import com.tistory.puzzleleaf.rankofalcohol.rank.adapter.RankRecyclerAdapter;
+import com.tistory.puzzleleaf.rankofalcohol.ui.rank.adapter.RankRecyclerAdapter;
 
 import java.util.List;
 

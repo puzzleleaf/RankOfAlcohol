@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.setting;
+package com.tistory.puzzleleaf.rankofalcohol.ui.setting;
 
 import android.app.Dialog;
 import android.content.Context;

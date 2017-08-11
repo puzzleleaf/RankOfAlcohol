@@ -1,15 +1,11 @@
-package com.tistory.puzzleleaf.rankofalcohol.rank.adapter;
+package com.tistory.puzzleleaf.rankofalcohol.ui.rank.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +17,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tistory.puzzleleaf.rankofalcohol.R;
 import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
-import com.tistory.puzzleleaf.rankofalcohol.rank.RankReviewActivity;
 
 import java.util.List;
 

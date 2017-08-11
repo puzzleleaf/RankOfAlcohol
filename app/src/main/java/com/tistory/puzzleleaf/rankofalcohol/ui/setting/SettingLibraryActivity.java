@@ -1,11 +1,10 @@
-package com.tistory.puzzleleaf.rankofalcohol.setting;
+package com.tistory.puzzleleaf.rankofalcohol.ui.setting;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 
 import com.tistory.puzzleleaf.rankofalcohol.R;
-import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 
 import butterknife.ButterKnife;
 

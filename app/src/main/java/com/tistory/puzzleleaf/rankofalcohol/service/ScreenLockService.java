@@ -5,16 +5,9 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
-import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
-import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
-import com.tistory.puzzleleaf.rankofalcohol.model.FbUser;
+import com.tistory.puzzleleaf.rankofalcohol.receiver.ScreenReceiver;
 
 
 /**

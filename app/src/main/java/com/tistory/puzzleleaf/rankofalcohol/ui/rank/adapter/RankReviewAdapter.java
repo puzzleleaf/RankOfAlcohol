@@ -1,7 +1,6 @@
-package com.tistory.puzzleleaf.rankofalcohol.rank.adapter;
+package com.tistory.puzzleleaf.rankofalcohol.ui.rank.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -19,9 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tistory.puzzleleaf.rankofalcohol.R;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
-import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.ReviewObject;
-import com.tistory.puzzleleaf.rankofalcohol.rank.RankReviewActivity;
 
 import java.util.List;
 import java.util.Random;

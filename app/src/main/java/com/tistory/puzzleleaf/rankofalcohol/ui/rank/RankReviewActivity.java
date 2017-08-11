@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.rank;
+package com.tistory.puzzleleaf.rankofalcohol.ui.rank;
 
 
 import android.content.Intent;
@@ -25,7 +25,7 @@ import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.RatingObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.ReviewObject;
 import com.tistory.puzzleleaf.rankofalcohol.util.progress.Loading;
-import com.tistory.puzzleleaf.rankofalcohol.rank.adapter.RankReviewAdapter;
+import com.tistory.puzzleleaf.rankofalcohol.ui.rank.adapter.RankReviewAdapter;
 
 import java.util.ArrayList;
 import java.util.Iterator;

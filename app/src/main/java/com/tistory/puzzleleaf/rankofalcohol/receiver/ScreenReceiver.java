@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.service;
+package com.tistory.puzzleleaf.rankofalcohol.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
