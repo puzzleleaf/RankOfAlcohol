@@ -146,8 +146,9 @@ public class AnalysisBarChart {
 
     public void refreshData(List<AnalysisValueObject> analysisDataList, int day){
 
-        barChart.centerViewToAnimated(day,0, YAxis.AxisDependency.LEFT,1000);
-
+        if(day<32) {
+            barChart.centerViewToAnimated(day, 0, YAxis.AxisDependency.LEFT, 1000);
+        }
         yOver.clear();
         yNormal.clear();
         yToday.clear();

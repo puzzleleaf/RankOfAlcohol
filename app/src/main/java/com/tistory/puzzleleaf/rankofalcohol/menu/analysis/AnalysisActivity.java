@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.Entry;
@@ -40,6 +41,8 @@ public class AnalysisActivity extends AppCompatActivity
     @BindView(R.id.analysis_num) TextView analysisNum;
     @BindView(R.id.analysis_total) TextView analysisTotal;
     @BindView(R.id.analysis_average) TextView analysisAveraeg;
+    @BindView(R.id.analysis_month) TextView analysisMonth;
+    @BindView(R.id.analysis_year) TextView analysisYear;
     @BindView(R.id.analysis_alcohol_count) TextView analysisAlcoholCount;
     @BindView(R.id.analysis_alcohol_over_count) TextView analysisAlcoholOverCount;
 
@@ -59,6 +62,10 @@ public class AnalysisActivity extends AppCompatActivity
     private int year;
     private int month;
     private int day;
+    private int changeYear;
+    private int changeMonth;
+    private int changeDay;
+
     private int lastDayOfMonth;
     private float monthTotal;
     private String analysisDataKey;
@@ -106,9 +113,19 @@ public class AnalysisActivity extends AppCompatActivity
                     analysisTotal.setText(String.format("%.2f",monthTotal));
                     analysisAlcoholOverCount.setText(String.valueOf(alcoholOverCount));
                     analysisAlcoholCount.setText(String.valueOf(alcoholCount));
-                    analysisAveraeg.setText(String.format("%.2f",monthTotal/alcoholCount));
+                    if(alcoholCount !=0) {
+                        analysisAveraeg.setText(String.format("%.2f",monthTotal/alcoholCount));
+                    }else{
+                        analysisAveraeg.setText(String.valueOf(0));
+                    }
+
                 }
-                analysisBarChart.refreshData(analysisDataList,day);
+                if(year==changeYear && month == changeMonth) {
+                    analysisBarChart.refreshData(analysisDataList, day);
+                }else{
+                    analysisBarChart.refreshData(analysisDataList, changeDay);
+                }
+
                 loading.dismiss();
             }
 
@@ -125,13 +142,59 @@ public class AnalysisActivity extends AppCompatActivity
         monthTotal = 0;
     }
 
+    private void setYearMonth(){
+        analysisMonth.setText(String.format("%02d",changeMonth));
+        analysisYear.setText(String.valueOf(changeYear));
+    }
+
+    private void getLastDayOfMonth(){
+        calendar.set(Calendar.YEAR,changeYear);
+        calendar.set(Calendar.MONTH,changeMonth-1);
+        lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
     private void calenderInit(){
         calendar = Calendar.getInstance();
         month = calendar.get(Calendar.MONTH)+1;
         year = calendar.get(Calendar.YEAR);
         day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        changeYear = year;
+        changeMonth = month;
+        changeDay = 100;
+
         lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         analysisDataKey = String.valueOf(year) + String.valueOf(month);
+        setYearMonth();
+    }
+
+    private void calendarPrevChange(){
+        if(changeMonth == 1){
+            changeYear--;
+            changeMonth = 12;
+        }else{
+            changeMonth--;
+        }
+        analysisDataKey = String.valueOf(changeYear) + String.valueOf(changeMonth);
+        setYearMonth();
+        getLastDayOfMonth();
+        analysisDataLoad();
+    }
+
+    private void calendarNextChange(){
+        if(changeYear == year && changeMonth == month){
+            Toast.makeText(this,"미래로 갈 수 없습니다.",Toast.LENGTH_SHORT).show();
+            return;
+        }else if(changeMonth == 12){
+            changeYear++;
+            changeMonth=1;
+        }else{
+            changeMonth++;
+        }
+        analysisDataKey = String.valueOf(changeYear) + String.valueOf(changeMonth);
+        setYearMonth();
+        getLastDayOfMonth();
+        analysisDataLoad();
     }
 
 
@@ -152,10 +215,22 @@ public class AnalysisActivity extends AppCompatActivity
         Intent intent = new Intent(this,AnalysisInfoActivity.class);
         startActivity(intent);
     }
+    @OnClick(R.id.analysis_prev)
+    public void analysisPrevClick(){
+        calendarPrevChange();
+    }
 
+    @OnClick(R.id.analysis_next)
+    public void analysisNextClick(){
+        calendarNextChange();
+    }
     //차트 클릭 리스너
     @Override
     public void onValueSelected(Entry e, Highlight h) {
+        if((int)e.getX()>day && changeYear==year && changeMonth==month) {
+            Toast.makeText(this,"미래의 데이터를 등록할 수 없습니다.",Toast.LENGTH_SHORT).show();
+            return;
+        }
         analysisRegisterDialog.setDay((int)e.getX());
         analysisRegisterDialog.show();
     }
