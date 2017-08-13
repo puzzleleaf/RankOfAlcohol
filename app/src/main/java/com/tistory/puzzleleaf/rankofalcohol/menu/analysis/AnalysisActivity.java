@@ -32,18 +32,29 @@ import butterknife.OnClick;
  * Created by cmtyx on 2017-08-13.
  */
 
-public class AnalysisActivity extends AppCompatActivity implements OnChartValueSelectedListener {
+public class AnalysisActivity extends AppCompatActivity
+        implements OnChartValueSelectedListener , AnalysisRegisterDialog.OnRegisterClickListener{
 
     @BindView(R.id.chart) BarChart barChart;
     @BindView(R.id.analysis_name) TextView analysisName;
     @BindView(R.id.analysis_num) TextView analysisNum;
     @BindView(R.id.analysis_total) TextView analysisTotal;
+    @BindView(R.id.analysis_average) TextView analysisAveraeg;
+    @BindView(R.id.analysis_alcohol_count) TextView analysisAlcoholCount;
+    @BindView(R.id.analysis_alcohol_over_count) TextView analysisAlcoholOverCount;
+
+    private AnalysisRegisterDialog analysisRegisterDialog;
 
     private List<AnalysisValueObject> analysisDataList;
     private AnalysisBarChart analysisBarChart;
 
     private Loading loading;
 
+    //count
+    private int alcoholCount;
+    private int alcoholOverCount;
+
+    //Calendar
     private Calendar calendar;
     private int year;
     private int month;
@@ -76,15 +87,26 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 analysisDataList.clear();
-                monthTotal = 0;
+                countReset();
                 for(int i=1;i<=lastDayOfMonth;i++){
                     AnalysisValueObject analysisValueObject = dataSnapshot.child(String.valueOf(i)).getValue(AnalysisValueObject.class);
                     if(analysisValueObject==null){
                         analysisValueObject = new AnalysisValueObject(0); // 값이 없는 경우 0병 마신 것으로 간주
                     }
+
+                    if(analysisValueObject.getNum()>=FbAuth.mUser.gethMany()){
+                        alcoholOverCount++;
+                    }
+                    if(analysisValueObject.getNum()!=0){
+                        alcoholCount++;
+                    }
+
                     analysisDataList.add(analysisValueObject);
                     monthTotal += analysisValueObject.getNum();
-                    analysisTotal.setText(String.valueOf(monthTotal));
+                    analysisTotal.setText(String.format("%.2f",monthTotal));
+                    analysisAlcoholOverCount.setText(String.valueOf(alcoholOverCount));
+                    analysisAlcoholCount.setText(String.valueOf(alcoholCount));
+                    analysisAveraeg.setText(String.format("%.2f",monthTotal/alcoholCount));
                 }
                 analysisBarChart.refreshData(analysisDataList,day);
                 loading.dismiss();
@@ -97,6 +119,12 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
         });
     }
 
+    private void countReset(){
+        alcoholCount = 0;
+        alcoholOverCount = 0;
+        monthTotal = 0;
+    }
+
     private void calenderInit(){
         calendar = Calendar.getInstance();
         month = calendar.get(Calendar.MONTH)+1;
@@ -104,11 +132,11 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
         day = calendar.get(Calendar.DAY_OF_MONTH);
         lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         analysisDataKey = String.valueOf(year) + String.valueOf(month);
-        Log.d("qwe",analysisDataKey);
     }
 
 
     private void init(){
+        analysisRegisterDialog = new AnalysisRegisterDialog(this,this);
         analysisBarChart = new AnalysisBarChart(barChart,this);
         analysisDataList = new ArrayList<>();
         loading = new Loading(this,"analysis");
@@ -128,18 +156,24 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
     //차트 클릭 리스너
     @Override
     public void onValueSelected(Entry e, Highlight h) {
-        AnalysisValueObject analysisValueObject = new AnalysisValueObject(3);
-        FbDataBase.database.getReference()
-                .child("Analysis")
-                .child(FbAuth.mAuth.getCurrentUser().getUid())
-                .child(analysisDataKey)
-                .child(String.valueOf((int)e.getX()))
-                .setValue(analysisValueObject);
-        analysisDataLoad();
+        analysisRegisterDialog.setDay((int)e.getX());
+        analysisRegisterDialog.show();
     }
 
     @Override
     public void onNothingSelected() {
 
+    }
+
+    @Override
+    public void onRegisterClick(int day) {
+        AnalysisValueObject analysisValueObject = new AnalysisValueObject(analysisRegisterDialog.analysisRegisterValue());
+        FbDataBase.database.getReference()
+                .child("Analysis")
+                .child(FbAuth.mAuth.getCurrentUser().getUid())
+                .child(analysisDataKey)
+                .child(String.valueOf(day))
+                .setValue(analysisValueObject);
+        analysisDataLoad();
     }
 }

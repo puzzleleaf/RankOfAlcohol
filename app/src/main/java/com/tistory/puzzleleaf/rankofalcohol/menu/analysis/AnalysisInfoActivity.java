@@ -14,6 +14,7 @@ import com.tistory.puzzleleaf.rankofalcohol.menu.analysis.adapter.AnalysisInfoAd
 import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by cmtyx on 2017-08-13.
@@ -25,6 +26,7 @@ public class AnalysisInfoActivity extends AppCompatActivity {
     @BindArray(R.array.info_img) TypedArray infoImg;
     private LinearLayoutManager linearLayoutManager;
     private AnalysisInfoAdapter analysisInfoAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,11 @@ public class AnalysisInfoActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         analysisRecyclerView.setLayoutManager(linearLayoutManager);
         analysisRecyclerView.setAdapter(analysisInfoAdapter);
+    }
+
+    @OnClick(R.id.analysis_info_back)
+    public void analysisInfoBackClick(){
+        onBackPressed();
     }
 
 }

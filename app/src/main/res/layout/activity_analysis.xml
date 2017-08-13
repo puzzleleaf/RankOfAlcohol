@@ -139,6 +139,31 @@
                     android:text=" 병"/>
             </LinearLayout>
             <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:text="이번 달 마신 양 : "/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                android:id="@+id/analysis_total" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                android:text=" 병"/>
+        </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -149,13 +174,13 @@
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:text="이번달 마신 양 : "/>
+                    android:text="일일 평균 마신 양 : "/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
                     android:textSize="15sp"
-                    android:id="@+id/analysis_total" />
+                    android:id="@+id/analysis_average" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -185,20 +210,42 @@
                     android:layout_height="wrap_content"
                     android:textColor="#ea2f80"
                     android:textStyle="bold"
+                    android:id="@+id/analysis_alcohol_over_count"
                     android:textSize="15sp"
-                    android:text="5 일"/>
+                    android:text=""/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="#ea2f80"
+                    android:textStyle="bold"
                     android:textSize="15sp"
-                    android:text="(10"/>
+                    android:text="일"/>
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp"
-                    android:text=" 일중)"/>
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="#6ac1ca"
+                    android:textStyle="bold"
+                    android:textSize="10sp"
+                    android:text="("/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/analysis_alcohol_count"
+                    android:textColor="#6ac1ca"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:text=""/>
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="일 중)"
+                    android:textStyle="bold"
+                    android:textColor="#6ac1ca"
+                    android:textSize="10sp" />
             </LinearLayout>
 
         </LinearLayout>

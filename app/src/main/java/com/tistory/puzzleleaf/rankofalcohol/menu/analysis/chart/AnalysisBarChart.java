@@ -173,7 +173,6 @@ public class AnalysisBarChart {
         dataSets.add(overSet);
         dataSets.add(todaySet);
 
-
         barData.setValueTextSize(10f);
         barData.setValueTextColor(Color.WHITE);
         barData.notifyDataChanged();

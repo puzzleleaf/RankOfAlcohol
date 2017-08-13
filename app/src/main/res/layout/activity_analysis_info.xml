@@ -5,28 +5,32 @@
     android:gravity="center"
     android:background="@color/mainBlack"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
         android:orientation="horizontal">
+
         <ImageView
+            android:id="@+id/analysis_info_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:tint="@color/colorWhite"
-            android:id="@+id/analysis_back"
-            android:src="@drawable/ic_prev"/>
+            android:src="@drawable/ic_prev"
+            android:tint="@color/colorWhite" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="등록 가이드"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
-            android:layout_marginRight="40dp"
             android:textStyle="bold" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,13 +40,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="6dp"
             android:text="차트에 등록할 때 사용되는 알콜 절대량 기준입니다."
             android:textColor="@color/colorWhite"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_marginBottom="6dp"
             android:text="지나친 음주는 몸에 해로울 수 있습니다."
             android:textColor="@color/colorWhite"/>
 
