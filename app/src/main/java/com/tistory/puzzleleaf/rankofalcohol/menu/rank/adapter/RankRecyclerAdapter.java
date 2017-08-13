@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.ui.rank.adapter;
+package com.tistory.puzzleleaf.rankofalcohol.menu.rank.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -15,6 +15,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.tistory.puzzleleaf.rankofalcohol.R;
 import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
 
@@ -70,7 +71,10 @@ public class RankRecyclerAdapter extends RecyclerView.Adapter<RankRecyclerAdapte
         rankRatingBarInit(holder);
         rankTropyInit(holder,position);
         rankItemClick(holder,position);
-        Glide.with(mInflater.getContext()).load(res.get(position).getImgKey()).into(holder.rankRecyclerImage);
+        Glide.with(mInflater.getContext())
+                .load(res.get(position).getImgKey())
+                .apply(new RequestOptions().placeholder(R.drawable.image_loading))
+                .into(holder.rankRecyclerImage);
         holder.rankRecyclerNum.setText(String.valueOf(position+1));
         holder.rankRecyclerBrandName.setText(res.get(position).getBrandName());
         holder.rankRecyclerDegree.setText(String.valueOf(res.get(position).getAlcoholDegree()));

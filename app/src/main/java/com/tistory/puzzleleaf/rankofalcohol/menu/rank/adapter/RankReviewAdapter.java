@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.ui.rank.adapter;
+package com.tistory.puzzleleaf.rankofalcohol.menu.rank.adapter;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -16,6 +16,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.tistory.puzzleleaf.rankofalcohol.R;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.model.ReviewObject;
@@ -89,6 +90,7 @@ public class RankReviewAdapter extends RecyclerView.Adapter<RankReviewAdapter.Vi
         Random randomProfile = new Random();
         Glide.with(mInflater.getContext())
                 .load(holder.profileImage.getResourceId(randomProfile.nextInt(6),-1))
+                .apply(new RequestOptions().placeholder(R.drawable.image_loading))
                 .into(holder.rankReviewProfile);
 
     }

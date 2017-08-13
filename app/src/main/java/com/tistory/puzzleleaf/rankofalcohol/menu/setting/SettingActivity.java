@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.ui.setting;
+package com.tistory.puzzleleaf.rankofalcohol.menu.setting;
 
 
 import android.content.ClipData;

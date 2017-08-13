@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.ui.rank;
+package com.tistory.puzzleleaf.rankofalcohol.menu.rank;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,8 +23,8 @@ import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
 import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.RatingObject;
 import com.tistory.puzzleleaf.rankofalcohol.util.progress.Loading;
-import com.tistory.puzzleleaf.rankofalcohol.ui.rank.adapter.RankAdapter;
-import com.tistory.puzzleleaf.rankofalcohol.ui.rank.adapter.RankRecyclerAdapter;
+import com.tistory.puzzleleaf.rankofalcohol.menu.rank.adapter.RankAdapter;
+import com.tistory.puzzleleaf.rankofalcohol.menu.rank.adapter.RankRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.ui.rank;
+package com.tistory.puzzleleaf.rankofalcohol.menu.rank;
 
 
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -25,7 +26,7 @@ import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.RatingObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.ReviewObject;
 import com.tistory.puzzleleaf.rankofalcohol.util.progress.Loading;
-import com.tistory.puzzleleaf.rankofalcohol.ui.rank.adapter.RankReviewAdapter;
+import com.tistory.puzzleleaf.rankofalcohol.menu.rank.adapter.RankReviewAdapter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -147,7 +148,10 @@ public class RankReviewActivity extends AppCompatActivity implements RankReviewA
 
         rankReviewBrandName.setText(rankObject.getBrandName());
         rankReviewNum.setText(String.valueOf(rankObject.getTotal()));
-        Glide.with(this).load(rankObject.getImgKey()).into(rankReviewImage);
+        Glide.with(this)
+                .load(rankObject.getImgKey())
+                .apply(new RequestOptions().placeholder(R.drawable.image_loading))
+                .into(rankReviewImage);
         rankReviewRating.setText(String.format("%.2f",rankObject.getScore()));
         rankReviewDegree.setText(String.valueOf(rankObject.getAlcoholDegree()));
         rankReviewRatingBar.setRating(Float.parseFloat(String.valueOf(rankObject.getScore())));

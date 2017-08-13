@@ -384,8 +384,6 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
 
         void setSpin(float angle){
             spin = (angle/10);
-            spin *= random(3);
-            //공정한 게임을 위한 랜덤
             if (spin > 0) {
                 flag = 0;
             }else{

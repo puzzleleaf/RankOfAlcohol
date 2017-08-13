@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.ui.setting;
+package com.tistory.puzzleleaf.rankofalcohol.menu.setting;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

@@ -18,7 +18,9 @@ public class Loading extends Dialog {
         this.setCanceledOnTouchOutside(false);
         if(select.equals("rank")) {
             setContentView(R.layout.loading_rank);
-        }else{
+        }else if(select.equals("analysis")){
+            setContentView(R.layout.loading_analysis);
+        } else{
             setContentView(R.layout.loading_write);
         }
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

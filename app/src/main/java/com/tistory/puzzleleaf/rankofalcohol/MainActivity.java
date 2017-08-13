@@ -17,9 +17,11 @@ import android.widget.Toast;
 import com.tistory.puzzleleaf.rankofalcohol.animation.MainAnimation;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
-import com.tistory.puzzleleaf.rankofalcohol.ui.rank.RankActivity;
+import com.tistory.puzzleleaf.rankofalcohol.menu.analysis.AnalysisActivity;
+import com.tistory.puzzleleaf.rankofalcohol.menu.gallery.GalleryActivity;
+import com.tistory.puzzleleaf.rankofalcohol.menu.rank.RankActivity;
 import com.tistory.puzzleleaf.rankofalcohol.service.UserService;
-import com.tistory.puzzleleaf.rankofalcohol.ui.setting.SettingActivity;
+import com.tistory.puzzleleaf.rankofalcohol.menu.setting.SettingActivity;
 import com.tistory.puzzleleaf.rankofalcohol.util.edit.ChatEditText;
 import com.tistory.puzzleleaf.rankofalcohol.util.mode.ModePreference;
 
@@ -35,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int MODE_GAME = 3;
     private static final int MODE_DISPLAY = 4;
     private static final String MODE = "MODE";
-
-
 
     @BindView(R.id.main_chat_mode) ImageView mainChatMode;
     @BindView(R.id.main_chat_layout) LinearLayout mainChatLayout;
@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         playAnimation();
         chatModeKeyEventInit();
     }
-
 
 
     @Override
@@ -155,7 +154,20 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RankActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
+    }
 
+    @OnClick(R.id.main_analysis)
+    public void analysisMenu(){
+        Intent intent = new Intent(this, AnalysisActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.main_gallery)
+    public void galleryMenu(){
+        Intent intent = new Intent(this, GalleryActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
     }
     @OnClick(R.id.main_setting)
     public void settingMenu(){

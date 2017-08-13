@@ -5,9 +5,16 @@
     android:gravity="center"
     android:background="@color/mainBlack"
     android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="술 마시는 중"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
     <View
-        android:layout_width="100dp"
-        android:layout_height="400dp"
+        android:layout_width="70dp"
+        android:layout_height="250dp"
         android:background="@drawable/screen_progress_clip"
         android:id="@+id/progress"/>
     <TextView

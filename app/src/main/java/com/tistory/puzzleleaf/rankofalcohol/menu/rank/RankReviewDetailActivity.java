@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.ui.rank;
+package com.tistory.puzzleleaf.rankofalcohol.menu.rank;
 
 
 import android.graphics.Color;
