@@ -10,5 +10,13 @@
         <item>@drawable/profile_star_txt</item>
     </array>
 
+    <array name="info_img">
+        <item>@drawable/info_item_fir</item>
+        <item>@drawable/info_item_sec</item>
+        <item>@drawable/info_item_thr</item>
+        <item>@drawable/info_item_fo</item>
+        <item>@drawable/info_item_fi</item>
+    </array>
+
 
 </resources>

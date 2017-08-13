@@ -29,6 +29,7 @@
         <activity android:name=".menu.rank.RankReviewDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".menu.gallery.GalleryActivity" android:screenOrientation="portrait"/>
         <activity android:name=".menu.analysis.AnalysisActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".menu.analysis.AnalysisInfoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".menu.setting.SettingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".menu.setting.SettingModeDisplay" android:screenOrientation="portrait"/>
         <activity android:name=".ScreenLockActivity" android:screenOrientation="portrait" android:launchMode="singleTop" />

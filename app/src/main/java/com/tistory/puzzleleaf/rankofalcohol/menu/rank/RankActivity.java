@@ -48,7 +48,7 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
     @BindView(R.id.rank_recycler_view) RecyclerView rankRecyclerView;
 
     //viewpager
-    RankAdapter rankAdapter;
+    private RankAdapter rankAdapter;
     @BindView(R.id.rank_viewpager) ViewPager rankViewPager;
     @BindView(R.id.rank_tab_layout) TabLayout rankTabLayout;
 

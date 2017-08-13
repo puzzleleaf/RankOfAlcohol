@@ -12,6 +12,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.model.AnalysisValueObject;
 import com.tistory.puzzleleaf.rankofalcohol.menu.analysis.chart.formatter.XAxisValueFormatter;
 import com.tistory.puzzleleaf.rankofalcohol.menu.analysis.chart.formatter.YAxisValueFormatter;
@@ -50,9 +51,9 @@ public class AnalysisBarChart {
         barChart.setDrawBarShadow(false);
         barChart.setDrawValueAboveBar(true);
         barChart.getDescription().setEnabled(false);
-        barChart.setMaxVisibleValueCount(1);
+        barChart.setMaxVisibleValueCount(30);
         barChart.setDrawGridBackground(false);
-        barChart.setScaleMinima(4f,1f);
+        barChart.setScaleMinima(4f,0.1f);
         barChart.getAxisRight().setEnabled(false);
         barChart.animateY(1000);
         barChart.setOnChartValueSelectedListener(onChartValueSelectedListener);
@@ -109,19 +110,23 @@ public class AnalysisBarChart {
         dataSets = new ArrayList<>();
         barData = new BarData(dataSets);
 
-        normalSet = new BarDataSet(yNormal,"보통");
+        normalSet = new BarDataSet(yNormal,"적정량");
         overSet = new BarDataSet(yOver,"주량 이상");
         todaySet = new BarDataSet(yToday,"오늘");
 
-        normalSet.setColor(Color.WHITE);
-        overSet.setColor(Color.CYAN);
+        normalSet.setColor(Color.parseColor("#6ac1ca"));
+        overSet.setColor(Color.parseColor("#ea2f80"));
         todaySet.setColor(Color.YELLOW);
+
+        barData.setBarWidth(0.8f);
+
+        barChart.setData(barData);
     }
 
 
     private void setData(){
 
-        for(int i=1;i<30;i++){
+        for(int i=1;i<10;i++){
             float temp = 0;
             yNormal.add(new BarEntry(i,temp));
         }
@@ -135,11 +140,8 @@ public class AnalysisBarChart {
         dataSets.add(todaySet);
 
         barData.notifyDataChanged();
-        barData.setValueTextSize(10f);
-        barData.setBarWidth(0.8f);
-        barData.setValueTextColor(Color.WHITE);
+        barChart.notifyDataSetChanged();
 
-        barChart.setData(barData);
     }
 
     public void refreshData(List<AnalysisValueObject> analysisDataList, int day){
@@ -156,7 +158,7 @@ public class AnalysisBarChart {
                 yToday.add(new BarEntry(i,temp));
                 continue;
             }
-            if(temp>3)
+            if(temp> FbAuth.mUser.gethMany())
                 yOver.add(new BarEntry(i, temp));
             else
                 yNormal.add(new BarEntry(i,temp));
@@ -172,7 +174,8 @@ public class AnalysisBarChart {
         dataSets.add(todaySet);
 
 
-        barData.setValueTextColor(Color.RED);
+        barData.setValueTextSize(10f);
+        barData.setValueTextColor(Color.WHITE);
         barData.notifyDataChanged();
         barChart.notifyDataSetChanged();
         barChart.animateY(1000);

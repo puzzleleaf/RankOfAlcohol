@@ -158,9 +158,13 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.main_analysis)
     public void analysisMenu(){
-        Intent intent = new Intent(this, AnalysisActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(intent);
+        if(FbAuth.mUser == null){
+            Toast.makeText(this,"계정 정보를 불러오는 중 입니다.",Toast.LENGTH_SHORT).show();
+        }else{
+            Intent intent = new Intent(this, AnalysisActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.main_gallery)

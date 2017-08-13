@@ -1,8 +1,10 @@
 package com.tistory.puzzleleaf.rankofalcohol.menu.analysis;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.Entry;
@@ -26,10 +28,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Created by cmtyx on 2017-08-13.
+ */
 
 public class AnalysisActivity extends AppCompatActivity implements OnChartValueSelectedListener {
 
     @BindView(R.id.chart) BarChart barChart;
+    @BindView(R.id.analysis_name) TextView analysisName;
+    @BindView(R.id.analysis_num) TextView analysisNum;
+    @BindView(R.id.analysis_total) TextView analysisTotal;
+
     private List<AnalysisValueObject> analysisDataList;
     private AnalysisBarChart analysisBarChart;
 
@@ -40,6 +49,7 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
     private int month;
     private int day;
     private int lastDayOfMonth;
+    private float monthTotal;
     private String analysisDataKey;
 
     @Override
@@ -49,7 +59,11 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
         ButterKnife.bind(this);
         init();
         calenderInit();
-      //  analysisDataLoad();
+
+        analysisName.setText(FbAuth.mAuth.getCurrentUser().getDisplayName());
+        analysisNum.setText(String.valueOf(FbAuth.mUser.gethMany()));
+
+        analysisDataLoad();
     }
 
     private void analysisDataLoad(){
@@ -62,16 +76,20 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 analysisDataList.clear();
+                monthTotal = 0;
                 for(int i=1;i<=lastDayOfMonth;i++){
                     AnalysisValueObject analysisValueObject = dataSnapshot.child(String.valueOf(i)).getValue(AnalysisValueObject.class);
                     if(analysisValueObject==null){
                         analysisValueObject = new AnalysisValueObject(0); // 값이 없는 경우 0병 마신 것으로 간주
                     }
                     analysisDataList.add(analysisValueObject);
+                    monthTotal += analysisValueObject.getNum();
+                    analysisTotal.setText(String.valueOf(monthTotal));
                 }
                 analysisBarChart.refreshData(analysisDataList,day);
                 loading.dismiss();
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //@TODO 데이터 갱신 예외처리 할 것
@@ -99,6 +117,12 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
     @OnClick(R.id.analysis_back)
     public void analysisBackClick(){
         finish();
+    }
+
+    @OnClick(R.id.analysis_info)
+    public void analysisInfoClick(){
+        Intent intent = new Intent(this,AnalysisInfoActivity.class);
+        startActivity(intent);
     }
 
     //차트 클릭 리스너
