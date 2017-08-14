@@ -45,6 +45,7 @@ public class AnalysisActivity extends AppCompatActivity
     @BindView(R.id.analysis_year) TextView analysisYear;
     @BindView(R.id.analysis_alcohol_count) TextView analysisAlcoholCount;
     @BindView(R.id.analysis_alcohol_over_count) TextView analysisAlcoholOverCount;
+    @BindView(R.id.analysis_comment) TextView analysisComment;
 
     private AnalysisRegisterDialog analysisRegisterDialog;
 
@@ -118,13 +119,13 @@ public class AnalysisActivity extends AppCompatActivity
                     }else{
                         analysisAveraeg.setText(String.valueOf(0));
                     }
-
                 }
                 if(year==changeYear && month == changeMonth) {
                     analysisBarChart.refreshData(analysisDataList, day);
                 }else{
                     analysisBarChart.refreshData(analysisDataList, changeDay);
                 }
+                analysisComment();
 
                 loading.dismiss();
             }
@@ -183,7 +184,7 @@ public class AnalysisActivity extends AppCompatActivity
 
     private void calendarNextChange(){
         if(changeYear == year && changeMonth == month){
-            Toast.makeText(this,"미래로 갈 수 없습니다.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"미래는 분석할 수 없습니다...",Toast.LENGTH_SHORT).show();
             return;
         }else if(changeMonth == 12){
             changeYear++;
@@ -195,6 +196,23 @@ public class AnalysisActivity extends AppCompatActivity
         setYearMonth();
         getLastDayOfMonth();
         analysisDataLoad();
+    }
+
+    private void analysisComment(){
+        if(alcoholCount==0) {
+            analysisComment.setText("금주하는 습관 좋아요!");
+        }else if(alcoholOverCount>alcoholCount){
+            analysisComment.setText("주량 이상으로 마시는 날이 많아요!\n주의가 필요합니다.");
+        }else if(alcoholOverCount == alcoholCount && lastDayOfMonth/2<alcoholCount){
+            analysisComment.setText("딱 주량 만큼 먹는 습관 좋아요!\n그런데 술을 마시는 빈도가 높습니다ㅜㅜ");
+        }else if(monthTotal>(monthTotal/alcoholCount)*10){
+            analysisComment.setText("적당히 마시는 것은 좋습니다!\n그러나 몰아서 많이 드시는 것 같아요");
+        } else if(alcoholOverCount == alcoholCount){
+            analysisComment.setText("딱 주량 만큼 먹는 습관 좋아요!");
+        }else{
+            analysisComment.setText("적당한 음주는 몸에 이로워요!");
+        }
+
     }
 
 
@@ -224,6 +242,7 @@ public class AnalysisActivity extends AppCompatActivity
     public void analysisNextClick(){
         calendarNextChange();
     }
+
     //차트 클릭 리스너
     @Override
     public void onValueSelected(Entry e, Highlight h) {
