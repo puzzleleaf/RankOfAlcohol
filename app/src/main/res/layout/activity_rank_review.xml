@@ -144,12 +144,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="right">
-
             <Button
                 android:id="@+id/rank_review_register_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
+                android:visibility="invisible"
                 android:background="@drawable/corner_square_white"
                 android:text="등록하기"
                 android:textColor="@color/colorWhite"

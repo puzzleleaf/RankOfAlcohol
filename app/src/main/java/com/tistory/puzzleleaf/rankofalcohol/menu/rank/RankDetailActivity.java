@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.tistory.puzzleleaf.rankofalcohol.R;
 import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
 import com.tistory.puzzleleaf.rankofalcohol.menu.rank.adapter.RankRecyclerAdapter;
+import com.tistory.puzzleleaf.rankofalcohol.util.sort.DescendingRating;
 
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,6 +28,7 @@ public class RankDetailActivity extends AppCompatActivity implements RankRecycle
     //recycler
     private LinearLayoutManager linearLayoutManager;
     private RankRecyclerAdapter rankRecyclerAdapter;
+    private DescendingRating descendingRating;
     @BindView(R.id.rank_detail_recycler_view) RecyclerView rankDetailRecyclerView;
     @BindView(R.id.rank_detail_title) TextView rankDetailTitle;
     List<RankObject> rankObjectList;
@@ -46,9 +49,12 @@ public class RankDetailActivity extends AppCompatActivity implements RankRecycle
         linearLayoutManager = new LinearLayoutManager(this);
         rankDetailRecyclerView.setLayoutManager(linearLayoutManager);
         rankDetailRecyclerView.setAdapter(rankRecyclerAdapter);
+
+        descendingRating = new DescendingRating();
     }
 
     private void dataReLoad(){
+        Collections.sort(rankObjectList,descendingRating);
         rankRecyclerAdapter.notifyDataSetChanged();
     }
 

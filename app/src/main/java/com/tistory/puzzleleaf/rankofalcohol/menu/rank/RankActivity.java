@@ -25,6 +25,7 @@ import com.tistory.puzzleleaf.rankofalcohol.model.RatingObject;
 import com.tistory.puzzleleaf.rankofalcohol.util.progress.Loading;
 import com.tistory.puzzleleaf.rankofalcohol.menu.rank.adapter.RankAdapter;
 import com.tistory.puzzleleaf.rankofalcohol.menu.rank.adapter.RankRecyclerAdapter;
+import com.tistory.puzzleleaf.rankofalcohol.util.sort.DescendingRating;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -306,13 +307,7 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
         FbDataBase.database.getReference().child("Beer").child(objKey2).setValue(rankObject2);
     }
 
-    //별점순 정렬
-    class DescendingRating implements Comparator<RankObject> {
-        @Override
-        public int compare(RankObject o1, RankObject o2) {
-            return o1.getScore() < o2.getScore() ? 1 : o1.getScore() == o2.getScore() ? 0 : -1;
-        }
-    }
+
 
 
 }

@@ -20,9 +20,13 @@ public class Loading extends Dialog {
             setContentView(R.layout.loading_rank);
         }else if(select.equals("analysis")){
             setContentView(R.layout.loading_analysis);
-        } else{
+        }else if(select.equals("gallery")){
+          setContentView(R.layout.loading_gallery);
+        }else{
             setContentView(R.layout.loading_write);
         }
+
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
+
 }

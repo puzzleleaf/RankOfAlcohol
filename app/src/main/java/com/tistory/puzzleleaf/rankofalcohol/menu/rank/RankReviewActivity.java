@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.tistory.puzzleleaf.rankofalcohol.R;
+import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
 import com.tistory.puzzleleaf.rankofalcohol.model.RankObject;
 import com.tistory.puzzleleaf.rankofalcohol.model.RatingObject;
@@ -54,6 +56,8 @@ public class RankReviewActivity extends AppCompatActivity implements RankReviewA
     private List<ReviewObject> reviewObjectList;
     //loading
     private Loading loading;
+    //userWritingCheck
+    private boolean isUserWriting = false;
 
     //recycler
     @BindView(R.id.rank_review_recycler_view) RecyclerView rankReviewRecyclerView;
@@ -79,9 +83,40 @@ public class RankReviewActivity extends AppCompatActivity implements RankReviewA
     @Override
     protected void onResume() {
         super.onResume();
+        isUserReviewWriting();
         reviewDataLoad();
         rankObjectReLoad();
     }
+
+    private void isUserReviewWriting(){
+        FbDataBase.database.getReference().child("User").child(FbAuth.mAuth.getCurrentUser().getUid()).child("review").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
+                while (iterator.hasNext()){
+                    if(iterator.next().getValue(String.class).equals(rankObject.getObjectKey())){
+                        isUserWriting = true;
+                        break;
+                    }
+                }
+                userReviewBtnSet();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void userReviewBtnSet(){
+        if(!isUserWriting) {
+            rankReviewRegisterBtn.setVisibility(View.VISIBLE);
+        }else{
+            rankReviewRegisterBtn.setVisibility(View.INVISIBLE);
+        }
+    }
+
 
     //평점 데이터 실시간 반영
     private void rankObjectReLoad(){
