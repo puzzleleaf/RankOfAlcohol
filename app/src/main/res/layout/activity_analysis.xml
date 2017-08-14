@@ -2,20 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:background="@color/mainBlack"
+    android:gravity="center"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
         android:orientation="horizontal">
+
         <ImageView
+            android:id="@+id/analysis_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:tint="@color/colorWhite"
-            android:id="@+id/analysis_back"
-            android:src="@drawable/ic_prev"/>
+            android:src="@drawable/ic_prev"
+            android:tint="@color/colorWhite" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -25,13 +28,14 @@
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
             android:textStyle="bold" />
+
         <ImageView
+            android:id="@+id/analysis_info"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="8dp"
-            android:tint="@color/colorWhite"
-            android:id="@+id/analysis_info"
-            android:src="@drawable/ic_info"/>
+            android:src="@drawable/ic_info"
+            android:tint="@color/colorWhite" />
     </LinearLayout>
 
     <LinearLayout
@@ -39,230 +43,359 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
+
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="300dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="horizontal">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:tint="@color/colorWhite"
-                android:id="@+id/analysis_prev"
-                android:src="@drawable/ic_prev"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:id="@+id/analysis_year"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:text="2017"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp"
-                android:text="년"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:layout_marginLeft="5dp"
-                android:textSize="15sp"
-                android:id="@+id/analysis_month"
-                android:textStyle="bold"
-                android:text="08"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp"
-                android:text="월"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp"
-                android:text=" 분석 보고서"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:tint="@color/colorWhite"
-                android:id="@+id/analysis_next"
-                android:src="@drawable/ic_next"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:text="사용자 : "/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp"
-                    android:id="@+id/analysis_name"
-                    android:text="puzzleleaf"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp"
-                    android:text=" 님"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:text="주량 : "/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp"
-                    android:id="@+id/analysis_num" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp"
-                    android:text=" 병"/>
-            </LinearLayout>
-            <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:text="이번 달 마신 양 : "/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp"
-                android:id="@+id/analysis_total" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp"
-                android:text=" 병"/>
-        </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:text="일일 평균 마신 양 : "/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp"
-                    android:id="@+id/analysis_average" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp"
-                    android:text=" 병"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:text="주량 이상 마신 날 : "/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ea2f80"
-                    android:textStyle="bold"
-                    android:id="@+id/analysis_alcohol_over_count"
-                    android:textSize="15sp"
-                    android:text=""/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ea2f80"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:text="일"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:textColor="#6ac1ca"
-                    android:textStyle="bold"
-                    android:textSize="10sp"
-                    android:text="("/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:id="@+id/analysis_alcohol_count"
-                    android:textColor="#6ac1ca"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:text=""/>
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="일 중)"
-                    android:textStyle="bold"
-                    android:textColor="#6ac1ca"
-                    android:textSize="10sp" />
-            </LinearLayout>
 
+            <ImageView
+                android:id="@+id/analysis_prev"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_prev"
+                android:tint="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/analysis_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2017"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="년"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/analysis_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="08"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="월"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 분석 보고서"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/analysis_next"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_next"
+                android:tint="@color/colorWhite" />
         </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_user"
+                            android:tint="@color/colorWhite" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="사용자"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/analysis_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="님"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_gallery"
+                            android:tint="@color/colorWhite" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="주량"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/analysis_num"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" 병"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_total"
+                            android:tint="@color/colorWhite" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="이번 달 마신 양"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/analysis_total"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" 병"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_average"
+                            android:tint="@color/colorWhite" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="일일 평균 마신 양"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/analysis_average"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" 병"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_over"
+                            android:tint="@color/colorWhite" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="주량 이상 마신 날"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/analysis_alcohol_over_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textColor="#ea2f80"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="일"
+                                android:textColor="#ea2f80"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_calendar"
+                            android:tint="@color/colorWhite" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="술 마신 날"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/analysis_alcohol_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text=""
+                                android:textColor="#6ac1ca"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="일"
+                                android:textColor="#6ac1ca"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
+
 
 </LinearLayout>
