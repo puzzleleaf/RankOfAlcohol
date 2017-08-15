@@ -1,92 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="300dp"
     android:gravity="center"
+    android:background="#40000000"
     android:orientation="vertical">
-
-    <ImageView
-        android:id="@+id/rank_image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:adjustViewBounds="true"/>
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
-        <TextView
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/rank_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/rank_brand_name"
-            android:textStyle="bold"
-            android:textColor="@color/colorWhite"
-            android:textSize="24sp" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rank_alcohol_degree"
-                android:textColor="@color/colorWhite"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorHint"
-                android:text="@string/rank_degree"
-                android:layout_marginLeft="3dp"
-                android:textSize="12sp" />
-        </LinearLayout>
+            android:src="@drawable/aaabbb"
+            android:adjustViewBounds="true"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="horizontal">
-            <RatingBar
+            android:orientation="vertical">
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/rank_rating_bar"
-                style="?android:attr/ratingBarStyleSmall"
-                android:isIndicator="true" />
+                android:id="@+id/rank_brand_name"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="호가든"
+                android:textColor="@color/colorWhite"
+                android:textSize="35sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ffffff"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal">
                 <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:text="도수는 "
+                    android:textSize="18sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rank_alcohol_degree"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/rank_degree"
                     android:layout_marginLeft="3dp"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/rank_rating"
-                    android:textColor="@color/colorStar"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"  />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="("
+                    android:layout_marginLeft="7dp"
                     android:textColor="@color/colorWhite"
-                    android:textSize="15sp" />
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:text="로 적당한 편 입니다."
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/rank_num"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="명)"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp" />
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorWhite"
+                        android:text="추천도 : "
+                        android:textStyle="bold"
+                        android:textSize="20sp" />
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rank_rating_bar"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:isIndicator="true" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/rank_rating"
+                            android:textColor="@color/colorStar"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="("
+                            android:textColor="@color/colorWhite"
+                            android:textSize="15sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/rank_num"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="15sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="명)"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="15sp" />
+                    </LinearLayout>
             </LinearLayout>
 
+
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

@@ -7,7 +7,7 @@
     android:id="@+id/rank_recycler_item"
     android:orientation="horizontal">
     <LinearLayout
-        android:layout_width="45dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:gravity="right|center"
@@ -23,15 +23,16 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
             android:layout_marginLeft="2dp"
-            android:textSize="15sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:id="@+id/rank_recycler_num"
             android:text="1"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
-            android:textSize="15sp"
-            android:text="위"/>
+            android:textSize="18sp"
+            android:text=""/>
     </LinearLayout>
 
     <ImageView
