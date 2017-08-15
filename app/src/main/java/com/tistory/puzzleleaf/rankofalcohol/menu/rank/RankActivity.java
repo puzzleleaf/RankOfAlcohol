@@ -245,7 +245,7 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
         rankTabLayout.setupWithViewPager(rankViewPager,true);
 
         //Recycler
-        rankRecyclerAdapter = new RankRecyclerAdapter(this,rankObject);
+        rankRecyclerAdapter = new RankRecyclerAdapter(this,rankObjectList);
         rankRecyclerAdapter.setRankItemCallback(this);
         linearLayoutManager = new LinearLayoutManager(this);
         rankRecyclerView.setLayoutManager(linearLayoutManager);
