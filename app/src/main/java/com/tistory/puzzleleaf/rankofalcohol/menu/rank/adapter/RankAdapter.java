@@ -29,8 +29,10 @@ import butterknife.ButterKnife;
 
 public class RankAdapter extends PagerAdapter {
 
-    Context context;
-    List<RankObject> res;
+    private Context context;
+    private List<RankObject> res;
+    private int[] tropyRes = {R.drawable.tropy_fir,R.drawable.tropy_sec,R.drawable.tropy_thr};
+
 
     public RankAdapter(Context context, List<RankObject> res) {
         this.context = context;
@@ -43,6 +45,7 @@ public class RankAdapter extends PagerAdapter {
     @BindView(R.id.rank_rating) TextView rankRating;
     @BindView(R.id.rank_num) TextView rankNum;
     @BindView(R.id.rank_rating_bar) RatingBar rankRatingBar;
+    @BindView(R.id.rank_tropy) ImageView rankTropy;
 
     @Override
     public synchronized Object instantiateItem(final ViewGroup container, final int position) {
@@ -57,6 +60,8 @@ public class RankAdapter extends PagerAdapter {
         rankRating.setText(String.format("%.2f", res.get(position).getScore()));
         rankNum.setText(String.valueOf(res.get(position).getTotal()));
         rankRatingBar.setRating(Float.parseFloat(String.valueOf(res.get(position).getScore())));
+
+        Glide.with(context).load(tropyRes[position]).into(rankTropy);
 
         Glide.with(context).load(res.get(position).getImgKey())
                 .apply(new RequestOptions().placeholder(R.drawable.image_loading))
