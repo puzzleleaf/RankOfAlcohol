@@ -275,15 +275,6 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
         rankSpinner.performClick();
     }
 
-    @OnClick(R.id.rank_more_btn)
-    public void moreBtnClick(){
-        Intent intent = new Intent(this,RankDetailActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.putExtra("title",rankMenuTitle[rankSpinner.getSelectedItemPosition()]);
-        intent.putParcelableArrayListExtra("data", (ArrayList<? extends Parcelable>) rankObjectList);
-        startActivity(intent);
-
-    }
     @OnClick(R.id.rank_back)
     public void rankBackClick(){
         onBackPressed();

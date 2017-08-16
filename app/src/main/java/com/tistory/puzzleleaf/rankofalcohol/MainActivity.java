@@ -3,6 +3,7 @@ package com.tistory.puzzleleaf.rankofalcohol;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -12,7 +13,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 
 import com.tistory.puzzleleaf.rankofalcohol.animation.MainAnimation;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
@@ -28,6 +28,9 @@ import com.tistory.puzzleleaf.rankofalcohol.util.mode.ModePreference;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -56,10 +59,15 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        showCase();
+
         init();
         userInit();
         playAnimation();
         chatModeKeyEventInit();
+
+
+
     }
 
 
@@ -204,6 +212,31 @@ public class MainActivity extends AppCompatActivity {
     private void sendMessage(){
         FbDataBase.database.getReference().child("Channel").child("user-key").setValue(mainChatEdit.getText().toString());
         mainChatEdit.setText("");
+    }
+
+    private void showCase(){
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "3");
+        ShowcaseConfig config = new ShowcaseConfig();
+        config.setDelay(0);
+        config.setContentTextColor(ContextCompat.getColor(this,R.color.colorWhite));
+        config.setMaskColor(ContextCompat.getColor(this,R.color.showCase));
+        sequence.setConfig(config);
+
+        sequence.addSequenceItem(mainChatEdit,
+                "리뷰를 작성하면 애니메이션 효과가 달라지게 됩니다.","확인");
+
+        sequence.addSequenceItem(mainRank,
+                "술 랭킹을 확인할 수 있는 메뉴입니다.", "확인");
+
+        sequence.addSequenceItem(mainAnalysis,
+                "내가 마신 술의 양을 등록하고 분석하는 메뉴입니다.", "확인");
+
+        sequence.addSequenceItem(mainGallery,
+                "내가 리뷰를 남긴 술 목록을 확인할 수 있는 메뉴입니다.", "확인");
+
+        sequence.addSequenceItem(mainSetting,
+                "게임과 채팅 등 여러가지 모드를 설정할 수 있는 메뉴입니다.","확인");
+        sequence.start();
     }
 
 

@@ -38,6 +38,7 @@ dependencies {
     compile 'com.google.firebase:firebase-storage:11.0.2'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     compile 'com.flaviofaria:kenburnsview:1.0.7'
+    compile 'com.github.deano2390:MaterialShowcaseView:1.1.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 }
