@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -17,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tistory.puzzleleaf.rankofalcohol.R;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
+import com.tistory.puzzleleaf.rankofalcohol.menu.analysis.chart.AnalysisPieChart;
 import com.tistory.puzzleleaf.rankofalcohol.model.AnalysisValueObject;
 import com.tistory.puzzleleaf.rankofalcohol.menu.analysis.chart.AnalysisBarChart;
 import com.tistory.puzzleleaf.rankofalcohol.util.progress.Loading;
@@ -37,6 +39,7 @@ public class AnalysisActivity extends AppCompatActivity
         implements OnChartValueSelectedListener , AnalysisRegisterDialog.OnRegisterClickListener{
 
     @BindView(R.id.chart) BarChart barChart;
+    @BindView(R.id.pieChart) PieChart pieChart;
     @BindView(R.id.analysis_name) TextView analysisName;
     @BindView(R.id.analysis_num) TextView analysisNum;
     @BindView(R.id.analysis_total) TextView analysisTotal;
@@ -51,6 +54,7 @@ public class AnalysisActivity extends AppCompatActivity
 
     private List<AnalysisValueObject> analysisDataList;
     private AnalysisBarChart analysisBarChart;
+    private AnalysisPieChart analysisPieChart;
 
     private Loading loading;
 
@@ -100,15 +104,14 @@ public class AnalysisActivity extends AppCompatActivity
                     AnalysisValueObject analysisValueObject = dataSnapshot.child(String.valueOf(i)).getValue(AnalysisValueObject.class);
                     if(analysisValueObject==null){
                         analysisValueObject = new AnalysisValueObject(0); // 값이 없는 경우 0병 마신 것으로 간주
+                    }else{
+                        if(analysisValueObject.getNum()>FbAuth.mUser.gethMany()){
+                            alcoholOverCount++;
+                        }
+                        if(analysisValueObject.getNum()!=0) {
+                            alcoholCount++;
+                        }
                     }
-
-                    if(analysisValueObject.getNum()>=FbAuth.mUser.gethMany()){
-                        alcoholOverCount++;
-                    }
-                    if(analysisValueObject.getNum()!=0){
-                        alcoholCount++;
-                    }
-
                     analysisDataList.add(analysisValueObject);
                     monthTotal += analysisValueObject.getNum();
                     analysisTotal.setText(String.format("%.2f",monthTotal));
@@ -219,7 +222,9 @@ public class AnalysisActivity extends AppCompatActivity
     private void init(){
         analysisRegisterDialog = new AnalysisRegisterDialog(this,this);
         analysisBarChart = new AnalysisBarChart(barChart,this);
+        analysisPieChart = new AnalysisPieChart(pieChart,this);
         analysisDataList = new ArrayList<>();
+
         loading = new Loading(this,"analysis");
     }
 
