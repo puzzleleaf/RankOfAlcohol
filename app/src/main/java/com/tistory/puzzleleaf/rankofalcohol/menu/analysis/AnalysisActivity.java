@@ -379,7 +379,7 @@ public class AnalysisActivity extends AppCompatActivity
     }
 
     private void showCase(){
-        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "aㅂㅈㅊㄷdㄴ");
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "vv");
         ShowcaseConfig config = new ShowcaseConfig();
         config.setDelay(0);
         config.setContentTextColor(ContextCompat.getColor(this,R.color.colorWhite));

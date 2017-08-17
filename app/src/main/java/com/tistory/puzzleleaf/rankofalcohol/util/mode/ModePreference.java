@@ -20,7 +20,6 @@ public class ModePreference {
     //메시지모드 - 2
     //미니게임 모드 - 3
     //전광판 모드 - 4
-    //잠금화면 모드 - 5
 
     public boolean getScreenLockPreferences(){
         SharedPreferences pref = context.getSharedPreferences("lock", MODE_PRIVATE);

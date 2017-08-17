@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showCase(){
-        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "1000c");
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "v");
         ShowcaseConfig config = new ShowcaseConfig();
         config.setDelay(0);
         config.setContentTextColor(ContextCompat.getColor(this,R.color.colorWhite));

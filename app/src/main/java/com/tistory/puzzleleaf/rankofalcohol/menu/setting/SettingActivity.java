@@ -61,6 +61,7 @@ public class SettingActivity extends AppCompatActivity{
 
     private void switchInit(){
         int check = modePreference.getModePreferences();
+        boolean lockCheck = modePreference.getScreenLockPreferences();
         switch (check){
             case MODE_CHAT:
                 settingModeMessage.setChecked(true);
@@ -71,9 +72,10 @@ public class SettingActivity extends AppCompatActivity{
             case MODE_DISPLAY:
                 settingModeDisplay.setChecked(true);
                 break;
-            case MODE_SCREEN_LOCK:
-                settingModeScreenLock.setChecked(true);
-                break;
+        }
+        if(lockCheck){
+            settingModeScreenLock.setChecked(lockCheck);
+            setScreenLock();
         }
     }
 
@@ -105,7 +107,6 @@ public class SettingActivity extends AppCompatActivity{
         Switch sw = (Switch) v;
         if(!sw.isChecked()){
             modePreference.saveModePreferences(MODE_BASIC);
-            clearScreenLock(sw);
         }else{
             switchReset();
             sw.setChecked(true);
@@ -118,15 +119,21 @@ public class SettingActivity extends AppCompatActivity{
                 modePreference.saveModePreferences(MODE_DISPLAY);
                 Intent intent = new Intent(this,SettingModeDisplay.class);
                 startActivity(intent);
-            }else{
-                modePreference.saveScreenLockPreferences(true);
-                setScreenLock();
             }
         }
     }
 
+    public void settingSelectScreenLock(View v){
+        Switch sw = (Switch)v;
+        if(!sw.isChecked()){
+            clearScreenLock(sw);
+        }else{
+            setScreenLock();
+        }
+    }
     private void setScreenLock(){
         startService(new Intent(this, ScreenLockService.class));
+        modePreference.saveScreenLockPreferences(true);
     }
 
     private void clearScreenLock(Switch sw){
