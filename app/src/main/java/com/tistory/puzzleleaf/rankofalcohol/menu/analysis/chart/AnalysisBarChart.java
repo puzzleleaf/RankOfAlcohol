@@ -1,6 +1,7 @@
 package com.tistory.puzzleleaf.rankofalcohol.menu.analysis.chart;
 
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -12,7 +13,9 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.tistory.puzzleleaf.rankofalcohol.R;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
+import com.tistory.puzzleleaf.rankofalcohol.menu.analysis.AnalysisActivity;
 import com.tistory.puzzleleaf.rankofalcohol.model.AnalysisValueObject;
 import com.tistory.puzzleleaf.rankofalcohol.menu.analysis.chart.formatter.XAxisValueFormatter;
 import com.tistory.puzzleleaf.rankofalcohol.menu.analysis.chart.formatter.YAxisValueFormatter;
@@ -42,6 +45,7 @@ public class AnalysisBarChart {
     public AnalysisBarChart(BarChart barChart, OnChartValueSelectedListener onChartValueSelectedListener){
         this.barChart = barChart;
         this.onChartValueSelectedListener = onChartValueSelectedListener;
+
         barChartInit();
         initData();
         setData();
@@ -154,7 +158,7 @@ public class AnalysisBarChart {
         yToday.clear();
 
         for(int i=1;i<analysisDataList.size()+1;i++){
-            float temp = analysisDataList.get(i-1).getNum();
+            float temp = analysisDataList.get(i-1).getTotal();
             if(i==day){
                 yToday.add(new BarEntry(i,temp));
                 continue;

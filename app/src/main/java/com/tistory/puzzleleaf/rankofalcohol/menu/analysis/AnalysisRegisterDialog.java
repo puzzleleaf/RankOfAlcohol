@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tistory.puzzleleaf.rankofalcohol.R;
+import com.tistory.puzzleleaf.rankofalcohol.model.AnalysisValueObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,15 +51,15 @@ class AnalysisRegisterDialog extends Dialog{
         this.setCanceledOnTouchOutside(false);
     }
 
-    float analysisRegisterValue(){
+    AnalysisValueObject analysisRegisterValue(){
         float soju = numberFormatExceptionPrevention(analysisSoju.getText().toString());
         float maekju = numberFormatExceptionPrevention(analysisMaekju.getText().toString())/500*(float)0.3;
         float makgeolli = numberFormatExceptionPrevention(analysisMakgeolli.getText().toString())*(float)0.6;
         float yangju = numberFormatExceptionPrevention(analysisYangju.getText().toString())*(float)2;
         float wine = numberFormatExceptionPrevention(analysisWine.getText().toString())*(float)1.3;
+        AnalysisValueObject analysisValueObject = new AnalysisValueObject(soju,maekju,makgeolli,yangju+wine);
         dataReset();
-        float result = soju + maekju + makgeolli + yangju + wine;
-        return result;
+        return analysisValueObject;
     }
 
     void setDay(int day){

@@ -5,7 +5,7 @@
     <color name="colorAccent">#ffffff</color>
 
     <color name="mainBlack">#001019</color>
-    <color name="showCase">#aa000000</color>
+    <color name="showCase">#bb000000</color>
 
     <color name="colorNon">#00ffffff</color>
     <color name="colorWhite">#ffffff</color>
@@ -15,9 +15,12 @@
     <color name="colorStar">#ffbc3c</color>
     <color name="colorGray">#55f5f5f5</color>
     <color name="colorReviewGray">#acacac</color>
-    
+    <color name="colorReport">#fdf7eb</color>
     <color name="materialGreen">#2ecc71</color>
     <color name="materialYellow">#f1c40f</color>
     <color name="materialRed">#e74c3c</color>
     <color name="materialBlue">#3498db</color>
+    <color name="materialPink">#c51162</color>
+    <color name="materialTear">#00bfa5</color>
+
 </resources>

@@ -215,27 +215,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showCase(){
-        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "3");
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "1000c");
         ShowcaseConfig config = new ShowcaseConfig();
         config.setDelay(0);
         config.setContentTextColor(ContextCompat.getColor(this,R.color.colorWhite));
         config.setMaskColor(ContextCompat.getColor(this,R.color.showCase));
+        config.setDismissTextColor(ContextCompat.getColor(this,R.color.materialBlue));
         sequence.setConfig(config);
 
         sequence.addSequenceItem(mainChatEdit,
-                "리뷰를 작성하면 애니메이션 효과가 달라지게 됩니다.","확인");
+                "메인 애니메이션 창 입니다.\n\n리뷰를 작성하면 애니메이션 효과가 달라지게 됩니다.","확인");
 
         sequence.addSequenceItem(mainRank,
-                "술 랭킹을 확인할 수 있는 메뉴입니다.", "확인");
+                "랭킹 메뉴 입니다.\n\n술 랭킹을 확인할 수 있고 리뷰를 작성할 수 있습니다.", "확인");
 
         sequence.addSequenceItem(mainAnalysis,
-                "내가 마신 술의 양을 등록하고 분석하는 메뉴입니다.", "확인");
+                "분석 메뉴 입니다.\n\n내가 마신 술의 양을 등록하고 통계 데이터를 제공합니다.", "확인");
 
         sequence.addSequenceItem(mainGallery,
-                "내가 리뷰를 남긴 술 목록을 확인할 수 있는 메뉴입니다.", "확인");
+                "갤러리 메뉴 입니다.\n\n내가 리뷰를 남긴 술 목록을 확인할 수 있습니다.", "확인");
 
         sequence.addSequenceItem(mainSetting,
-                "게임과 채팅 등 여러가지 모드를 설정할 수 있는 메뉴입니다.","확인");
+                "설정 메뉴 입니다.\n\n게임과 채팅 등 여러가지 모드를 설정할 수 있습니다.","확인");
         sequence.start();
     }
 
