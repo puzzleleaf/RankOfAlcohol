@@ -37,6 +37,7 @@ import butterknife.OnClick;
 public class GalleryActivity extends AppCompatActivity {
 
     @BindView(R.id.gallery_recycler_view) RecyclerView galleryRecyclerView;
+    @BindView(R.id.gallery_num) TextView galleryNum;
     private GalleryAdapter galleryAdapter;
     private GridLayoutManager gridLayoutManager;
     private List<RankObject> obj;
@@ -58,6 +59,7 @@ public class GalleryActivity extends AppCompatActivity {
 
     private void refreshData(){
         Collections.sort(obj,descendingRating);
+        galleryNum.setText(String.valueOf(FbDataBase.userReviewCount));
         galleryAdapter.notifyDataSetChanged();
     }
 
@@ -66,6 +68,7 @@ public class GalleryActivity extends AppCompatActivity {
         FbDataBase.database.getReference().child("Review").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                FbDataBase.userReviewCount = 0;
                 for(int i=0;i<obj.size();i++){
                     Iterator<DataSnapshot> iterator =dataSnapshot.child(obj.get(i).getObjectKey()).getChildren().iterator();
                     while(iterator.hasNext()){
@@ -74,6 +77,7 @@ public class GalleryActivity extends AppCompatActivity {
                             obj.get(i).setScore(reviewObject.getRating());
                         }
                     }
+                    FbDataBase.userReviewCount ++;
                 }
                 refreshData();
                 loading.dismiss();

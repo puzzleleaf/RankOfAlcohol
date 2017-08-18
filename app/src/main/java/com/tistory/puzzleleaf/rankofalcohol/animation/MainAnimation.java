@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 
+import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
 
 import java.util.ArrayList;
 import processing.core.PApplet;
@@ -42,6 +43,8 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
     private static final String MODE = "MODE";
     private int modeCheck = 1;
 
+    //Message
+    private boolean messageLocker = false;
 
     //Mode
     private ModeBroadCastReceiver modeBroadCastReceiver;
@@ -78,7 +81,7 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
 
         gameMode = new GameMode();
         starInit();
-       // moonInit();
+        moonInit();
 
     }
 
@@ -103,7 +106,9 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
 
     public void draw()
     {
+
         background(7,20,29,100);
+        moonAnimation(); //리뷰 5개 이상이면
         starAnimation();
         gameModeAnimation();
         chatMessageAnimation();
@@ -149,6 +154,9 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
 
     //달 애니메이션
     private void moonAnimation(){
+        if(modeCheck!=1 || FbDataBase.userReviewCount<5){
+            return;
+        }
         drawMoon();
         drawShadow(location,height/4);
         location-=moveSpeed;
@@ -201,7 +209,7 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
 
     void setText(String txt)
     {
-        modeCheck = -1;
+
         if(myArr!=null) {
             myArr.clear();
         }
@@ -227,7 +235,8 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
         }
         pg.bitmap.recycle();
         pg.dispose();
-        modeCheck = 2;
+
+        messageLocker = false;
 
     }
 
@@ -415,7 +424,10 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
     //ChatMode 실시간 리스너
     @Override
     public void onChatValueListener(String value) {
-        setText(value);
+        if(!messageLocker) {
+            messageLocker = true;
+            setText(value);
+        }
     }
 
     private void broadCastInit(){
@@ -437,6 +449,7 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals(MODE)){
                 modeCheck = intent.getIntExtra("mode",MODE_BASIC);
+                Log.d("qwe", "받은 모드 ! " + String.valueOf(modeCheck));
                 switch (modeCheck){
                     case MODE_BASIC:
                         chatMode.dataLoadRemove();

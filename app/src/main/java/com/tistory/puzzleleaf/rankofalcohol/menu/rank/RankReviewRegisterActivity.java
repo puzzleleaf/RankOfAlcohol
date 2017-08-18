@@ -166,6 +166,7 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Toast.makeText(this,"왼쪽 상단 버튼을 눌러주세요.",Toast.LENGTH_SHORT).show();
     }
 
     // 성별별 리뷰 데이터 저장 로직

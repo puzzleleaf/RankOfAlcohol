@@ -12,4 +12,7 @@ public class FbDataBase {
     public static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public static FirebaseStorage storage = FirebaseStorage.getInstance();
     public static StorageReference storageRef = storage.getReferenceFromUrl("gs://rankofalcohol.appspot.com");
+
+    public static int userReviewCount = 0;
+
 }

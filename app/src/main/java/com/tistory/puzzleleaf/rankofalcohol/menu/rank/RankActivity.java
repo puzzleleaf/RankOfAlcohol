@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.flaviofaria.kenburnsview.KenBurnsView;
@@ -49,6 +51,7 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
     RankRecyclerAdapter rankRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;
     @BindView(R.id.rank_recycler_view) RecyclerView rankRecyclerView;
+    @BindView(R.id.rank_nested_scroll) NestedScrollView rankNestedScroll;
 
     //viewpager
     private RankAdapter rankAdapter;
@@ -302,6 +305,10 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
         FbDataBase.database.getReference().child("Beer").child(objKey2).setValue(rankObject2);
     }
 
+    @OnClick(R.id.rank_top)
+    public void rankToTop(){
+        rankNestedScroll.smoothScrollTo(0,0);
+    }
 
 
 

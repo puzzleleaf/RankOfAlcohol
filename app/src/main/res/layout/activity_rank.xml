@@ -106,12 +106,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/mainBlack"
+        android:id="@+id/rank_nested_scroll"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rank_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:scrollbars="vertical"
             android:scrollbarThumbVertical="@android:color/holo_red_dark"
             android:scrollbarSize="5dp">
@@ -119,4 +120,13 @@
 
     </android.support.v4.widget.NestedScrollView>
 
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_to_top"
+        android:id="@+id/rank_top"
+        android:adjustViewBounds="true"
+        app:borderWidth="0dp"
+        app:backgroundTint="@color/colorNon"
+        android:layout_gravity="bottom|right"/>
 </android.support.design.widget.CoordinatorLayout>

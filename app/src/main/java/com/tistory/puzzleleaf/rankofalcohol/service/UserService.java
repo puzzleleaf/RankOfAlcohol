@@ -15,6 +15,7 @@ import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
 import com.tistory.puzzleleaf.rankofalcohol.model.FbUser;
 
+import java.util.Iterator;
 
 
 /**
@@ -26,12 +27,15 @@ public class UserService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        FbDataBase.database.getReference().child("User")
-                .child(FbAuth.mAuth.getCurrentUser().getUid())
-                .child("info").addListenerForSingleValueEvent(new ValueEventListener() {
+        FbDataBase.database.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                FbAuth.mUser = dataSnapshot.getValue(FbUser.class);
+                Iterator<DataSnapshot> reviewCount = dataSnapshot.child("User").child(FbAuth.mAuth.getCurrentUser().getUid()).child("review").getChildren().iterator();
+                while(reviewCount.hasNext()){
+                    reviewCount.next();
+                    FbDataBase.userReviewCount ++;
+                }
+                FbAuth.mUser = dataSnapshot.child("User").child(FbAuth.mAuth.getCurrentUser().getUid()).child("info").getValue(FbUser.class);
                 stopService();
             }
             @Override

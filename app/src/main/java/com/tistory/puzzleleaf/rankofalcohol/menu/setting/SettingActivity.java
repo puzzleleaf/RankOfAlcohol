@@ -28,7 +28,6 @@ public class SettingActivity extends AppCompatActivity{
     private static final int MODE_CHAT = 2;
     private static final int MODE_GAME = 3;
     private static final int MODE_DISPLAY = 4;
-    private static final int MODE_SCREEN_LOCK = 5;
 
 
     @BindView(R.id.setting_mode_menu) LinearLayout settingModeMenu;
