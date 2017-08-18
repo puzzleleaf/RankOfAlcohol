@@ -58,6 +58,7 @@ class AnalysisRegisterDialog extends Dialog{
         float yangju = numberFormatExceptionPrevention(analysisYangju.getText().toString())*(float)2;
         float wine = numberFormatExceptionPrevention(analysisWine.getText().toString())*(float)1.3;
         AnalysisValueObject analysisValueObject = new AnalysisValueObject(soju,maekju,makgeolli,yangju+wine);
+
         dataReset();
         return analysisValueObject;
     }

@@ -1,109 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:layout_margin="3dp"
-    android:gravity="center"
-    android:orientation="horizontal"
-    android:padding="3dp">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="3dp"
         android:gravity="center"
-        android:id="@+id/rank_review_item"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:tint="@color/colorGray"
-            android:adjustViewBounds="true"
-            android:id="@+id/rank_review_recycler_profile"/>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="8dp"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="3dp">
 
-                <TextView
-                    android:id="@+id/rank_review_recycler_nick_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/rank_review_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/rank_review_recycler_profile"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:adjustViewBounds="true"
+                android:tint="@color/colorGray" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:background="@drawable/corner_temp"
-                    android:padding="3dp">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/rank_review_recycler_many_num"
+                        android:id="@+id/rank_review_recycler_nick_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorWhite"
-                        android:textSize="10sp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="병"
+                        android:layout_marginLeft="3dp"
+                        android:background="@drawable/corner_temp"
+                        android:padding="3dp">
+
+                        <TextView
+                            android:id="@+id/rank_review_recycler_many_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="병"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/rank_review_recycler_many"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:background="@drawable/corner_yellow"
+                        android:padding="3dp"
                         android:textColor="@color/colorWhite"
                         android:textSize="10sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/rank_review_recycler_many"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:background="@drawable/corner_yellow"
-                    android:padding="3dp"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
+
+                    <RatingBar
+                        android:id="@+id/rank_review_recycler_rating_bar"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:isIndicator="true" />
+
+                    <TextView
+                        android:id="@+id/rank_review_recycler_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:textColor="@color/colorReviewGray" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
 
-                <RatingBar
-                    android:id="@+id/rank_review_recycler_rating_bar"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:isIndicator="true" />
-
-                <TextView
-                    android:id="@+id/rank_review_recycler_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:textColor="@color/colorReviewGray" />
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_next"
+                    android:tint="@color/colorGray" />
             </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:tint="@color/colorGray"
-                android:src="@drawable/ic_next"/>
+
         </LinearLayout>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#40ffffff" />
 </LinearLayout>

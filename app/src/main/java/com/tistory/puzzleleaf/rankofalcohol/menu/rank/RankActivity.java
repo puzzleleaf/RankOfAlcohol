@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -50,6 +52,7 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
 
     //viewpager
     private RankAdapter rankAdapter;
+    @BindView(R.id.rank_kenburns) KenBurnsView rankKenburnsView;
     @BindView(R.id.rank_viewpager) ViewPager rankViewPager;
     @BindView(R.id.rank_tab_layout) TabLayout rankTabLayout;
 
@@ -238,6 +241,7 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
         dataRatingLoadStr = getString(R.string.rank_data_rating);
 
         //ViewPager
+        Glide.with(this).load(R.drawable.rank_bg).into(rankKenburnsView);
         rankAdapter = new RankAdapter(this,rankObject);
 
         rankViewPager.setOffscreenPageLimit(3);

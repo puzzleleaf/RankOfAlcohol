@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@color/mainBlack"
     android:orientation="vertical">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
+        android:background="@color/mainBlack"
         android:orientation="horizontal">
 
         <ImageView
@@ -21,20 +23,20 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="갤러리"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
-            android:layout_marginRight="40dp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/gallery_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/gallery_recycler_view">
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 

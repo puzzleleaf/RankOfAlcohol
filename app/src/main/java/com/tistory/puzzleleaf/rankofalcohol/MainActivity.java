@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
     public void galleryMenu(){
         Intent intent = new Intent(this, GalleryActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        hideMenu();
         startActivity(intent);
     }
     @OnClick(R.id.main_setting)

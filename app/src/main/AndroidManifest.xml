@@ -21,11 +21,10 @@
         <activity android:name=".MainActivity" android:screenOrientation="portrait"  />
         <activity android:name=".LoginActivity" android:theme="@style/Theme.AppCompat.Translucent" android:screenOrientation="portrait"/>
         <activity android:name=".menu.rank.RankActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".menu.rank.RankDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".menu.rank.RankReviewActivity" android:screenOrientation="portrait"/>
         <activity android:name=".menu.rank.RankReviewRegisterActivity" android:screenOrientation="portrait"/>
         <activity android:name=".menu.rank.RankReviewDetailActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".menu.gallery.GalleryActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".menu.gallery.GalleryActivity" android:theme="@style/Theme.AppCompat.Translucent" android:screenOrientation="portrait"/>
         <activity android:name=".menu.analysis.AnalysisActivity" android:screenOrientation="portrait"/>
         <activity android:name=".menu.analysis.AnalysisInfoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".menu.setting.SettingActivity" android:screenOrientation="portrait"/>

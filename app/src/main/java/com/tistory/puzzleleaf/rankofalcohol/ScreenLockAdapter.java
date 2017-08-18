@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -48,11 +49,13 @@ public class ScreenLockAdapter extends RecyclerView.Adapter<ScreenLockAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.screenNum.setText(String.valueOf(position+1));
         Glide.with(mInflater.getContext()).load(R.drawable.soju_color).into(holder.screenImage);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.screen_image) ImageView screenImage;
+        @BindView(R.id.screen_num) TextView screenNum;
         private ViewHolder(View view){
             super(view);
             ButterKnife.bind(this,view);

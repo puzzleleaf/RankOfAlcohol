@@ -27,9 +27,8 @@
                     <com.flaviofaria.kenburnsview.KenBurnsView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/qqq" />
-
+                        android:id="@+id/rank_kenburns"
+                        android:scaleType="centerInside" />
                     <android.support.v4.view.ViewPager
                         android:id="@+id/rank_viewpager"
                         android:layout_width="match_parent"
@@ -112,7 +111,10 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rank_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@android:color/holo_red_dark"
+            android:scrollbarSize="5dp">
         </android.support.v7.widget.RecyclerView>
 
     </android.support.v4.widget.NestedScrollView>

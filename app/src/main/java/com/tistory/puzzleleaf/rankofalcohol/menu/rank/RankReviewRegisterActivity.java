@@ -6,6 +6,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -44,9 +45,10 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
     @BindView(R.id.rank_review_register_image) ImageView rankReviewRegisterImageView;
     @BindView(R.id.rank_review_register_brand_name) TextView rankReviewRegisterBrandName;
     @BindView(R.id.rank_review_register_degree) TextView rankReviewRegisterDegree;
+
+
     //DB
     private RankObject rankObject;
-
     private Loading loading;
 
     @Override
@@ -97,6 +99,23 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
         return simpleDate.format(date);
     }
 
+    private boolean checkContents(){
+        if(rankReviewRegisterRatingBar.getRating()>0 && !rankReviewRegisterNickName.getText().equals("")
+                && rankReviewRegisterRadioGroup.getCheckedRadioButtonId()!=-1 && rankReviewRegisterContentsFirst.length()>=5
+                && rankReviewRegisterContentsSecond.length()>=5 ){
+            return true;
+        }else if(rankReviewRegisterRatingBar.getRating()==0){
+            Toast.makeText(this,"평점을 등록해주세요.",Toast.LENGTH_SHORT).show();
+        } else if(rankReviewRegisterRadioGroup.getCheckedRadioButtonId()==-1){
+            Toast.makeText(this,"얼마나 마셔봤는지 선택해주세요.",Toast.LENGTH_SHORT).show();
+        }else if(rankReviewRegisterContentsFirst.length()<12 || rankReviewRegisterContentsSecond.length()<12){
+            Toast.makeText(this,"5자 이상 평가 내용을 입력해주세요.",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this,"모든 항목을 채워주세요.",Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    }
+
     private void reviewRegister(){
         loading.show();
         String reviewKey = FbDataBase.database.getReference().child("Review").child(rankObject.getObjectKey()).push().getKey();
@@ -145,6 +164,10 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
     // 성별별 리뷰 데이터 저장 로직
     private void ratingGenderRegister(final int rating){
         String fbGenderRating = "";
@@ -181,12 +204,13 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
 
     @OnClick(R.id.rank_review_register_submit)
     public void reviewSubmit(){
-        //@TODO 제약조건 달기
-        reviewRegister();
+        if(checkContents()) {
+            reviewRegister();
+        }
     }
 
     @OnClick(R.id.rank_register_back)
     public void rankRegisterBackClick(){
-        onBackPressed();
+        finish();
     }
 }

@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,7 +106,7 @@ public class ScreenLockActivity extends AppCompatActivity {
             if(oldProgress<10000) {
                 if (progress <= oldProgress + 1500) {
                     screenLockProgress.getBackground().setLevel(progress);
-                    updateHandler.sendEmptyMessageDelayed(ANIMATION, 100);
+                    updateHandler.sendEmptyMessageDelayed(ANIMATION, 50);
                 }
             }
         }
@@ -128,7 +127,7 @@ public class ScreenLockActivity extends AppCompatActivity {
                             public void run() {
                                 progressLock = false;
                             }
-                        },500);
+                        },300);
                     }
                     else if (progress <= oldProgress+1500) {
                         updateHandler.sendEmptyMessage(ANIMATION);
@@ -138,7 +137,7 @@ public class ScreenLockActivity extends AppCompatActivity {
                                 progressLock = false;
                                 Log.d("qwe","UNLOCK");
                             }
-                        },1500);
+                        },750);
                     }
                     break;
             }
