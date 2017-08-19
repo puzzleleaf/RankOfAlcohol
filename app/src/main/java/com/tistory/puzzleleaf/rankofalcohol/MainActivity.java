@@ -18,11 +18,11 @@ import android.widget.Toast;
 import com.tistory.puzzleleaf.rankofalcohol.animation.MainAnimation;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
-import com.tistory.puzzleleaf.rankofalcohol.menu.analysis.AnalysisActivity;
-import com.tistory.puzzleleaf.rankofalcohol.menu.gallery.GalleryActivity;
-import com.tistory.puzzleleaf.rankofalcohol.menu.rank.RankActivity;
+import com.tistory.puzzleleaf.rankofalcohol.contents.analysis.AnalysisActivity;
+import com.tistory.puzzleleaf.rankofalcohol.contents.gallery.GalleryActivity;
+import com.tistory.puzzleleaf.rankofalcohol.contents.rank.RankActivity;
 import com.tistory.puzzleleaf.rankofalcohol.service.UserService;
-import com.tistory.puzzleleaf.rankofalcohol.menu.setting.SettingActivity;
+import com.tistory.puzzleleaf.rankofalcohol.contents.setting.SettingActivity;
 import com.tistory.puzzleleaf.rankofalcohol.util.edit.ChatEditText;
 import com.tistory.puzzleleaf.rankofalcohol.util.mode.ModePreference;
 
@@ -30,7 +30,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 
@@ -127,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 hideMenu();
                 break;
         }
-        Log.d("qwe", String.valueOf(mode));
         sendBroadcast(new Intent(MODE).putExtra("mode",mode));
     }
 

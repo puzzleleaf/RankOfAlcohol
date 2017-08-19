@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.tistory.puzzleleaf.rankofalcohol.ScreenLockActivity;
+import com.tistory.puzzleleaf.rankofalcohol.contents.screenlock.ScreenLockActivity;
 
 /**
  * Created by cmtyx on 2017-08-11.

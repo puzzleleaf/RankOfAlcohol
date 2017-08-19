@@ -36,7 +36,12 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
     float startShadow;
     float endShadow;
 
+    int basicModeSetting = 0;
 
+    //Rain
+    Rain myRain[];
+
+    //Star
     Star myStar[];
     ArrayList<Point> myArr;
 
@@ -78,12 +83,29 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
 
     public void setup() {
         textAlign(CENTER);
-
         gameMode = new GameMode();
-        starInit();
-        moonInit();
-
+        basicModeInit();
     }
+
+    private void basicModeInit(){
+        basicModeSetting = (int)random(0,5);
+        if(basicModeSetting==1){
+            rainInit();
+        }else{
+            starInit();
+            moonInit();
+        }
+    }
+
+    private void rainInit(){
+        myRain = new Rain[300];
+        for(int i =0 ; i<300; i++)
+        {
+            myRain[i] = new Rain(random(width),random(height));
+            //현재 창의 크기 위치에서 랜덤으로 빗방울 위치가 할당(총 300개의 빗방울을 만든다)
+        }
+    }
+
 
     private void starInit(){
         myArr = new ArrayList(); // 글자
@@ -106,20 +128,34 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
 
     public void draw()
     {
-
         background(7,20,29,100);
-        moonAnimation(); //리뷰 5개 이상이면
-        starAnimation();
+        basicModeAnimation();
         gameModeAnimation();
         chatMessageAnimation();
         displayModeAnimation();
+    }
+
+    private void basicModeAnimation(){
+        if(basicModeSetting==1){
+            rainAnimation();
+        }else{
+            moonAnimation();
+            starAnimation();
+        }
+    }
+
+    private void rainAnimation(){
+        for(int i=0;i<300;i++)
+        {
+            myRain[i].display();
+            myRain[i].move();
+        }
     }
 
     private void gameModeAnimation(){
         if(modeCheck!=3){
             return;
         }
-
         gameMode.playGame();
     }
 
@@ -239,6 +275,43 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
         messageLocker = false;
 
     }
+
+    //비
+    class Rain
+    {
+        float xpos;
+        float ypos;
+        float speed;
+        float h;
+        float gravity = 0;
+
+        Rain(float xpos, float ypos)
+        {
+            this.xpos = xpos;
+            this.ypos = ypos;
+            speed = random(2,7);
+            h = random(10,30);
+        }
+
+        void display()
+        {
+            stroke(140);//빗방울 색
+            line(xpos,ypos,xpos,ypos+h); //빗방울의 위치와 길이를
+        }
+
+        void move()
+        {
+            ypos += (speed + gravity); //아래로 내려올수록 빠르게 하기위함
+            gravity +=0.5;
+            if(ypos > height){
+                ypos = 0;
+                xpos = random(0,width);
+                gravity = 0;
+            }
+        }
+
+    }
+
 
     //별 객체
     class Star {
@@ -449,7 +522,6 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals(MODE)){
                 modeCheck = intent.getIntExtra("mode",MODE_BASIC);
-                Log.d("qwe", "받은 모드 ! " + String.valueOf(modeCheck));
                 switch (modeCheck){
                     case MODE_BASIC:
                         chatMode.dataLoadRemove();
@@ -462,7 +534,6 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
                         break;
                     case MODE_DISPLAY:
                         displayMode.displayDataLoad();
-                        Log.d("qwe", String.valueOf(modeCheck));
                         break;
                 }
 
