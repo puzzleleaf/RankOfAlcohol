@@ -84,6 +84,7 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
     public void setup() {
         textAlign(CENTER);
         gameMode = new GameMode();
+        myArr = new ArrayList(); // 채팅모드
         basicModeInit();
     }
 
@@ -108,7 +109,6 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
 
 
     private void starInit(){
-        myArr = new ArrayList(); // 글자
         myStar = new Star[maxStar];
         for(int i=0;i<maxStar;i++){
             myStar[i] = new Star();
