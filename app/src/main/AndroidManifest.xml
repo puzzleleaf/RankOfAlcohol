@@ -29,6 +29,8 @@
         <activity android:name=".contents.analysis.AnalysisInfoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".contents.setting.SettingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".contents.setting.SettingModeDisplay" android:screenOrientation="portrait"/>
+        <activity android:name=".contents.setting.SettingLibraryActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".contents.setting.SettingPrivateInfoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".contents.screenlock.ScreenLockActivity" android:screenOrientation="portrait" android:launchMode="singleTop" />
         <service android:name=".service.UserService"/>
         <service android:name=".service.ScreenLockService"/>

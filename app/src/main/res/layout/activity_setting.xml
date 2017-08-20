@@ -92,11 +92,11 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/setting_mode"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:id="@+id/setting_mode"
                 android:paddingLeft="30dp"
                 android:paddingRight="10dp">
 
@@ -114,6 +114,7 @@
                     android:src="@drawable/ic_down"
                     android:tint="@color/colorWhite" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -232,6 +233,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:id="@+id/library_info"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="30dp"
@@ -241,7 +243,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="라이브러리"
+                    android:text="오픈소스 라이선스"
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold" />
 
@@ -260,6 +262,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:id="@+id/setting_private_info"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="30dp"
@@ -269,7 +272,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="개인정보 처리 방침"
+                    android:text="개인정보처리방침"
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold" />
 

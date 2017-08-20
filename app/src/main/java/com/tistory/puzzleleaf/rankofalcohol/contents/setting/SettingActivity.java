@@ -155,4 +155,16 @@ public class SettingActivity extends AppCompatActivity{
         finish();
     }
 
+    @OnClick(R.id.setting_private_info)
+    public void settingPrivateInfoClick(){
+        Intent intent = new Intent(this,SettingPrivateInfoActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.library_info)
+    public void settingLibraryInfoClick(){
+        Intent intent = new Intent(this, SettingLibraryActivity.class);
+        startActivity(intent);
+    }
+
 }
