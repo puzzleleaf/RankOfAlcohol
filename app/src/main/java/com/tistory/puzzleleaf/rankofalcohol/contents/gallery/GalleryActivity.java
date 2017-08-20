@@ -1,6 +1,7 @@
 package com.tistory.puzzleleaf.rankofalcohol.contents.gallery;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,6 +13,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.tistory.puzzleleaf.rankofalcohol.R;
+import com.tistory.puzzleleaf.rankofalcohol.contents.rank.RankReviewRegisterActivity;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
 import com.tistory.puzzleleaf.rankofalcohol.contents.gallery.adapter.GalleryAdapter;
@@ -31,12 +33,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class GalleryActivity extends AppCompatActivity {
+public class GalleryActivity extends AppCompatActivity implements GalleryAdapter.OnGalleryObjectClickListener {
 
     @BindView(R.id.gallery_recycler_view) RecyclerView galleryRecyclerView;
     @BindView(R.id.gallery_num) TextView galleryNum;
     private GalleryAdapter galleryAdapter;
-    private GridLayoutManager gridLayoutManager;
     private List<RankObject> obj;
     private List<String> userKey;
     private DescendingRating descendingRating;
@@ -151,8 +152,9 @@ public class GalleryActivity extends AppCompatActivity {
 
     private void recyclerInit(){
         loading = new Loading(this,"gallery");
-        gridLayoutManager = new GridLayoutManager(this,2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         galleryAdapter = new GalleryAdapter(this,obj);
+        galleryAdapter.setOnGalleryObjectClickListener(this);
         galleryRecyclerView.setLayoutManager(gridLayoutManager);
         galleryRecyclerView.setAdapter(galleryAdapter);
     }
@@ -163,4 +165,35 @@ public class GalleryActivity extends AppCompatActivity {
         onBackPressed();
     }
 
+    @Override
+    public void onGalleryObjectSelected(final RankObject obj) {
+        loading.show();
+        FbDataBase.database.getReference().child("Review").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ReviewObject reviewObject;
+                Iterator<DataSnapshot> iterator = dataSnapshot.child(obj.getObjectKey()).getChildren().iterator();
+                while (iterator.hasNext()){
+                    reviewObject = iterator.next().getValue(ReviewObject.class);
+
+                    if(reviewObject.getUserKey().equals(FbAuth.mAuth.getCurrentUser().getUid())){
+                        loading.dismiss();
+                        Intent intent = new Intent(getApplicationContext(), RankReviewRegisterActivity.class);
+                        intent.putExtra("modify",reviewObject);
+                        intent.putExtra("data",obj);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    }
+
+                }
+                loading.dismiss();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

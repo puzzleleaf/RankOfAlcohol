@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -39,6 +40,10 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
     @BindView(R.id.rank_review_register_ratingbar) RatingBar rankReviewRegisterRatingBar;
     @BindView(R.id.rank_review_register_nick_name) EditText rankReviewRegisterNickName;
     @BindView(R.id.rank_review_register_radio) RadioGroup rankReviewRegisterRadioGroup;
+    @BindView(R.id.rank_radio_btn1) RadioButton rankRadioBtnLittle;
+    @BindView(R.id.rank_radio_btn2) RadioButton rankRadioBtnQuiteLittle;
+    @BindView(R.id.rank_radio_btn3) RadioButton rankRadioBtnMuch;
+    @BindView(R.id.rank_radio_btn4) RadioButton rankRadioBtnVeryMuch;
     @BindView(R.id.rank_review_register_contents_first) EditText rankReviewRegisterContentsFirst;
     @BindView(R.id.rank_review_register_contents_second) EditText rankReviewRegisterContentsSecond;
     @BindView(R.id.rank_review_register_image) ImageView rankReviewRegisterImageView;
@@ -48,6 +53,7 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
 
     //DB
     private RankObject rankObject;
+    private ReviewObject reviewObject;
     private Loading loading;
 
     @Override
@@ -67,6 +73,33 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
         Glide.with(this).load(rankObject.getImgKey()).into(rankReviewRegisterImageView);
         rankReviewRegisterBrandName.setText(rankObject.getBrandName());
         rankReviewRegisterDegree.setText(String.valueOf(rankObject.getAlcoholDegree()));
+
+        reviewObject = getIntent().getParcelableExtra("modify");
+        if(reviewObject!=null){
+            reviewModify();
+        }
+    }
+
+    private void reviewModify(){
+        rankReviewRegisterRatingBar.setRating((float) reviewObject.getRating());
+        rankReviewRegisterNickName.setText(reviewObject.getNickName());
+        rankReviewRegisterContentsFirst.setText(reviewObject.getContents1());
+        rankReviewRegisterContentsSecond.setText(reviewObject.getContents2());
+
+        switch (reviewObject.getHowMany()){
+            case "아주 조금":
+                rankRadioBtnLittle.setChecked(true);
+                break;
+            case "조금":
+                rankRadioBtnQuiteLittle.setChecked(true);
+                break;
+            case "적당히":
+                rankRadioBtnMuch.setChecked(true);
+                break;
+            case "많이":
+                rankRadioBtnVeryMuch.setChecked(true);
+                break;
+        }
     }
 
     private void ratingBarInit(){
@@ -138,6 +171,24 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
         ratingRegister((int) rankReviewRegisterRatingBar.getRating());
     }
 
+    private void reviewModifyRegister(){
+        loading.show();
+
+        ReviewObject reviewObj = new ReviewObject(rankReviewRegisterNickName.getText().toString(),
+                (int) rankReviewRegisterRatingBar.getRating(),
+                getRankRadioBtnValue(rankReviewRegisterRadioGroup.getCheckedRadioButtonId()),
+                rankReviewRegisterContentsFirst.getText().toString(),
+                rankReviewRegisterContentsSecond.getText().toString(),
+                dateInit(),
+                FbAuth.mUser.gethMany(),
+                reviewObject.getReviewKey(),
+                FbAuth.mAuth.getCurrentUser().getUid());
+
+        FbDataBase.database.getReference().child("Review").child(rankObject.getObjectKey()).child(reviewObject.getReviewKey()).setValue(reviewObj);
+
+        ratingRegister((int) rankReviewRegisterRatingBar.getRating());
+    }
+
     //전체 평점 실시간 등록 - FireBase Transaction
     private void ratingRegister(final int rating){
         FbDataBase.database.getReference().child("Rating").child(rankObject.getObjectKey()).runTransaction(new Transaction.Handler() {
@@ -149,8 +200,12 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
                 }else{
                     int total = ratingObject.getTotal();
                     int num = ratingObject.getNum();
-                    ratingObject.setTotal(total+rating);
-                    ratingObject.setNum(++num);
+                    if(reviewObject!=null){
+                        ratingObject.setTotal(total+rating-(int)reviewObject.getRating());
+                    }else{
+                        ratingObject.setTotal(total+rating);
+                        ratingObject.setNum(++num);
+                    }
                 }
                 mutableData.setValue(ratingObject);
                 return Transaction.success(mutableData);
@@ -186,8 +241,13 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
                 }else{
                     int total = ratingObject.getTotal();
                     int num = ratingObject.getNum();
-                    ratingObject.setTotal(total+rating);
-                    ratingObject.setNum(++num);
+                    if(reviewObject!=null){
+                        ratingObject.setTotal(total+rating-(int)reviewObject.getRating());
+                    }else{
+                        ratingObject.setTotal(total+rating);
+                        ratingObject.setNum(++num);
+                    }
+
                 }
                 mutableData.setValue(ratingObject);
                 return Transaction.success(mutableData);
@@ -204,7 +264,10 @@ public class RankReviewRegisterActivity extends AppCompatActivity {
 
     @OnClick(R.id.rank_review_register_submit)
     public void reviewSubmit(){
-        if(checkContents()) {
+        if(checkContents() && reviewObject!=null){
+            reviewModifyRegister();
+        }
+        else if(checkContents()) {
             reviewRegister();
         }
     }
