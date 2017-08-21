@@ -70,6 +70,18 @@ public class ModePreference {
         return pref.getString("displayText","달과 별 그리고 술");
     }
 
+    public String getMessageModeCh(){
+        SharedPreferences pref = context.getSharedPreferences("message",MODE_PRIVATE);
+        return pref.getString("message","public");
+    }
+
+    public void saveMessageModeCh(String ch){
+        SharedPreferences pref = context.getSharedPreferences("message", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("message", ch);
+        editor.apply();
+    }
+
 
 
 }

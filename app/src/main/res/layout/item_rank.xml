@@ -18,7 +18,6 @@
         <ImageView
             android:id="@+id/rank_image_view"
             android:layout_width="wrap_content"
-            android:src="@drawable/aaabbb"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"/>
 

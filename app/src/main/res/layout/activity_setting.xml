@@ -43,37 +43,7 @@
             android:adjustViewBounds="true"
             android:src="@drawable/splash" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CODE : "
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="aCq5JWAutKRpjlZb9oUrJkz2TwR2"
-                android:id="@+id/setting_code"
-                android:textColor="@color/colorHint"
-                android:textSize="12sp" />
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/setting_code_copy"
-                android:src="@drawable/ic_copy"
-                android:tint="@color/colorWhite" />
-        </LinearLayout>
     </LinearLayout>
 
     <View
@@ -130,12 +100,26 @@
                     android:paddingLeft="30dp"
                     android:paddingRight="10dp">
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="기본 모드"
                         android:textColor="@color/colorHint"
                         android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_info"
+                            android:padding="2dp"
+                            android:onClick="settingInfoAnimationDialog"
+                            android:id="@+id/setting_basic_info"
+                            android:tint="@color/colorWhite" />
+                    </LinearLayout>
                     <Switch
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -150,12 +134,26 @@
                     android:paddingRight="10dp"
                     android:paddingLeft="30dp">
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="메시지 모드"
                         android:textColor="@color/colorHint"
                         android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_info"
+                            android:padding="2dp"
+                            android:onClick="settingInfoAnimationDialog"
+                            android:id="@+id/setting_message_info"
+                            android:tint="@color/colorWhite" />
+                    </LinearLayout>
                     <Switch
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -170,12 +168,26 @@
                     android:paddingRight="10dp"
                     android:paddingLeft="30dp">
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="미니게임 모드"
                         android:textColor="@color/colorHint"
                         android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:padding="2dp"
+                            android:onClick="settingInfoAnimationDialog"
+                            android:src="@drawable/ic_info"
+                            android:id="@+id/setting_game_info"
+                            android:tint="@color/colorWhite" />
+                    </LinearLayout>
                     <Switch
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -190,13 +202,26 @@
                     android:paddingRight="10dp"
                     android:paddingLeft="30dp">
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="전광판 모드"
                         android:textColor="@color/colorHint"
                         android:textStyle="bold" />
-
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_info"
+                            android:onClick="settingInfoAnimationDialog"
+                            android:padding="2dp"
+                            android:id="@+id/setting_display_info"
+                            android:tint="@color/colorWhite" />
+                    </LinearLayout>
                     <Switch
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -211,12 +236,27 @@
                     android:paddingRight="10dp"
                     android:paddingLeft="30dp">
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="술 마시는 모드"
                         android:textColor="@color/colorHint"
                         android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/setting_screen_lock_info"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:padding="2dp"
+                            android:onClick="settingInfoAnimationDialog"
+                            android:src="@drawable/ic_info"
+                            android:tint="@color/colorWhite" />
+                    </LinearLayout>
                     <Switch
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

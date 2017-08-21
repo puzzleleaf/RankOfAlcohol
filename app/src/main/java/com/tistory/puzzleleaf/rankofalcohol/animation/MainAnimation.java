@@ -487,7 +487,7 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
     }
 
     private void chatModeInit(){
-        chatMode = new ChatMode(this);
+        chatMode = new ChatMode(getActivity().getApplicationContext(),this);
         chatMode.chatModeListenerInit();
     }
     private void displayModeInit(){

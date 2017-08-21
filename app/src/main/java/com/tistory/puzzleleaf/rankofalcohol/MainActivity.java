@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         showCase();
-
         init();
         userInit();
         playAnimation();
@@ -177,10 +176,14 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.main_gallery)
     public void galleryMenu(){
-        Intent intent = new Intent(this, GalleryActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        hideMenu();
-        startActivity(intent);
+        if(FbAuth.mUser == null){
+            Toast.makeText(this,"계정 정보를 불러오는 중 입니다.",Toast.LENGTH_SHORT).show();
+        }else {
+            Intent intent = new Intent(this, GalleryActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            hideMenu();
+            startActivity(intent);
+        }
     }
     @OnClick(R.id.main_setting)
     public void settingMenu(){
@@ -211,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendMessage(){
-        FbDataBase.database.getReference().child("Channel").child("user-key").setValue(mainChatEdit.getText().toString());
+        FbDataBase.database.getReference().child("Channel").child(modePreference.getMessageModeCh()).setValue(mainChatEdit.getText().toString());
         mainChatEdit.setText("");
     }
 

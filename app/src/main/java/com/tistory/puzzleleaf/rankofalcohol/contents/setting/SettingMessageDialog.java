@@ -4,8 +4,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tistory.puzzleleaf.rankofalcohol.R;
 
@@ -19,12 +22,23 @@ import butterknife.OnClick;
 
 class SettingMessageDialog extends Dialog{
 
-
-     SettingMessageDialog(@NonNull Context context) {
-         super(context);
+    interface OnApplyListener{
+        void onApplySelected(String ch);
     }
 
+     SettingMessageDialog(@NonNull Context context,View.OnClickListener cancelListener, OnApplyListener onApplyListener) {
+         super(context);
+         this.cancelListener = cancelListener;
+         this.applyListener = onApplyListener;
+
+    }
+
+    private View.OnClickListener cancelListener;
+    private OnApplyListener applyListener;
+
     @BindView(R.id.setting_message_apply) TextView messageApply;
+    @BindView(R.id.setting_message_cancel) TextView messageCancel;
+    @BindView(R.id.setting_message_edit) EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +46,24 @@ class SettingMessageDialog extends Dialog{
         setContentView(R.layout.activity_setting_message_dialog);
         ButterKnife.bind(this);
         this.setCanceledOnTouchOutside(false);
+
+        messageCancel.setOnClickListener(cancelListener);
         messageApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String ch = editText.getText().toString();
+                if(ch.equals("")){
+                    Toast.makeText(getContext(),"채널을 입력해 주세요.",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                applyListener.onApplySelected(ch);
             }
         });
+
     }
 
-    @OnClick(R.id.setting_message_cancel)
-    public void messageCancel(){
-        this.dismiss();
+    @Override
+    public void onBackPressed() {
+
     }
 }

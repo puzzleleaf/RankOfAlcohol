@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class SettingActivity extends AppCompatActivity{
+public class SettingActivity extends AppCompatActivity implements SettingMessageDialog.OnApplyListener{
 
     private static final int MODE_BASIC = 1;
     private static final int MODE_CHAT = 2;
@@ -31,13 +31,15 @@ public class SettingActivity extends AppCompatActivity{
 
 
     @BindView(R.id.setting_mode_menu) LinearLayout settingModeMenu;
-    @BindView(R.id.setting_code) TextView settingCode;
     @BindView(R.id.setting_mode_message) Switch settingModeMessage;
     @BindView(R.id.setting_mode_game) Switch settingModeGame;
     @BindView(R.id.setting_mode_display) Switch settingModeDisplay;
     @BindView(R.id.setting_mode_screen_lock) Switch settingModeScreenLock;
 
+    private View.OnClickListener settingMessageApplyClick;
+    private View.OnClickListener settingMessageCancelClick;
     private SettingMessageDialog settingMessageDialog;
+    private SettingInfoDialog settingInfoDialog;
     private ModePreference modePreference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,17 @@ public class SettingActivity extends AppCompatActivity{
     }
 
     private void dialogInit(){
-        settingMessageDialog = new SettingMessageDialog(this);
+
+        settingMessageCancelClick = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                settingModeMessage.setChecked(false);
+                settingMessageDialog.dismiss();
+            }
+        };
+        settingMessageDialog = new SettingMessageDialog(this,settingMessageCancelClick,this);
+        settingInfoDialog = new SettingInfoDialog(this);
+
 
     }
 
@@ -93,14 +105,6 @@ public class SettingActivity extends AppCompatActivity{
         }
     }
 
-    @OnClick(R.id.setting_code_copy)
-    public void settingCodeCopy(){
-        ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-        ClipData clipData = ClipData.newPlainText("code",settingCode.getText());
-        clipboardManager.setPrimaryClip(clipData);
-        Toast.makeText(this,"복사 되었습니다.",Toast.LENGTH_SHORT).show();
-    }
-
 
     public void settingSelectSwitch(View v){
         Switch sw = (Switch) v;
@@ -110,7 +114,6 @@ public class SettingActivity extends AppCompatActivity{
             switchReset();
             sw.setChecked(true);
             if(sw == settingModeMessage){
-                modePreference.saveModePreferences(MODE_CHAT);
                 settingMessageDialog.show();
             }else if(sw == settingModeGame){
                 modePreference.saveModePreferences(MODE_GAME);
@@ -119,6 +122,7 @@ public class SettingActivity extends AppCompatActivity{
                 Intent intent = new Intent(this,SettingModeDisplay.class);
                 startActivity(intent);
             }
+
         }
     }
 
@@ -167,4 +171,32 @@ public class SettingActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
+    public void settingInfoAnimationDialog(View v){
+        switch (v.getId()){
+            case R.id.setting_basic_info:
+                settingInfoDialog.setSettingInfoCase(1);
+                break;
+            case R.id.setting_message_info :
+                settingInfoDialog.setSettingInfoCase(2);
+                break;
+            case R.id.setting_game_info :
+                settingInfoDialog.setSettingInfoCase(3);
+                break;
+            case R.id.setting_display_info :
+                settingInfoDialog.setSettingInfoCase(4);
+                break;
+        }
+        settingInfoDialog.show();
+
+
+    }
+
+
+    @Override
+    public void onApplySelected(String ch) {
+        modePreference.saveModePreferences(MODE_CHAT);
+        modePreference.saveMessageModeCh(ch);
+        settingModeMessage.setChecked(true);
+        settingMessageDialog.dismiss();
+    }
 }
