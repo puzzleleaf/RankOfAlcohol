@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 
@@ -109,6 +110,10 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
                         if(rankObject!=null){
                             obj.add(rankObject);
                         }
+                        rankObject = dataSnapshot.child("Makgeolli").child(userKey.get(i)).getValue(RankObject.class);
+                        if(rankObject!=null){
+                            obj.add(rankObject);
+                        }
                     }
                     dataUserReviceItemRatingLoad();
                 }
@@ -122,6 +127,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
     private void dataUserReviewItemKeyLoad(){
         loading.show();
         userKey.clear();
+        Log.d("qwe",FbAuth.mAuth.getCurrentUser().getUid());
         FbDataBase.database.getReference()
                 .child("User")
                 .child(FbAuth.mAuth.getCurrentUser().getUid())

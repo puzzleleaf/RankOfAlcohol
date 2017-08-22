@@ -93,7 +93,6 @@
                         android:layout_marginLeft="3dp"
                         android:layout_marginRight="3dp"
                         android:background="@drawable/ic_down"
-                        android:backgroundTint="@color/colorWhite"
                         android:gravity="center">
                     </android.support.v7.widget.AppCompatSpinner>
                 </LinearLayout>
@@ -128,5 +127,5 @@
         android:adjustViewBounds="true"
         app:borderWidth="0dp"
         app:backgroundTint="@color/colorNon"
-        android:layout_gravity="bottom|right"/>
+        android:layout_gravity="end|bottom"/>
 </android.support.design.widget.CoordinatorLayout>

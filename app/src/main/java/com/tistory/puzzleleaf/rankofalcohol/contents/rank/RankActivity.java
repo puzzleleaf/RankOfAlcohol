@@ -8,6 +8,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -83,8 +84,7 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
 
         init();
 
-        //@TODO 나중에 로딩 중 보여줄 더미데이터 추가하기(첫 로딩에만 필요)(주류 변경시 필요 x)
-      // dataUploadSample();
+     // dataUploadSample();
     }
 
     @Override
@@ -114,6 +114,12 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
                 }
 
                 iterator = dataSnapshot.child(getString(R.string.rank_data_load_fir)).getChildren().iterator();
+                while (iterator.hasNext()){
+                    RankObject rankObject = iterator.next().getValue(RankObject.class);
+                    rankObjectList.add(rankObject);
+                }
+
+                iterator = dataSnapshot.child(getString(R.string.rank_data_load_sec)).getChildren().iterator();
                 while (iterator.hasNext()){
                     RankObject rankObject = iterator.next().getValue(RankObject.class);
                     rankObjectList.add(rankObject);
@@ -215,6 +221,10 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
                 dataLoadStr = getString(R.string.rank_data_load_fir);
                 dataRatingLoadStr = getString(R.string.rank_data_rating);
                 break;
+            case 3:
+                dataLoadStr = getString(R.string.rank_data_load_sec);
+                dataRatingLoadStr = getString(R.string.rank_data_rating);
+                break;
             case 4:
                 dataLoadStr = "";
                 dataRatingLoadStr = getString(R.string.rank_data_rating_man);
@@ -296,10 +306,14 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
 //        String objKey = FbDataBase.database.getReference().child("Soju").push().getKey();
 //        RankObject rankObject = new RankObject("처음처럼(진한)", 21,"","soju_05.png",objKey);
 //        FbDataBase.database.getReference().child("Soju").child(objKey).setValue(rankObject);
+//
+//        String objKey2 = FbDataBase.database.getReference().child("Beer").push().getKey();
+//        RankObject rankObject2 = new RankObject("하이트", 4.5,"","beer_01.png",objKey2);
+//        FbDataBase.database.getReference().child("Beer").child(objKey2).setValue(rankObject2);
 
-        String objKey2 = FbDataBase.database.getReference().child("Beer").push().getKey();
-        RankObject rankObject2 = new RankObject("하이트", 4.5,"","beer_01.png",objKey2);
-        FbDataBase.database.getReference().child("Beer").child(objKey2).setValue(rankObject2);
+        String objKey3 = FbDataBase.database.getReference().child("Makgeolli").push().getKey();
+        RankObject rankObject3 = new RankObject("아이싱(소다)", 4.5,"","mak_01.png",objKey3);
+        FbDataBase.database.getReference().child("Makgeolli").child(objKey3).setValue(rankObject3);
     }
 
     @OnClick(R.id.rank_top)

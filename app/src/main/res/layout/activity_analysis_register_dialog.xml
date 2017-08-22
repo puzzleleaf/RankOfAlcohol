@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
             android:textStyle="bold"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:padding="5dp"
             android:text="마신 술 등록"/>
         <View
@@ -33,7 +33,7 @@
              android:textColor="@color/colorWhite"
              android:gravity="center"
              android:textStyle="bold"
-             android:textSize="15dp"
+             android:textSize="15sp"
              android:padding="5dp"
              android:text="소주 : "/>
          <EditText
@@ -52,9 +52,9 @@
              android:gravity="center"
              android:textColor="@color/colorWhite"
              android:textStyle="bold"
-             android:textSize="15dp"
+             android:textSize="15sp"
              android:padding="5dp"
-             android:text="병"/>
+             android:text="@string/AnalysisRegisterNum"/>
      </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
                 android:textColor="@color/colorWhite"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:padding="5dp"
                 android:text="맥주 : "/>
             <EditText
@@ -85,7 +85,7 @@
                 android:gravity="center"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:padding="5dp"
                 android:text="CC"/>
         </LinearLayout>
@@ -99,7 +99,7 @@
                 android:textColor="@color/colorWhite"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:padding="5dp"
                 android:text="막걸리 : "/>
             <EditText
@@ -118,9 +118,9 @@
                 android:gravity="center"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:padding="5dp"
-                android:text="병"/>
+                android:text="@string/AnalysisRegisterNum"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
                 android:textColor="@color/colorWhite"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:padding="5dp"
                 android:text="양주 : "/>
 
@@ -153,9 +153,9 @@
                 android:gravity="center"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:padding="5dp"
-                android:text="병"/>
+                android:text="@string/AnalysisRegisterNum"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -167,7 +167,7 @@
                 android:textColor="@color/colorWhite"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:padding="5dp"
                 android:text="와인 : "/>
             <EditText
@@ -186,9 +186,9 @@
                 android:gravity="center"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:padding="5dp"
-                android:text="병"/>
+                android:text="@string/AnalysisRegisterNum"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"

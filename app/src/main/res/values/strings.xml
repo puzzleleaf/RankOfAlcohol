@@ -24,6 +24,7 @@
     <string name="rank_name">랭킹</string>
     <string name="rank_data_load_zero">Soju</string>
     <string name="rank_data_load_fir">Beer</string>
+    <string name="rank_data_load_sec">Makgeolli</string>
     <string name="rank_data_rating">Rating</string>
     <string name="rank_data_rating_man">ManRating</string>
     <string name="rank_data_rating_woman">WomanRating</string>
@@ -42,4 +43,6 @@
     <string name="rank_radio3">적당히</string>
     <string name="rank_radio4">많이</string>
     <string name="rank_degree"> 도</string>
+    <string name="AnalysisRegisterNum">병</string>
+    <string name="analysis">분석</string>
 </resources>

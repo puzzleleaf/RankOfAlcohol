@@ -77,8 +77,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:id="@+id/rank_tropy" />
                 <LinearLayout
                     android:layout_width="wrap_content"
