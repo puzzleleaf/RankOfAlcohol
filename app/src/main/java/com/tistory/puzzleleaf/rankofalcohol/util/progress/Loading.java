@@ -16,14 +16,25 @@ public class Loading extends Dialog {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setCanceledOnTouchOutside(false);
-        if(select.equals("rank")) {
-            setContentView(R.layout.loading_rank);
-        }else if(select.equals("analysis")){
-            setContentView(R.layout.loading_analysis);
-        }else if(select.equals("gallery")){
-          setContentView(R.layout.loading_gallery);
-        }else{
-            setContentView(R.layout.loading_write);
+        loadingModeInit(select);
+    }
+
+    private void loadingModeInit(String mode){
+        switch (mode){
+            case "rank" :
+                setContentView(R.layout.loading_rank);
+                break;
+            case "analysis":
+                setContentView(R.layout.loading_analysis);
+                break;
+            case "gallery":
+                setContentView(R.layout.loading_gallery);
+                break;
+            case "login":
+                setContentView(R.layout.loading_login);
+                break;
+            default:
+                setContentView(R.layout.loading_write);
         }
 
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

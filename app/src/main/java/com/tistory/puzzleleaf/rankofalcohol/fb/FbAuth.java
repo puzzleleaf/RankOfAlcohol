@@ -10,4 +10,24 @@ import com.tistory.puzzleleaf.rankofalcohol.model.FbUser;
 public class FbAuth {
     public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public static FbUser mUser;
+
+    public static String getGoogleUserId(){
+        String result;
+        try {
+            result = mAuth.getCurrentUser().getUid();
+        } catch (NullPointerException e){
+            result = "public";
+        }
+        return result;
+    }
+
+    public static String getGoogleUserName(){
+        String result;
+        try {
+            result = mAuth.getCurrentUser().getDisplayName();
+        } catch (NullPointerException e){
+            result = "사용자";
+        }
+        return result;
+    }
 }
