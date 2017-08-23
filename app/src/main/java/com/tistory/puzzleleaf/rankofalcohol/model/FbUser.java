@@ -5,7 +5,7 @@ package com.tistory.puzzleleaf.rankofalcohol.model;
  */
 
 public class FbUser {
-    private double hMany;
+    private float hMany;
     private String gender;
 
     public FbUser(){}
@@ -15,7 +15,7 @@ public class FbUser {
         this.gender = gender;
     }
 
-    public double gethMany() {
+    public float gethMany() {
         return hMany;
     }
 

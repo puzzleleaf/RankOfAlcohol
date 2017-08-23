@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @BindView(R.id.login_gender_w) TextView genderW;
 
     private String gender = null;
+    private boolean isUserData = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,7 +101,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(this.toString(),"설마 두번 실행???? 파베 등록");
                             userRegister();
                         } else {
                             Toast.makeText(getApplicationContext(), getString(R.string.NetworkError), Toast.LENGTH_SHORT).show();
@@ -117,39 +117,29 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .child(getString(R.string.FireBaseUserKey))
                 .child(FbAuth.getGoogleUserId())
                 .child(getString(R.string.FireBaseUserInfo))
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+                .runTransaction(new Transaction.Handler() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        FbUser fbUser = dataSnapshot.getValue(FbUser.class);
+                    public Transaction.Result doTransaction(MutableData mutableData) {
+                        FbUser fbUser = mutableData.getValue(FbUser.class);
                         if(fbUser == null){
                             fbUser = new FbUser(Float.parseFloat(inputHowMany.getText().toString()),gender);
                         }else{
+                            isUserData = true;
                             fbUser.sethMany(Float.parseFloat(inputHowMany.getText().toString()));
-                            Toast.makeText(getApplicationContext(),"기존 데이터가 존재하여, 주량 정보만 업데이트 됩니다.",Toast.LENGTH_SHORT).show();
                         }
-                        registerUserData(fbUser);
+                        mutableData.setValue(fbUser);
+                        return Transaction.success(mutableData);
                     }
-
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
+                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                        loading.dismiss();
+                        if (isUserData){
+                            Toast.makeText(getApplicationContext(),"기존 데이터가 존재하여\n주량 데이터만 수정가능합니다.",Toast.LENGTH_SHORT).show();
+                        }
+                        Toast.makeText(getApplicationContext(),FbAuth.getGoogleUserName() + "님 환영합니다.",Toast.LENGTH_SHORT).show();
+                        loginResult();
                     }
                 });
-
-    }
-
-    private void registerUserData(FbUser fbUser){
-        FbDataBase.database.getReference()
-                .child(getString(R.string.FireBaseUserKey))
-                .child(FbAuth.getGoogleUserId())
-                .child(getString(R.string.FireBaseUserInfo)).setValue(fbUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                loading.dismiss();
-                Toast.makeText(getApplicationContext(),FbAuth.getGoogleUserName() + "님 환영합니다.",Toast.LENGTH_SHORT).show();
-                loginResult();
-            }
-        });
     }
 
     private void loginResult(){

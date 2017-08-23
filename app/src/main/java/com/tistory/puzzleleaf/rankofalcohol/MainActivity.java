@@ -65,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
         playAnimation();
         chatModeKeyEventInit();
 
-
-
     }
 
 
@@ -103,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void init(){
         modePreference = new ModePreference(this);
-
     }
 
     private void modeCheck(int mode){
