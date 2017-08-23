@@ -75,7 +75,7 @@ class AnalysisRegisterDialog extends Dialog{
 
 
     private float numberFormatExceptionPrevention(String check){
-        if(check.equals("")){
+        if(check.equals("") || check.equals(".")){
             return 0;
         }else{
             return Float.parseFloat(check);
