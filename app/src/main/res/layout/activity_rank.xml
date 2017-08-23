@@ -107,15 +107,39 @@
         android:background="@color/mainBlack"
         android:id="@+id/rank_nested_scroll"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rank_recycler_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            android:scrollbarThumbVertical="@android:color/holo_red_dark"
-            android:scrollbarSize="5dp">
-        </android.support.v7.widget.RecyclerView>
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="전체"
+                    android:id="@+id/rank_name"
+                    android:textColor="@color/colorWhite"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 랭킹"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rank_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:scrollbarThumbVertical="@android:color/holo_red_dark"
+                android:scrollbarSize="5dp"/>
+        </LinearLayout>
+
 
     </android.support.v4.widget.NestedScrollView>
 
