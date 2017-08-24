@@ -146,7 +146,9 @@ public class BattleActivity extends AppCompatActivity implements SensorEventList
 
         baseTime = SystemClock.elapsedRealtime();
         battleResultDialog = new BattleResultDialog(this,resultChannel);
-        timerHandler.sendEmptyMessage(0);
+        vibrator.vibrate(1000);
+        Toast.makeText(this,"3초 뒤에 흔들어 주세요!",Toast.LENGTH_SHORT).show();
+        timerHandler.sendEmptyMessageDelayed(0,3000);
     }
 
     private boolean checkNameChannel(){

@@ -9,6 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_margin="3dp"
+        android:clickable="true"
+        android:background="@drawable/ripple"
         android:gravity="center"
         android:orientation="horizontal">
 

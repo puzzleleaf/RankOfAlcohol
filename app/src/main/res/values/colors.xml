@@ -6,6 +6,7 @@
 
     <color name="mainBlack">#001019</color>
     <color name="showCase">#bb000000</color>
+    <color name="rippleWhite">#44ffffff</color>
 
     <color name="colorNon">#00ffffff</color>
     <color name="colorWhite">#ffffff</color>
