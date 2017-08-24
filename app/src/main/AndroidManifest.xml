@@ -3,6 +3,8 @@
     package="com.tistory.puzzleleaf.rankofalcohol">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
 
     <users-sdk android:minSdkVersion="19"
         android:targetSdkVersion="25"

@@ -228,44 +228,36 @@
                         android:onClick="settingSelectSwitch"
                         android:id="@+id/setting_mode_display"/>
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:visibility="gone"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="30dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="배틀 모드"
-                        android:textColor="@color/colorHint"
-                        android:textStyle="bold" />
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="1">
 
-                        <ImageView
-                            android:id="@+id/setting_screen_lock_info"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:padding="2dp"
-                            android:onClick="settingInfoAnimationDialog"
-                            android:src="@drawable/ic_info"
-                            android:tint="@color/colorWhite" />
-                    </LinearLayout>
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_next"
-                        android:adjustViewBounds="true"
-                        android:tint="@color/colorWhite"
-                        android:id="@+id/setting_mode_battle"/>
-                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorWhite" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/setting_mode_battle"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="30dp"
+                android:paddingEnd="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="술 흔들기 게임"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_next"
+                    android:tint="@color/colorWhite" />
             </LinearLayout>
 
             <View

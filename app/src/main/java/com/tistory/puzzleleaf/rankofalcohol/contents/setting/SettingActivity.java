@@ -33,7 +33,6 @@ public class SettingActivity extends AppCompatActivity implements SettingMessage
     @BindView(R.id.setting_mode_message) Switch settingModeMessage;
     @BindView(R.id.setting_mode_game) Switch settingModeGame;
     @BindView(R.id.setting_mode_display) Switch settingModeDisplay;
-    @BindView(R.id.setting_mode_battle) ImageView settingModeBattle;
 
     private View.OnClickListener settingMessageCancelClick;
     private SettingMessageDialog settingMessageDialog;
