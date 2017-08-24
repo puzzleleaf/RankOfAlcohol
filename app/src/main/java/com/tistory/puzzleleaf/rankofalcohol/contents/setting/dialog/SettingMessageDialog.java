@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.contents.setting;
+package com.tistory.puzzleleaf.rankofalcohol.contents.setting.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -20,13 +20,13 @@ import butterknife.OnClick;
  * Created by cmtyx on 2017-08-10.
  */
 
-class SettingMessageDialog extends Dialog{
+public class SettingMessageDialog extends Dialog{
 
-    interface OnApplyListener{
+    public interface OnApplyListener{
         void onApplySelected(String ch);
     }
 
-     SettingMessageDialog(@NonNull Context context,View.OnClickListener cancelListener, OnApplyListener onApplyListener) {
+     public SettingMessageDialog(@NonNull Context context, View.OnClickListener cancelListener, OnApplyListener onApplyListener) {
          super(context);
          this.cancelListener = cancelListener;
          this.applyListener = onApplyListener;

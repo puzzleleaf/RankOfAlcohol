@@ -21,18 +21,6 @@ public class ModePreference {
     //미니게임 모드 - 3
     //전광판 모드 - 4
 
-    public boolean getScreenLockPreferences(){
-        SharedPreferences pref = context.getSharedPreferences("lock", MODE_PRIVATE);
-        return pref.getBoolean("lock", false);
-    }
-
-    public void saveScreenLockPreferences(boolean flag){
-        SharedPreferences pref = context.getSharedPreferences("lock", MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putBoolean("lock", flag);
-        editor.apply();
-    }
-
 
     public int getModePreferences(){
         SharedPreferences pref = context.getSharedPreferences("mode", MODE_PRIVATE);

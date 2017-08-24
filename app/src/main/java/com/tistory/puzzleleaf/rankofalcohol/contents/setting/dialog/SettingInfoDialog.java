@@ -1,4 +1,4 @@
-package com.tistory.puzzleleaf.rankofalcohol.contents.setting;
+package com.tistory.puzzleleaf.rankofalcohol.contents.setting.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -22,15 +22,15 @@ import butterknife.OnClick;
  * Created by cmtyx on 2017-08-10.
  */
 
-class SettingInfoDialog extends Dialog{
+public class SettingInfoDialog extends Dialog{
 
     private int settingInfoCase;
 
-     SettingInfoDialog(@NonNull Context context) {
+     public SettingInfoDialog(@NonNull Context context) {
          super(context);
     }
 
-    void setSettingInfoCase(int num){
+    public void setSettingInfoCase(int num){
         this.settingInfoCase = num;
     }
 

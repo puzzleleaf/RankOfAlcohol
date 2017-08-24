@@ -7,11 +7,11 @@ android {
         applicationId "com.tistory.puzzleleaf.rankofalcohol"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 2
-        versionName "개발중"
+        versionCode 4
+        versionName "잠금화면이 사라진 별"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    lintOptions{
+    lintOptions {
         checkReleaseBuilds false
         abortOnError false
     }
@@ -21,13 +21,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
-        applicationVariants.all{
-            variant->variant.outputs.each {
-                output ->output.outputFile = new File(
-                        output.outputFile.parent,
-                        output.outputFile.name.replace(".apk",
-                                "-${variant.versionName}.apk"))
-            }
+        applicationVariants.all {
+            variant ->
+                variant.outputs.each {
+                    output ->
+                        output.outputFile = new File(
+                                output.outputFile.parent,
+                                output.outputFile.name.replace(".apk",
+                                        "-${variant.versionName}.apk"))
+                }
         }
     }
 }
@@ -38,6 +40,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile files('libs/android-core.jar')
+
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:cardview-v7:25.3.1'
@@ -51,10 +54,11 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     compile 'com.flaviofaria:kenburnsview:1.0.7'
     compile 'com.github.deano2390:MaterialShowcaseView:1.1.0'
+    compile 'com.google.firebase:firebase-crash:11.0.2'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
-
 }
+
 
 
 apply plugin: 'com.google.gms.google-services'

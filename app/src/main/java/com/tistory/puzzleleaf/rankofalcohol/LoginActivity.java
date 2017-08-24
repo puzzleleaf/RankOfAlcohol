@@ -1,5 +1,6 @@
 package com.tistory.puzzleleaf.rankofalcohol;
 
+import android.app.ApplicationErrorReport;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -23,10 +24,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.MutableData;
@@ -88,22 +91,30 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
-                Toast.makeText(getApplicationContext(), getString(R.string.NetworkError), Toast.LENGTH_SHORT).show();
-                finish();
+                Toast.makeText(getApplicationContext(), "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                loading.dismiss();
             }
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         FbAuth.mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        task.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                FirebaseCrash.report(e);
+                            }
+                        });
+
                         if (task.isSuccessful()) {
                             userRegister();
                         } else {
-                            Toast.makeText(getApplicationContext(), getString(R.string.NetworkError), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "네트워크 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     }
@@ -199,7 +210,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this,getString(R.string.NetworkError),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"로그인에 실패했습니다.",Toast.LENGTH_SHORT).show();
     }
 
 }

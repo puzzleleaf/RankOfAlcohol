@@ -1,20 +1,19 @@
 package com.tistory.puzzleleaf.rankofalcohol.contents.setting;
 
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tistory.puzzleleaf.rankofalcohol.R;
+import com.tistory.puzzleleaf.rankofalcohol.contents.battle.BattleActivity;
+import com.tistory.puzzleleaf.rankofalcohol.contents.setting.dialog.SettingInfoDialog;
+import com.tistory.puzzleleaf.rankofalcohol.contents.setting.dialog.SettingMessageDialog;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
-import com.tistory.puzzleleaf.rankofalcohol.service.ScreenLockService;
 import com.tistory.puzzleleaf.rankofalcohol.util.mode.ModePreference;
 
 import butterknife.BindView;
@@ -34,9 +33,8 @@ public class SettingActivity extends AppCompatActivity implements SettingMessage
     @BindView(R.id.setting_mode_message) Switch settingModeMessage;
     @BindView(R.id.setting_mode_game) Switch settingModeGame;
     @BindView(R.id.setting_mode_display) Switch settingModeDisplay;
-    @BindView(R.id.setting_mode_screen_lock) Switch settingModeScreenLock;
+    @BindView(R.id.setting_mode_battle) ImageView settingModeBattle;
 
-    private View.OnClickListener settingMessageApplyClick;
     private View.OnClickListener settingMessageCancelClick;
     private SettingMessageDialog settingMessageDialog;
     private SettingInfoDialog settingInfoDialog;
@@ -72,7 +70,6 @@ public class SettingActivity extends AppCompatActivity implements SettingMessage
 
     private void switchInit(){
         int check = modePreference.getModePreferences();
-        boolean lockCheck = modePreference.getScreenLockPreferences();
         switch (check){
             case MODE_CHAT:
                 settingModeMessage.setChecked(true);
@@ -83,10 +80,6 @@ public class SettingActivity extends AppCompatActivity implements SettingMessage
             case MODE_DISPLAY:
                 settingModeDisplay.setChecked(true);
                 break;
-        }
-        if(lockCheck){
-            settingModeScreenLock.setChecked(lockCheck);
-            setScreenLock();
         }
     }
 
@@ -123,26 +116,6 @@ public class SettingActivity extends AppCompatActivity implements SettingMessage
                 startActivity(intent);
             }
 
-        }
-    }
-
-    public void settingSelectScreenLock(View v){
-        Switch sw = (Switch)v;
-        if(!sw.isChecked()){
-            clearScreenLock(sw);
-        }else{
-            setScreenLock();
-        }
-    }
-    private void setScreenLock(){
-        startService(new Intent(this, ScreenLockService.class));
-        modePreference.saveScreenLockPreferences(true);
-    }
-
-    private void clearScreenLock(Switch sw){
-        if(sw==settingModeScreenLock) {
-            modePreference.saveScreenLockPreferences(false);
-            stopService(new Intent(this, ScreenLockService.class));
         }
     }
 
@@ -187,8 +160,11 @@ public class SettingActivity extends AppCompatActivity implements SettingMessage
                 break;
         }
         settingInfoDialog.show();
-
-
+    }
+    @OnClick(R.id.setting_mode_battle)
+    public void BattleModeClick(){
+        Intent intent = new Intent(this, BattleActivity.class);
+        startActivity(intent);
     }
 
 
