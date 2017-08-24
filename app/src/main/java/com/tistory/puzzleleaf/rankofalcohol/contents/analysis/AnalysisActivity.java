@@ -291,6 +291,7 @@ public class AnalysisActivity extends AppCompatActivity
             Toast.makeText(this,"미래의 데이터를 등록할 수 없습니다.",Toast.LENGTH_SHORT).show();
             return;
         }
+        analysisRegisterDialog.setAnalysisDataKey(analysisDataKey);
         analysisRegisterDialog.setDay((int)e.getX());
         analysisRegisterDialog.show();
     }

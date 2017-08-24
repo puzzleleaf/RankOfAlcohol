@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -49,9 +50,12 @@ public class BattleActivity extends AppCompatActivity implements SensorEventList
 
     private int progressNum = 0;
 
+    //진동
+    private Vibrator vibrator;
+
     //타이머
-    long baseTime;
-    long outTime;
+    private long baseTime;
+    private long outTime;
 
     //유저 데이터
     private BattleObject battleObject;
@@ -72,6 +76,7 @@ public class BattleActivity extends AppCompatActivity implements SensorEventList
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         screenLockProgress.getBackground().setLevel(1);
+        vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
         sensorInit();
     }
 
@@ -99,7 +104,7 @@ public class BattleActivity extends AppCompatActivity implements SensorEventList
 
             int sum = Math.abs(accelXValue) + Math.abs(accelYValue) + Math.abs(accelZValue);
             if(sum>30){
-                updataProgress(sum+Math.abs(gyroX)/1000 + Math.abs(gyroY)/1000 + Math.abs(gyroZ)/1000);
+                updataProgress(sum+Math.abs(gyroX)/800 + Math.abs(gyroY)/800 + Math.abs(gyroZ)/800);
                 Log.d("qwe","흔드는 중");
                 Log.d("qwe",String.valueOf(Math.abs(gyroX)) + " " + String.valueOf(Math.abs(gyroY)) + " " + String.valueOf(Math.abs(gyroZ)));
                 Log.d("qwe", String.valueOf(progress) + " " + String.valueOf(oldProgress) + " " + String.valueOf(progressLock));
@@ -155,6 +160,7 @@ public class BattleActivity extends AppCompatActivity implements SensorEventList
 
     private void battleResultSetting(){
         battleObject.setOutTime(outTime);
+        vibrator.vibrate(1000);
         FbDataBase.database.getReference().child("Battle").child(resultChannel).child(resultKey).setValue(battleObject);
     }
 
@@ -228,12 +234,6 @@ public class BattleActivity extends AppCompatActivity implements SensorEventList
                         timerHandler.removeMessages(0);
                         battleResultSetting();
                         Log.d("qwe", String.valueOf(outTime));
-                        postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressLock = false;
-                            }
-                        },300);
                     }
                     else if (progress <= oldProgress+progressNum) {
                         updateHandler.sendEmptyMessage(ANIMATION);

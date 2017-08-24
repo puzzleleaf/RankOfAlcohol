@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,7 +48,6 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
     RankRecyclerAdapter rankRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;
     @BindView(R.id.rank_recycler_view) RecyclerView rankRecyclerView;
-    @BindView(R.id.rank_nested_scroll) NestedScrollView rankNestedScroll;
 
     //viewpager
     private RankAdapter rankAdapter;
@@ -303,7 +301,7 @@ public class RankActivity extends AppCompatActivity implements RankRecyclerAdapt
 
     @OnClick(R.id.rank_top)
     public void rankToTop(){
-        rankNestedScroll.smoothScrollTo(0,0);
+        rankRecyclerView.smoothScrollToPosition(0);
     }
 
 

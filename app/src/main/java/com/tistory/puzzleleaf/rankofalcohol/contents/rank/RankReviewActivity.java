@@ -7,7 +7,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -50,7 +49,7 @@ public class RankReviewActivity extends AppCompatActivity implements RankReviewA
     @BindView(R.id.rank_review_rating_bar) RatingBar rankReviewRatingBar;
     @BindView(R.id.rank_review_register_btn) Button rankReviewRegisterBtn;
     @BindView(R.id.rank_review_description) TextView rankReviewDescription;
-    @BindView(R.id.rank_review_nested) NestedScrollView rankReviewNestedScrollView;
+
 
     private final int DATA_REFRERSH_CODE = 700;
     //Data
@@ -242,7 +241,7 @@ public class RankReviewActivity extends AppCompatActivity implements RankReviewA
 
     @OnClick(R.id.rank_review_top)
     public void rankReviewItemToTop(){
-        rankReviewNestedScrollView.smoothScrollTo(0,0);
+        rankReviewRecyclerView.smoothScrollToPosition(0);
     }
 
 
