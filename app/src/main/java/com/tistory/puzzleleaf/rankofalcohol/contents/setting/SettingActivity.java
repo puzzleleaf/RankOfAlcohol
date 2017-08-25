@@ -160,9 +160,10 @@ public class SettingActivity extends AppCompatActivity implements SettingMessage
         }
         settingInfoDialog.show();
     }
-    @OnClick(R.id.setting_mode_battle)
-    public void BattleModeClick(){
-        Intent intent = new Intent(this, BattleActivity.class);
+
+    @OnClick(R.id.setting_developer_message)
+    public void settingDeveloperMessage(){
+        Intent intent = new Intent(this,SettingDeveloperMessageActivity.class);
         startActivity(intent);
     }
 

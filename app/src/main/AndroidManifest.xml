@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
 
-
     <users-sdk android:minSdkVersion="19"
         android:targetSdkVersion="25"
         android:maxSdkVersion="26"/>
@@ -37,6 +36,7 @@
         <activity android:name=".contents.setting.SettingModeDisplay" android:screenOrientation="portrait"/>
         <activity android:name=".contents.setting.SettingLibraryActivity" android:screenOrientation="portrait"/>
         <activity android:name=".contents.setting.SettingPrivateInfoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".contents.setting.SettingDeveloperMessageActivity" android:screenOrientation="portrait"/>
         <activity android:name=".contents.battle.BattleActivity" android:screenOrientation="portrait" android:launchMode="singleTop" />
         <service android:name=".service.UserService"/>
     </application>

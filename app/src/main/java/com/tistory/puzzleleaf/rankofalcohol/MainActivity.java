@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.tistory.puzzleleaf.rankofalcohol.animation.MainAnimation;
+import com.tistory.puzzleleaf.rankofalcohol.contents.battle.BattleActivity;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbAuth;
 import com.tistory.puzzleleaf.rankofalcohol.fb.FbDataBase;
 import com.tistory.puzzleleaf.rankofalcohol.contents.analysis.AnalysisActivity;
@@ -203,6 +204,12 @@ public class MainActivity extends AppCompatActivity {
     public void chatSend(){
         sendMessage();
         hideChat();
+    }
+
+    @OnClick(R.id.main_battle)
+    public void battleGame(){
+        Intent intent = new Intent(this, BattleActivity.class);
+        startActivity(intent);
     }
 
     private void hideChat(){

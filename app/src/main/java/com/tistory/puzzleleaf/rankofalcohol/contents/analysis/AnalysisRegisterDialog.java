@@ -58,6 +58,7 @@ class AnalysisRegisterDialog extends Dialog{
     @Override
     protected void onStart() {
         super.onStart();
+        dataReset();
         dataLoad();
     }
 

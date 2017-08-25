@@ -36,6 +36,12 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeMessages(0);
+    }
+
     final Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {

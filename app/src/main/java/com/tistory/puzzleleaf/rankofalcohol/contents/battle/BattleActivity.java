@@ -103,11 +103,8 @@ public class BattleActivity extends AppCompatActivity implements SensorEventList
             accelZValue = (int) event.values[2];
 
             int sum = Math.abs(accelXValue) + Math.abs(accelYValue) + Math.abs(accelZValue);
-            if(sum>30){
-                updataProgress(sum+Math.abs(gyroX)/800 + Math.abs(gyroY)/800 + Math.abs(gyroZ)/800);
-                Log.d("qwe","흔드는 중");
-                Log.d("qwe",String.valueOf(Math.abs(gyroX)) + " " + String.valueOf(Math.abs(gyroY)) + " " + String.valueOf(Math.abs(gyroZ)));
-                Log.d("qwe", String.valueOf(progress) + " " + String.valueOf(oldProgress) + " " + String.valueOf(progressLock));
+            if(sum>15){
+                updataProgress(sum+Math.abs(gyroX)/500 + Math.abs(gyroY)/500 + Math.abs(gyroZ)/500);
             }
 
         }
@@ -164,6 +161,7 @@ public class BattleActivity extends AppCompatActivity implements SensorEventList
         battleObject.setOutTime(outTime);
         vibrator.vibrate(1000);
         FbDataBase.database.getReference().child("Battle").child(resultChannel).child(resultKey).setValue(battleObject);
+        battleResultDialog.show();
     }
 
     @OnClick(R.id.battle_start)
@@ -194,7 +192,7 @@ public class BattleActivity extends AppCompatActivity implements SensorEventList
 
     private String getTime(){
         long now = SystemClock.elapsedRealtime();
-        outTime = now - baseTime;
+        outTime = now - (baseTime+3000) ;
         return String.format("%02d:%02d:%02d",outTime/1000/60,(outTime/1000)%60,(outTime%1000)/10);
     }
 
@@ -235,7 +233,6 @@ public class BattleActivity extends AppCompatActivity implements SensorEventList
                     if(oldProgress>=10000){
                         timerHandler.removeMessages(0);
                         battleResultSetting();
-                        Log.d("qwe", String.valueOf(outTime));
                     }
                     else if (progress <= oldProgress+progressNum) {
                         updateHandler.sendEmptyMessage(ANIMATION);

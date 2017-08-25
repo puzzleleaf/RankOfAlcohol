@@ -170,7 +170,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="미니게임 모드"
+                        android:text="룰렛 모드"
                         android:textColor="@color/colorHint"
                         android:textStyle="bold" />
                     <LinearLayout
@@ -239,7 +239,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/setting_mode_battle"
+                android:id="@+id/setting_developer_message"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="30dp"
@@ -249,7 +249,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="술 흔들기 게임"
+                    android:text="없는 술이 있어요!"
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold" />
 
