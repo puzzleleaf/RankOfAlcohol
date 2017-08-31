@@ -173,6 +173,7 @@
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:background="@drawable/ripple"
                 android:id="@+id/analysis_register_cancel"
                 android:textColor="@color/colorWhite"
                 android:text="닫기"/>
@@ -181,6 +182,7 @@
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:background="@drawable/ripple"
                 android:id="@+id/analysis_register"
                 android:textColor="@color/colorWhite"
                 android:text="등록"/>

@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_rank) LinearLayout mainRank;
     @BindView(R.id.main_analysis) LinearLayout mainAnalysis;
     @BindView(R.id.main_gallery) LinearLayout mainGallery;
+    @BindView(R.id.main_battle) ImageView mainBattle;
 
     private InputMethodManager imm;
     private ModePreference modePreference;
@@ -137,12 +138,14 @@ public class MainActivity extends AppCompatActivity {
         mainRank.setVisibility(View.GONE);
         mainAnalysis.setVisibility(View.GONE);
         mainGallery.setVisibility(View.GONE);
+        mainBattle.setVisibility(View.GONE);
     }
 
     private void showMenu(){
         mainRank.setVisibility(View.VISIBLE);
         mainAnalysis.setVisibility(View.VISIBLE);
         mainGallery.setVisibility(View.VISIBLE);
+        mainBattle.setVisibility(View.VISIBLE);
     }
 
 

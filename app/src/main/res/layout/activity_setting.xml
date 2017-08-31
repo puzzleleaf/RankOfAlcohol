@@ -14,6 +14,8 @@
             android:id="@+id/setting_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:clickable="true"
+            android:background="@drawable/ripple"
             android:src="@drawable/ic_prev"
             android:tint="@color/colorWhite" />
 
@@ -241,6 +243,8 @@
                 android:layout_height="50dp"
                 android:id="@+id/setting_developer_message"
                 android:gravity="center_vertical"
+                android:clickable="true"
+                android:background="@drawable/ripple"
                 android:orientation="horizontal"
                 android:paddingStart="30dp"
                 android:paddingEnd="10dp">
@@ -270,6 +274,8 @@
                 android:layout_height="50dp"
                 android:id="@+id/library_info"
                 android:gravity="center_vertical"
+                android:clickable="true"
+                android:background="@drawable/ripple"
                 android:orientation="horizontal"
                 android:paddingStart="30dp"
                 android:paddingEnd="10dp">
@@ -300,6 +306,8 @@
                 android:id="@+id/setting_private_info"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
+                android:clickable="true"
+                android:background="@drawable/ripple"
                 android:paddingStart="30dp"
                 android:paddingEnd="10dp">
 
@@ -336,6 +344,8 @@
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:clickable="true"
+        android:background="@drawable/ripple"
         android:id="@+id/setting_logout"
         android:paddingEnd="10dp"
         android:paddingStart="30dp">

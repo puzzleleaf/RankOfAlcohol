@@ -16,6 +16,8 @@
             android:id="@+id/analysis_info_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:clickable="true"
+            android:background="@drawable/ripple"
             android:src="@drawable/ic_prev"
             android:tint="@color/colorWhite" />
 

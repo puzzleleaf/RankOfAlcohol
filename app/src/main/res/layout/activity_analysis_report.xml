@@ -9,14 +9,14 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:orientation="horizontal">
-
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:id="@+id/analysis_report"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:background="@color/mainBlack"
+            android:adjustViewBounds="true"
+            android:id="@+id/analysis_report"
             android:tint="@color/colorWhite"
             android:src="@drawable/ic_report"/>
     </LinearLayout>

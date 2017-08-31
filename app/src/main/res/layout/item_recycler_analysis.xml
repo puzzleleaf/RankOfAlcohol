@@ -11,5 +11,4 @@
         android:id="@+id/analysis_info_item"
         android:adjustViewBounds="true"/>
 
-
 </LinearLayout>

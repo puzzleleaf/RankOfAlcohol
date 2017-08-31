@@ -22,6 +22,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:tint="@color/colorWhite"
+                    android:background="@drawable/ripple"
                     android:id="@+id/rank_review_back"
                     android:src="@drawable/ic_prev"/>
                 <TextView
@@ -160,26 +161,6 @@
     </android.support.design.widget.AppBarLayout>
 
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="전체 리뷰"
-                android:textStyle="bold"
-                android:layout_marginLeft="5dp"
-                android:textColor="@color/colorWhite"/>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rank_review_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -189,5 +170,27 @@
         app:borderWidth="0dp"
         app:backgroundTint="@color/colorNon"
         android:layout_gravity="bottom|right"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="전체 리뷰"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rank_review_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarThumbVertical="@android:color/holo_red_dark"
+            android:scrollbars="vertical" />
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
 

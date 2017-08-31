@@ -277,13 +277,16 @@ public class MainAnimation extends PApplet implements ChatMode.OnChatMessageList
     }
 
     //비
-    class Rain
+    private class Rain
     {
-        float xpos;
-        float ypos;
-        float speed;
-        float h;
-        float gravity = 0;
+        private float xpos;
+        private float ypos;
+        private float speed;
+        private float h;
+        private float gravity = 0;
+
+
+
 
         Rain(float xpos, float ypos)
         {

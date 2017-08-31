@@ -20,6 +20,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:padding="10dp"
+                android:background="@drawable/ripple"
                 android:id="@+id/setting_info_close"
                 android:src="@drawable/ic_close"
                 android:tint="@color/colorWhite"/>

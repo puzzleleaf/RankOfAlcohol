@@ -1,6 +1,8 @@
 package com.tistory.puzzleleaf.rankofalcohol.animation;
 
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.transition.Transition;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -29,6 +31,12 @@ public class LoginAnimation extends PApplet {
 
 
     Star myStar[];
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+    }
 
     @Override
     public void settings() {
